@@ -1,0 +1,241 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-roboto);
+  overflow-x: hidden !important;
+  scroll-behavior: smooth;
+}
+
+.banner_sec::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-image: url("../public/assets/images/bg_effect.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 35%;
+  height: 90% !important;
+  z-index: -1;
+}
+
+.title1 {
+  font-size: 72px;
+  line-height: 95px;
+  color: #272d4e;
+  font-weight: 700;
+}
+.title1 span {
+  color: #f75126;
+}
+
+.title2 {
+  font-size: 55px;
+  line-height: 70px;
+  color: #272d4e;
+  font-weight: 700;
+}
+.title2 span {
+  color: #f75126;
+  padding: 0.5rem;
+  position: relative;
+  display: inline-block;
+  overflow: visible;
+}
+
+.title2 span svg {
+  pointer-events: none;
+  overflow: visible;
+}
+
+/* Animate the path with a pause after each iteration */
+.animated-path {
+  stroke-dasharray: 1500; /* Total path length */
+  stroke-dashoffset: 1500; /* Hidden at start   */
+  animation: draw 3s ease-in-out infinite;
+  /* 3s total = 1.2s draw + 1.8s pause */
+}
+
+@keyframes draw {
+  0% {
+    stroke-dashoffset: 1500;
+  } /* fully hidden    */
+  40% {
+    stroke-dashoffset: 0;
+  } /* finish drawing  */
+  100% {
+    stroke-dashoffset: 0;
+  } /* hold for pause  */
+}
+
+.title3 {
+  font-size: 36px;
+  line-height: 50px;
+  color: #272d4e;
+  font-weight: 700;
+}
+
+.text {
+  font-size: 18px;
+  line-height: 25px;
+  color: #94a2b3;
+}
+
+.link {
+  font-size: 18px;
+  line-height: 25px;
+  font-weight: 700;
+  color: #f75126;
+}
+
+.globalBtn {
+  font-size: 18px;
+  font-weight: 700;
+  padding: 25px 68px;
+  border-radius: 60px;
+}
+
+.bannerRight {
+  position: relative;
+  background-image: url("../public/assets/images/bannerRightBg.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  height: 100%;
+}
+
+.about_sec::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-image: url("../public/assets/images/about_bg.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  height: 90%;
+  z-index: -1;
+}
+
+.testimonial_sec .swiper-pagination-bullet-active {
+  background: #f75126 !important;
+}
+
+footer {
+  position: relative;
+  background-image: url("../public/assets/images/footer_bg.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  height: 100%;
+}
+
+/* Banner animation */
+.banner_rotateImg{
+  transform-origin: center center;
+  animation: orbit 20s linear infinite;
+}
+.banner_rotateImg1 { animation-delay: 0s;  --r: 30px; --size: 120px; }
+.banner_rotateImg2 { animation-delay: 4s;  --r: 30px; --size: 100px; }
+.banner_rotateImg3 { animation-delay: 8s;  --r: 30px; --size: 80px;  }
+.banner_rotateImg4 { animation-delay: 12s; --r: 30px; --size: 90px;  }
+.banner_rotateImg5 { animation-delay: 16s; --r: 30px; --size: 70px;  }
+@keyframes orbit {
+  0%   { transform: rotate(0deg)   translateX(var(--r)) rotate(0deg); }
+  100% { transform: rotate(360deg) translateX(var(--r)) rotate(-360deg); }
+}
+
+
+@media (max-width: 1280px) {
+  .title1 {
+    font-size: 2.75rem;
+    line-height: 3rem;
+  }
+  .title2 {
+    font-size: 2.125rem;
+    line-height: 2.5rem;
+  }
+  .title3 {
+    font-size: 1.5rem;
+    line-height: 1.75rem;
+  }
+  .text {
+    font-size: 1rem;
+    line-height: 1.25rem;
+  }
+
+  .link {
+    font-size: 1rem;
+    line-height: 1.25rem;
+  }
+  .globalBtn {
+    font-size: 1rem;
+    padding: 1rem 1.5rem;
+  }
+  .bannerRight {
+    position: relative;
+    height: 60vh;
+  }
+}
+@media (max-width: 1024px) {
+  .about_sec {
+    background-color: #f75126;
+  }
+  .about_sec::after {
+    content: none;
+  }
+  .about_side_img {
+    display: none;
+  }
+  .banner_sec:after {
+    content: none;
+  }
+}
+@media (max-width: 767px) {
+  .testimonial_sec .testimonial_img,
+  .services_sec img.circle_img {
+    display: none;
+  }
+}
+@media (max-width: 480px) {
+  .title1 {
+    font-size: 2rem;
+    line-height: 2.5rem;
+  }
+  .title2 {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+  .title3 {
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+  }
+  .text {
+    font-size: 0.875rem;
+    line-height: 1rem;
+  }
+
+  .link {
+    font-size: 0.875rem;
+    line-height: 1rem;
+  }
+  .globalBtn {
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+  }
+  header .logo img {
+    width: 120px;
+  }
+}
