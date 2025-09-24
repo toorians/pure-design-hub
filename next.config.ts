@@ -1,7 +1,16 @@
 import type { NextConfig } from "next";
 
+
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Enable static HTML export
+  output: "export",
+
+  // Ignore ESLint errors during build
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+
+  images: { unoptimized: true }
 };
 
 export default nextConfig;

@@ -85,7 +85,7 @@ export default function Footer() {
                 WHO WE ARE
               </li>
               <li className="text-xl text-bold text-white mb-4">
-                <Link href="@/serivces/branding">Brandind</Link>
+                <Link href="@/serivces/branding">Branding</Link>
               </li>
               <li className="text-xl text-bold text-white mb-4">
                 <Link href="@/serivces/logo-design">Logo Design</Link>
@@ -114,7 +114,7 @@ export default function Footer() {
             <li className="text-xl text-bold text-[#F75126] font-bold mb-4">
               Location
             </li>
-            <li className="text-xl text-bold text-white mb-4 flex items-start gap-3">
+            {/* <li className="text-xl text-bold text-white mb-4 flex items-start gap-3">
               <Image
                 src={LocationIcon}
                 title="Location"
@@ -128,7 +128,7 @@ export default function Footer() {
               <span className="text-xl text-bold text-white">
                 941 Stratford Road, Hall Green, Birmingham, England, B28 8BH
               </span>
-            </li>
+            </li> */}
             <li className="text-xl text-bold text-white mb-4 flex items-start gap-3">
               <Image
                 src={LocationIcon}
@@ -186,12 +186,12 @@ export default function Footer() {
                 className="w-6 h-6 object-cover object-center"
               />
               <span className="text-xl text-bold text-white">
-                info@pixelperfektsolutions.com
+                info@puredesignhub.com
               </span>
             </li>
-            <li className="text-xl text-bold text-white mb-10 flex items-start gap-3">
+            {/* <li className="text-xl text-bold text-white mb-10 flex items-start gap-3">
               <Image
-                src={USAIcon}
+                src={UKIcon}
                 title="USA"
                 alt="USA"
                 width={0}
@@ -203,10 +203,10 @@ export default function Footer() {
               <span className="text-xl text-bold text-white">
                 +44 20 3880 0570
               </span>
-            </li>
+            </li> */}
             <li className="text-xl text-bold text-white mb-10 flex items-start gap-3">
               <Image
-                src={UKIcon}
+                src={USAIcon}
                 title="UK"
                 alt="UK"
                 width={0}
@@ -311,7 +311,7 @@ export default function Footer() {
         <div>
           <hr className="border-t border-gray-700 mb-6" />
           <p className="text-center text ">
-            COPYRIGHT Pixelperfektsolutions 2025 - <Link href=''className="link underline ml-2">TERMS & CONDITIONS </Link>  <Link href='' className="link underline ml-2">PRIVACY POLICY</Link>
+            COPYRIGHT PURE DESIGN HUB 2025 - <Link href=''className="link underline ml-2">TERMS & CONDITIONS </Link>  <Link href='' className="link underline ml-2">PRIVACY POLICY</Link>
           </p>
         </div>
       </footer>
