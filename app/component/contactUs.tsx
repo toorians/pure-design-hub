@@ -73,7 +73,7 @@ export default function ContactUs() {
       const text = await res.text(); // safely read whatever comes back
       console.log("Server response:", text || "(empty body)");
 
-      setSuccessMsg("Message sent successfully!");
+      setSuccessMsg("Thankyou for the information that you just submitted to us! We've noted it down and will get back to you soon.");
       setValues({ name: "", email: "", phone: "", service: "", message: "" });
     } catch (err: any) {
       console.error(err);
@@ -180,14 +180,14 @@ export default function ContactUs() {
                   className="text !text-[#D5D5D5] bg-white border border-[#F75126] rounded-xl py-[13px] px-6 w-full outline-none"
                 >
                   <option value="">Select Service</option>
-                  <option value="WebDevelopment">Web Development</option>
-                  <option value="AppDevelopment">App Development</option>
-                  <option value="BrandingDesign">Branding Design</option>
-                  <option value="ContentWriting">Content Writing</option>
-                  <option value="SocialMediaMarketing">
+                  <option value="Web Development">Web Development</option>
+                  <option value="App Development">App Development</option>
+                  <option value="Branding Design">Branding Design</option>
+                  <option value="Content Writing">Content Writing</option>
+                  <option value="Social Media Marketing">
                     Social Media Marketing
                   </option>
-                  <option value="SEOServices">SEO Services</option>
+                  <option value="SEO Services">SEO Services</option>
                 </select>
                 {errors.service && (
                   <p className="text-red-500 text-sm">{errors.service}</p>
