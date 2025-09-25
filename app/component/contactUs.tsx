@@ -1,13 +1,95 @@
 import Image from "next/image";
 import React from "react";
 import ContactBg from "@/public/assets/images/contact_bg.png";
+import { useState, FormEvent } from "react";
+
+interface FormValues {
+  name: string;
+  email: string;
+  phone: string;
+  service: string;
+  message: string;
+}
 
 export default function ContactUs() {
+  const [values, setValues] = useState<FormValues>({
+    name: "",
+    email: "",
+    phone: "",
+    service: "",
+    message: "",
+  });
+
+  const [errors, setErrors] = useState<Partial<FormValues>>({});
+  const [loading, setLoading] = useState(false);
+  const [successMsg, setSuccessMsg] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
+    const { name, value } = e.target;
+    setValues((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const validate = () => {
+    const newErrors: Partial<FormValues> = {};
+    if (!values.name.trim()) newErrors.name = "Name is required";
+    if (!values.email.trim()) newErrors.email = "Email is required";
+    if (!values.phone.trim()) newErrors.phone = "Phone is required";
+    if (!values.service.trim()) newErrors.service = "Service is required";
+    if (!values.message.trim()) newErrors.message = "Message is required";
+    return newErrors;
+  };
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    setSuccessMsg("");
+    setErrorMsg("");
+
+    const validationErrors = validate();
+    setErrors(validationErrors);
+    if (Object.keys(validationErrors).length > 0) return;
+
+    try {
+      setLoading(true);
+
+      const res = await fetch(
+        "https://puredesignhub.com/api/controllers/contact.php",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(values),
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error(`Server error: ${res.status}`);
+      }
+
+      // ---- changed part ----
+      const text = await res.text(); // safely read whatever comes back
+      console.log("Server response:", text || "(empty body)");
+
+      setSuccessMsg("Message sent successfully!");
+      setValues({ name: "", email: "", phone: "", service: "", message: "" });
+    } catch (err: any) {
+      console.error(err);
+      setErrorMsg("Something went wrong");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
-        <section className="contact_sec relative xl:px-40 lg:px-20 px-4 mb-10 overflow-hidden">
+      <section className="contact_sec relative xl:px-40 lg:px-20 px-4 mb-10 overflow-hidden">
         <h2 className="title2 text-center">
-          <span>Connect <svg
+          <span>
+            Connect{" "}
+            <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 500 150"
               preserveAspectRatio="none"
@@ -25,7 +107,9 @@ export default function ContactUs() {
                 strokeLinecap="round"
                 className="animated-path"
               />
-            </svg></span>with us
+            </svg>
+          </span>
+          with us
         </h2>
         <p className="text lg:my-12.5 md:my-8 my-4 text-center">
           Want the best website redesign service? Get in touch with our<br></br>{" "}
@@ -34,40 +118,111 @@ export default function ContactUs() {
 
         <div className="grid md:grid-cols-2 grid-cols-1 items-center gap-15">
           <div className="md:order-0 order-1">
-            <form action="" className="grid md:grid-cols-2 grid-cols-1 gap-7">
-              <input
-                type="text"
-                placeholder="Name"
-                className="text !text-[#D5D5D5] bg-white border border-[#F75126] rounded-[26px] py-[13px] px-6 w-full outline-none"
-              />
-              <input
-                type="email"
-                placeholder="Email"
-                className="text !text-[#D5D5D5] bg-white border border-[#F75126] rounded-[26px] py-[13px] px-6 w-full outline-none"
-              />
-              <input
-                type="tel"
-                placeholder="Phone"
-                className="text !text-[#D5D5D5] bg-white border border-[#F75126] rounded-[26px] py-[13px] px-6 w-full outline-none"
-              />
-              <input
-                type="text"
-                placeholder="Select Service"
-                className="text !text-[#D5D5D5] bg-white border border-[#F75126] rounded-[26px] py-[13px] px-6 w-full outline-none"
-              />
-              <textarea
-                name=""
-                id=""
-                placeholder="Type your message"
-                className="text !text-[#D5D5D5] bg-white border border-[#F75126] rounded-[26px] py-[13px] px-6 w-full outline-none resize-none md:col-span-2"
-                rows={3}
-              ></textarea>
-              <button
-                type="submit"
-                className="globalBtn text-white bg-[#F75126] w-fit"
-              >
-                See More
-              </button>
+            <form
+              onSubmit={handleSubmit}
+              className="grid md:grid-cols-2 grid-cols-1 gap-7"
+            >
+              <div>
+                <input
+                  name="name"
+                  type="text"
+                  placeholder="Name"
+                  value={values.name}
+                  onChange={handleChange}
+                  className="text !text-[#D5D5D5] bg-white border border-[#F75126] rounded-xl py-[13px] px-6 w-full outline-none"
+                />
+                {errors.name && (
+                  <p className="text-red-500 text-sm">{errors.name}</p>
+                )}
+              </div>
+
+              <div>
+                <input
+                  name="email"
+                  type="email"
+                  placeholder="Email"
+                  value={values.email}
+                  onChange={handleChange}
+                  className="text !text-[#D5D5D5] bg-white border border-[#F75126] rounded-xl py-[13px] px-6 w-full outline-none"
+                />
+                {errors.email && (
+                  <p className="text-red-500 text-sm">{errors.email}</p>
+                )}
+              </div>
+
+              <div>
+                <input
+                  name="phone"
+                  type="tel"
+                  placeholder="Phone"
+                  value={values.phone}
+                  onChange={handleChange}
+                  className="text !text-[#D5D5D5] bg-white border border-[#F75126] rounded-xl py-[13px] px-6 w-full outline-none"
+                />
+                {errors.phone && (
+                  <p className="text-red-500 text-sm">{errors.phone}</p>
+                )}
+              </div>
+
+              <div>
+                {/* <input
+          name="service"
+          type="text"
+          placeholder="Select Service"
+          value={values.service}
+          onChange={handleChange}
+          className="text !text-[#D5D5D5] bg-white border border-[#F75126] rounded-xl py-[13px] px-6 w-full outline-none"
+        /> */}
+                <select
+                  name="service"
+                  value={values.service}
+                  onChange={handleChange}
+                  className="text !text-[#D5D5D5] bg-white border border-[#F75126] rounded-xl py-[13px] px-6 w-full outline-none"
+                >
+                  <option value="">Select Service</option>
+                  <option value="WebDevelopment">Web Development</option>
+                  <option value="AppDevelopment">App Development</option>
+                  <option value="BrandingDesign">Branding Design</option>
+                  <option value="ContentWriting">Content Writing</option>
+                  <option value="SocialMediaMarketing">
+                    Social Media Marketing
+                  </option>
+                  <option value="SEOServices">SEO Services</option>
+                </select>
+                {errors.service && (
+                  <p className="text-red-500 text-sm">{errors.service}</p>
+                )}
+              </div>
+
+              <div className="md:col-span-2">
+                <textarea
+                  name="message"
+                  placeholder="Type your message"
+                  value={values.message}
+                  onChange={handleChange}
+                  className="text !text-[#D5D5D5] bg-white border border-[#F75126] rounded-xl py-[13px] px-6 w-full outline-none resize-none"
+                  rows={3}
+                />
+                {errors.message && (
+                  <p className="text-red-500 text-sm">{errors.message}</p>
+                )}
+              </div>
+
+              <div>
+                {successMsg && (
+                  <p className="text-green-600 text-sm mb-2">{successMsg}</p>
+                )}
+                {errorMsg && (
+                  <p className="text-red-600 text-sm mb-2">{errorMsg}</p>
+                )}
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="globalBtn text-white bg-[#F75126] w-fit md:col-span-2"
+                >
+                  {loading ? "Sending..." : "Submit"}
+                </button>
+              </div>
             </form>
           </div>
           <div className="md:order-1 order-0">
@@ -85,5 +240,5 @@ export default function ContactUs() {
         </div>
       </section>
     </>
-  )
+  );
 }
