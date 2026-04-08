@@ -1,0 +1,464 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-roboto);
+  overflow-x: hidden !important;
+  scroll-behavior: smooth;
+}
+
+.banner_sec::after,
+.simple_banner::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-image: url("../public/assets/images/bg_effect.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 35%;
+  height: 90% !important;
+  z-index: -1;
+}
+.simple_banner::after {
+  top: -30% !important;
+}
+
+.title1 {
+  font-size: 72px;
+  line-height: 95px;
+  color: #272d4e;
+  font-weight: 700;
+}
+.title1 span {
+  color: #f75126;
+}
+
+.title2 {
+  font-size: 55px;
+  line-height: 70px;
+  color: #272d4e;
+  font-weight: 700;
+}
+.title2 span {
+  color: #f75126;
+  padding: 0.5rem;
+  position: relative;
+  display: inline-block;
+  overflow: visible;
+}
+
+.title2 span svg {
+  pointer-events: none;
+  overflow: visible;
+}
+
+/* Animate the path with a pause after each iteration */
+.animated-path {
+  stroke-dasharray: 1500; /* Total path length */
+  stroke-dashoffset: 1500; /* Hidden at start   */
+  animation: draw 3s ease-in-out infinite;
+  /* 3s total = 1.2s draw + 1.8s pause */
+}
+
+@keyframes draw {
+  0% {
+    stroke-dashoffset: 1500;
+  } /* fully hidden    */
+  40% {
+    stroke-dashoffset: 0;
+  } /* finish drawing  */
+  100% {
+    stroke-dashoffset: 0;
+  } /* hold for pause  */
+}
+
+.title3 {
+  font-size: 36px;
+  line-height: 50px;
+  color: #272d4e;
+  font-weight: 700;
+}
+
+.text {
+  font-size: 18px;
+  line-height: 25px;
+  color: #94a2b3;
+}
+
+.link {
+  font-size: 18px;
+  line-height: 25px;
+  font-weight: 700;
+  color: #f75126;
+}
+
+.globalBtn {
+  font-size: 18px;
+  line-height: 18px;
+  font-weight: 700;
+  padding: 25px 68px;
+  border-radius: 60px;
+}
+
+.bannerRight {
+  position: relative;
+  background-image: url("../public/assets/images/bannerRightBg.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  height: 85vh;
+}
+
+.about_sec::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-image: url("../public/assets/images/about_bg.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  height: 90%;
+  z-index: -1;
+}
+
+.testimonial_sec .swiper-pagination-bullet-active {
+  background: #f75126 !important;
+}
+
+footer {
+  position: relative;
+  background-image: url("../public/assets/images/footer_bg.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  height: 100%;
+}
+
+.weHere_sec {
+  position: relative;
+  background-image: url("../public/assets/images/weAreHere.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  height: 100vh;
+}
+
+.simple_banner {
+  height: 100vh;
+}
+
+.simple_banner:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("../public/assets/images/bg_gradient.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+}
+
+.quote_banner:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("../public/assets/images/bg_gradient.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+form .react-tel-input input {
+  font-size: 18px !important;
+  height: auto !important;
+  /* z-index: 1 !important; */
+}
+form .react-tel-input .selected-flag{
+  border-radius: 20px !important;
+}
+
+
+/* Banner animation */
+.banner_rotateImg {
+  transform-origin: center center;
+  animation: orbit 20s linear infinite;
+}
+.banner_rotateImg1 {
+  animation-delay: 0s;
+  --r: 20px;
+  --size: 120px;
+}
+.banner_rotateImg2 {
+  animation-delay: 4s;
+  --r: 20px;
+  --size: 100px;
+}
+.banner_rotateImg3 {
+  animation-delay: 8s;
+  --r: 20px;
+  --size: 80px;
+}
+.banner_rotateImg4 {
+  animation-delay: 12s;
+  --r: 20px;
+  --size: 90px;
+}
+.banner_rotateImg5 {
+  animation-delay: 16s;
+  --r: 20px;
+  --size: 70px;
+}
+@keyframes orbit {
+  0% {
+    transform: rotate(0deg) translateX(var(--r)) rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg) translateX(var(--r)) rotate(-360deg);
+  }
+}
+
+@media (max-width: 1280px) {
+  .title1 {
+    font-size: 2.75rem;
+    line-height: 3rem;
+  }
+  .title2 {
+    font-size: 2.125rem;
+    line-height: 2.5rem;
+  }
+  .title3 {
+    font-size: 1.5rem;
+    line-height: 1.75rem;
+  }
+  .text,
+  form .react-tel-input input {
+    font-size: 1rem !important;
+    line-height: 1.25rem;
+  }
+
+  .link {
+    font-size: 1rem;
+    line-height: 1.25rem;
+  }
+  .globalBtn {
+    font-size: 1rem;
+    line-height: 1rem;
+    padding: 1rem 1.5rem;
+  }
+  .bannerRight {
+    position: relative;
+    height: 70vh;
+  }
+  .weHere_sec,
+  .simple_banner {
+    height: 80vh;
+  }
+  .faqs_accordion img.circle_img {
+    display: none !important;
+  }
+}
+@media (max-width: 1024px) {
+  .testimonial_sec .testimonial_img,
+  .services_sec img.circle_img,
+  .contactpage_sec img.circle_img,
+  .weHere_sec img.circle_img,.blog_sec img.circle_img {
+    display: none !important;
+  }
+  .about_sec {
+    background-color: #f75126;
+  }
+  .about_sec::after {
+    content: none;
+  }
+  .about_side_img {
+    display: none;
+  }
+  .banner_sec::after,
+  .simple_banner::after {
+    content: none;
+  }
+  .weHere_sec,
+  .simple_banner {
+    height: 70vh;
+  }
+}
+@media (max-width: 767px) {
+  .weHere_sec,
+  .simple_banner {
+    height: 60vh;
+  }
+}
+@media (max-width: 480px) {
+  .title1 {
+    font-size: 2rem;
+    line-height: 2.5rem;
+  }
+  .title2 {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+  .title3 {
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+  }
+  .text,
+  form .react-tel-input input {
+    font-size: 0.875rem !important;
+    line-height: 1rem;
+  }
+
+  .link {
+    font-size: 0.875rem;
+    line-height: 1rem;
+  }
+  .globalBtn {
+    font-size: 0.875rem;
+    line-height: 0.875rem;
+    padding: 0.5rem 1rem;
+  }
+  header .logo img {
+    width: 120px;
+  }
+  /* .weHere_sec,
+  .simple_banner {
+    height: 40vh;
+  } */
+}
+
+
+/* ---------- PRICING SECTION ---------- */
+
+.pricing-section .title2 span {
+  color: #f75126;
+}
+
+.pricing-card {
+  transition: all 0.3s ease;
+  border: 1px solid #eee;
+}
+
+.pricing-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0px 10px 30px rgba(0,0,0,0.08);
+}
+
+/* Popular Middle Card */
+.popular-card {
+  background: #f75126;
+  color: #fff !important;
+}
+
+.popular-card .plan-tag,
+.popular-card .plan-save{
+   color: #f75126 !important;
+}
+
+.popular-card .plan-title,
+.popular-card .plan-price,
+.popular-card li {
+  color: #fff !important;
+}
+
+.popular-badge {
+  position: absolute;
+  top: -22px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #000;
+  color: #fff;
+  font-size: 14px;
+  padding: 6px 20px;
+  border-radius: 30px;
+  font-weight: 600;
+}
+
+/* Title */
+.plan-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #f75126;
+}
+
+/* Tag */
+.plan-tag {
+  background: #fef3ec;
+  color: #f75126;
+  font-size: 14px;
+  padding: 6px 15px;
+  display: inline-block;
+  border-radius: 20px;
+  margin-top: 8px;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+/* Pricing */
+.plan-price {
+  font-size: 60px;
+  font-weight: 700;
+  color: #272d4e;
+}
+
+.plan-save {
+  background: #ffe5db;
+  color: #f75126;
+  padding: 6px 18px;
+  border-radius: 10px;
+  display: inline-block;
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+/* Features List */
+.features-list li {
+  color: #94a2b3;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+/* CTA Button */
+.pricing-btn {
+  margin-top: 10px;
+  margin-top: 35px;
+  width: 100%;
+  background: #f75126;
+  color: #fff;
+  padding: 18px 100px;
+  border-radius: 50px;
+  font-size: 18px;
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+
+.pricing-btn:hover {
+  background: #d6451f;
+}
+
+/* Responsive */
+@media(max-width: 768px) {
+  .plan-price {
+    font-size: 45px;
+  }
+  .pricing-card {
+    padding: 30px;
+  }
+}
