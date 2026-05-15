@@ -6,14 +6,12 @@ import Link from "next/link";
 import Header from "@/app/component/header";
 import Footer from "@/app/component/footer";
 import ContactUs from "@/app/component/contactUs";
-import SEOPricingSection from "@/app/component/seo-services-pricing";
 import { useState } from "react";
 import IndustriesSection from "@/app/component/IndustriesSection";
+import PricingPlansBlock from "@/app/component/PricingPlansBlock";
 
-
-const SEO_COMP_IMAGE = "/assets/images/service5.png";
 const SEOpng = "/assets/images/seo-why.png";
-const SEO_BG_VECTOR = "assets/images/AI-02.png";
+const WEB_BG_VECTOR = "/assets/images/AI-02.png";
 const faqs = [
   { q: "Are seo services worth it in 2026?", a: "Yes, SEO is worth it in 2026 as they help businesses increase organic visibility, attract qualified traffic, and generate long-term leads. With a strategic approach, SEO continues to outperform paid advertising for sustainable growth." },
   { q: "Is SEO for small business worth it for businesses in the USA?", a: "Yes, businesses in the USA can benefit greatly, especially with affordable SEO services for small business that improve local visibility and attract the right audience. It provides steady traffic and leads without depending only on paid marketing." },
@@ -38,7 +36,6 @@ const IcQuality = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColo
 const IcAccuracy = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" /></svg>;
 const IcGrowth = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18" /><polyline points="17 6 23 6 23 12" /></svg>;
 
-// Industry icons
 const IcHome = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z" /><path d="M9 21V12h6v9" /></svg>;
 const IcShop = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" /><line x1="3" y1="6" x2="21" y2="6" /><path d="M16 10a4 4 0 01-8 0" /></svg>;
 const IcRocket = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" /></svg>;
@@ -59,27 +56,10 @@ const industries = [
   { label: "Growing Companies", Icon: IcTrending },
 ];
 
-const FaqItem = ({ faq, index }: { faq: { q: string; a: string }; index: number }) => {
-  const [open, setOpen] = useState(false);
-  return (
-    <div className="border border-gray-200 rounded-xl overflow-hidden reveal-up" style={{ animationDelay: `${index * 80}ms` }}>
-      <button onClick={() => setOpen(!open)} className="w-full flex items-center justify-between px-6 py-5 text-left hover:bg-gray-50 transition-colors">
-        <span className="font-semibold text-[#1a1a2e] pr-4 text-base">{faq.q}</span>
-        <span className={`flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-all duration-500 ${open ? "bg-[#F75126] rotate-180" : "bg-gray-100"}`}>
-          <svg className={`w-4 h-4 ${open ? "text-white" : "text-gray-500"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-          </svg>
-        </span>
-      </button>
-      {open && <div className="px-6 pb-5 text-gray-500 leading-relaxed text-sm border-t border-gray-100 pt-4 animate-faq-open">{faq.a}</div>}
-    </div>
-  );
-};
-
 const SvgUnderline = () => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 150" preserveAspectRatio="none" className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full">
     <path d="M325,18C228.7-8.3,118.5,8.3,78,21C22.4,38.4,4.6,54.6,5.6,77.6c1.4,32.4,52.2,54,142.6,63.7c66.2,7.1,212.2,7.5,273.5-8.3c64.4-16.6,104.3-57.6,33.8-98.2C386.7-4.9,179.4-1.4,126.3,20.7"
-      fill="none" stroke="#f75126" strokeWidth="6" strokeLinecap="round" className="animated-path" />
+      fill="none" stroke="var(--brand-primary)" strokeWidth="6" strokeLinecap="round" className="animated-path" />
   </svg>
 );
 
@@ -98,6 +78,52 @@ function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: str
     obs.observe(el); return () => obs.disconnect();
   }, [target]);
   return <span ref={ref}>{count}{suffix}</span>;
+}
+
+const FaqItem = ({ faq, index, dark = false }: { faq: { q: string; a: string }; index: number; dark?: boolean }) => {
+  const [open, setOpen] = useState(false);
+  return (
+    <div
+      className={`rounded-xl overflow-hidden reveal-up ${dark ? "border border-white/10 bg-white/[0.04]" : "border border-gray-200"}`}
+      style={{ animationDelay: `${index * 80}ms` }}
+    >
+      <button
+        onClick={() => setOpen(!open)}
+        className={`w-full flex items-center justify-between px-6 py-5 text-left transition-colors ${dark ? "hover:bg-white/5" : "hover:bg-gray-50"}`}
+      >
+        <span className={`font-semibold pr-4 text-base ${dark ? "text-white" : "text-[#1a1a2e]"}`}>{faq.q}</span>
+        <span
+          className={`flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-all duration-300 ${open ? "bg-[color:var(--brand-primary)] rotate-180" : dark ? "bg-white/10" : "bg-gray-100"}`}
+        >
+          <svg className={`w-4 h-4 ${open ? "text-white" : dark ? "text-neutral-400" : "text-gray-500"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
+        </span>
+      </button>
+      {open && (
+        <div
+          className={`px-6 pb-5 leading-relaxed text-sm pt-4 animate-faq-open border-t ${dark ? "text-neutral-300 border-white/10" : "text-gray-500 border-gray-100"}`}
+        >
+          {faq.a}
+        </div>
+      )}
+    </div>
+  );
+};
+
+function ScrollRevealInit() {
+  useEffect(() => {
+    const classes = ["reveal-up", "reveal-left", "reveal-right", "reveal-fade", "reveal-scale"];
+    const allEls: Element[] = [];
+    classes.forEach(cls => allEls.push(...Array.from(document.querySelectorAll(`.${cls}`))));
+    const obs = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("in-view"); }),
+      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+    );
+    allEls.forEach(el => obs.observe(el));
+    return () => obs.disconnect();
+  }, []);
+  return null;
 }
 
 export default function SEOServicesNew() {
@@ -176,9 +202,8 @@ export default function SEOServicesNew() {
   ];
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-[#0a0a0a]">
       <style jsx global>{`
-        /* ── Reveal animations (Premium Minimal) ── */
         .reveal-up    { opacity:0; transform:translateY(30px);  transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1); will-change: opacity, transform; }
         .reveal-up.in-view    { opacity:1; transform:translateY(0); }
         .reveal-left  { opacity:0; transform:translateX(-30px); transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1); will-change: opacity, transform; }
@@ -189,8 +214,6 @@ export default function SEOServicesNew() {
         .reveal-fade.in-view  { opacity:1; }
         .reveal-scale { opacity:0; transform:scale(.95); transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1); will-change: opacity, transform; }
         .reveal-scale.in-view { opacity:1; transform:scale(1); }
-
-        /* ── Stagger ── */
         .stagger-child>*:nth-child(1){transition-delay:0ms}
         .stagger-child>*:nth-child(2){transition-delay:100ms}
         .stagger-child>*:nth-child(3){transition-delay:200ms}
@@ -199,16 +222,14 @@ export default function SEOServicesNew() {
         .stagger-child>*:nth-child(6){transition-delay:500ms}
         .stagger-child>*:nth-child(7){transition-delay:600ms}
         .stagger-child>*:nth-child(8){transition-delay:700ms}
-
-        /* ── Misc ── */
         @keyframes faqOpen{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
         .animate-faq-open{animation:faqOpen .4s cubic-bezier(.16,1,.3,1) forwards}
         @keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
         .float-anim{animation:floatY 6s ease-in-out infinite}
         .float-anim-slow{animation:floatY 8s ease-in-out infinite}
         @keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
-        .shimmer-badge{background:linear-gradient(90deg,rgba(247,81,38,.1) 0%,rgba(247,81,38,.3) 40%,rgba(247,81,38,.1) 100%);background-size:200% auto;animation:shimmer 4s linear infinite}
-        @keyframes pulseRing{0%{box-shadow:0 0 0 0 rgba(247,81,38,.3)}70%{box-shadow:0 0 0 12px rgba(247,81,38,0)}100%{box-shadow:0 0 0 0 rgba(247,81,38,0)}}
+        .shimmer-badge{background:linear-gradient(90deg,color-mix(in srgb,var(--brand-primary) 12%,transparent) 0%,color-mix(in srgb,var(--brand-primary) 32%,transparent) 40%,color-mix(in srgb,var(--brand-primary) 12%,transparent) 100%);background-size:200% auto;animation:shimmer 4s linear infinite}
+        @keyframes pulseRing{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--brand-primary) 35%,transparent)}70%{box-shadow:0 0 0 12px transparent}100%{box-shadow:0 0 0 0 transparent}}
         .pulse-btn{animation:pulseRing 2.5s ease infinite}
         .animated-path{stroke-dasharray:1500;stroke-dashoffset:1500;animation:drawPath 1.6s cubic-bezier(.16,1,.3,1) forwards .3s}
         @keyframes drawPath{to{stroke-dashoffset:0}}
@@ -218,66 +239,53 @@ export default function SEOServicesNew() {
         .hero-line-3{animation:heroSlideUp .8s cubic-bezier(.16,1,.3,1) forwards .3s;opacity:0}
         .hero-line-4{animation:heroSlideUp .8s cubic-bezier(.16,1,.3,1) forwards .4s;opacity:0}
         .hero-form{animation:heroSlideUp .9s cubic-bezier(.16,1,.3,1) forwards .4s;opacity:0}
-
-        /* ── Icon boxes ── */
-        .svc-icon-box{width:52px;height:52px;border-radius:14px;background:rgba(247,81,38,.05);display:flex;align-items:center;justify-content:center;margin-bottom:20px;transition:all .4s cubic-bezier(.16,1,.3,1)}
-        .svc-icon-box svg{width:24px;height:24px;color:#F75126;transition:color .4s ease}
-        .group:hover .svc-icon-box{background:#F75126;transform:scale(1.05) rotate(-2deg)}
+        .svc-icon-box{width:52px;height:52px;border-radius:14px;background:color-mix(in srgb,var(--brand-primary) 8%,transparent);display:flex;align-items:center;justify-content:center;margin-bottom:20px;transition:all .4s cubic-bezier(.16,1,.3,1)}
+        .svc-icon-box svg{width:24px;height:24px;color:var(--brand-primary);transition:color .4s ease}
+        .group:hover .svc-icon-box{background:var(--brand-primary);transform:scale(1.05) rotate(-2deg)}
         .group:hover .svc-icon-box svg{color:#fff}
-
-        .why-icon-box{width:46px;height:46px;border-radius:12px;background:rgba(247,81,38,.05);display:flex;align-items:center;justify-content:center;margin-bottom:16px;transition:all .4s cubic-bezier(.16,1,.3,1)}
-        .why-icon-box svg{width:20px;height:20px;color:#F75126;transition:color .4s ease}
-        .group:hover .why-icon-box{background:#F75126;transform:scale(1.05)}
+        .why-icon-box{width:46px;height:46px;border-radius:12px;background:color-mix(in srgb,var(--brand-primary) 8%,transparent);display:flex;align-items:center;justify-content:center;margin-bottom:16px;transition:all .4s cubic-bezier(.16,1,.3,1)}
+        .why-icon-box svg{width:20px;height:20px;color:var(--brand-primary);transition:color .4s ease}
+        .group:hover .why-icon-box{background:var(--brand-primary);transform:scale(1.05)}
         .group:hover .why-icon-box svg{color:#fff}
-
-        .ind-icon-box{width:50px;height:50px;border-radius:50%;background:rgba(247,81,38,.05);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;transition:all .4s cubic-bezier(.16,1,.3,1)}
-        .ind-icon-box svg{width:22px;height:22px;color:#F75126;transition:color .4s ease}
-        .group:hover .ind-icon-box{background:#F75126;transform:scale(1.1) rotate(-4deg)}
+        .ind-icon-box{width:50px;height:50px;border-radius:50%;background:color-mix(in srgb,var(--brand-primary) 8%,transparent);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;transition:all .4s cubic-bezier(.16,1,.3,1)}
+        .ind-icon-box svg{width:22px;height:22px;color:var(--brand-primary);transition:color .4s ease}
+        .group:hover .ind-icon-box{background:var(--brand-primary);transform:scale(1.1) rotate(-4deg)}
         .group:hover .ind-icon-box svg{color:#fff}
-
-        /* ── placeholder image ── */
         .img-placeholder{background:linear-gradient(135deg,#1a2040 0%,#2d3568 50%,#1e3060 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;color:rgba(255,255,255,.3);font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
         .img-placeholder svg{opacity:.25;width:48px;height:48px}
-        @keyframes scrollLeft {
-}
-
-/* Optional: Animation pauses on hover */
-.group:hover .animate-scroll-left,
-.group:hover .animate-scroll-right {
-  animation-play-state: paused;
-}
+        .group:hover .animate-scroll-left,
+        .group:hover .animate-scroll-right { animation-play-state: paused; }
       `}</style>
 
       <ScrollRevealInit />
       <Header />
 
-      {/* ── HERO ── */}
-      <section className=" pt-24 bg-gradient-to-br from-[#1E2B3A] via-[#2D3E50] to-[#1E2B3A] text-white py-16 px-4 sm:px-8 md:px-12 lg:px-20 lg:pt-24 lg:pb-40 relative overflow-hidden">
-        <div className="absolute top-[-10%] left-[-5%] w-[40%] h-[60%] bg-[#F75126] opacity-[0.08] blur-[120px] rounded-full animate-pulse" />
-        <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[70%] bg-[#2470ff] opacity-[0.05] blur-[150px] rounded-full" />
+      <section className="pt-24 bg-[#0a0a0a] text-white py-16 px-4 sm:px-8 md:px-12 lg:px-20 lg:pt-24 lg:pb-40 relative overflow-hidden">
+        <div className="absolute top-[-10%] left-[-5%] w-[60%] md:w-[40%] h-[60%] bg-[color-mix(in_srgb,var(--brand-primary)_35%,transparent)] opacity-[0.12] blur-[120px] rounded-full animate-pulse pointer-events-none" />
+        <div className="absolute bottom-[-20%] right-[-10%] w-[70%] md:w-[50%] h-[70%] bg-[color-mix(in_srgb,var(--brand-primary)_18%,#0a3d0c)] opacity-[0.15] blur-[150px] rounded-full pointer-events-none" />
         <div className="max-w-[1400px] mx-auto z-10 relative">
-          <div className="grid lg:grid-cols-2 gap-10 sm:gap-16 items-center">
-            <div className="space-y-8">
-              <div className="hero-line-1 inline-block px-4 py-1.5 shimmer-badge border border-[#F75126]/20 rounded-full">
-                <span className="text-[#F75126] text-sm font-bold tracking-wider uppercase">Strategic Growth 2026</span>
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <div className="space-y-6 md:space-y-8">
+              <div className="hero-line-1 inline-block px-4 py-1.5 shimmer-badge border border-[color-mix(in_srgb,var(--brand-primary)_25%,transparent)] rounded-full">
+                <span className="text-[color:var(--brand-primary)] text-xs sm:text-sm font-bold tracking-wider uppercase">Strategic SEO 2026</span>
               </div>
-              <h1 className="hero-line-2 text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-[1.1] tracking-tight">
+              <h1 className="hero-line-2 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-4 md:mb-6 leading-[1.1] tracking-tight">
                 SEO Services <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">in USA</span>
               </h1>
-              <p className="hero-line-3 text-gray-300 text-xl md:text-2xl mb-12 max-w-xl leading-relaxed font-light">
-                Increase your website's authority and rankings with consistent results from our <span className="text-white font-semibold">tested SEO strategy.</span>
+              <p className="hero-line-3 text-gray-300 text-lg sm:text-xl md:text-2xl mb-8 md:mb-12 max-w-xl leading-relaxed font-light">
+                Increase your site&apos;s authority and rankings with a <span className="text-white font-semibold">tested SEO strategy</span> built for real business growth.
               </p>
-              <div className="hero-line-4 flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-4 sm:gap-10 pt-4">
-                <Link href="/get-quote" className="pulse-btn bg-[#F75126] text-white px-8 py-4 sm:px-12 sm:py-6 rounded-full font-bold text-base sm:text-lg hover:shadow-[0_20px_50px_rgba(247,81,38,0.3)] hover:-translate-y-1 transition-all flex items-center gap-3 group">
+              <div className="hero-line-4 flex flex-col sm:flex-row items-start sm:items-center gap-6 sm:gap-10 pt-2 md:pt-4">
+                <Link href="/get-quote" className="pulse-btn bg-[color:var(--brand-primary)] text-white px-8 sm:px-12 py-4 sm:py-6 rounded-lg font-bold text-base sm:text-lg hover:shadow-[0_20px_50px_rgba(44,159,0,0.35)] hover:-translate-y-1 transition-all flex items-center gap-3 group will-change-transform">
                   Get Free Proposal
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-5 h-5 group-hover:translate-x-1 transition-transform">
+                  <svg fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-5 h-5 group-hover:translate-x-1 transition-transform">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
                   </svg>
                 </Link>
-                <Link href="tel:+1234567890" className="flex items-center gap-3 font-bold text-xl hover:text-[#F75126] transition-all group">
-                  <div className="bg-white/5 border border-white/10 p-3 rounded-full group-hover:bg-[#F75126]/20 group-hover:border-[#F75126]/30/30 transition-all">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="#F75126" className="w-6 h-6">
+                <Link href="tel:+1234567890" className="flex items-center gap-3 font-bold text-lg sm:text-xl hover:text-[color:var(--brand-primary)] transition-all group">
+                  <div className="bg-white/5 border border-white/10 p-3 rounded-full group-hover:bg-[color-mix(in_srgb,var(--brand-primary)_18%,transparent)] group-hover:border-[color-mix(in_srgb,var(--brand-primary)_35%,transparent)] transition-all">
+                    <svg fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="var(--brand-primary)" className="w-6 h-6">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
                     </svg>
                   </div>
@@ -285,243 +293,224 @@ export default function SEOServicesNew() {
                 </Link>
               </div>
             </div>
-            <div className="hero-form bg-white/95 backdrop-blur-md rounded-3xl md:rounded-[40px] p-6 sm:p-8 md:p-14 text-[#2D3E50] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border border-white/20 relative mt-8 lg:mt-0">
-              <div className="absolute -top-4 -left-2 sm:-top-6 sm:-left-6 bg-[#F75126] text-white px-4 py-1.5 sm:px-6 sm:py-2 rounded-full text-xs sm:text-sm font-bold shadow-lg">FREE AUDIT</div>
-              <h3 className="text-3xl md:text-4xl font-black mb-1 md:mb-2 mt-4 sm:mt-0">Book a Free</h3>
-              <h3 className="text-3xl md:text-4xl font-black text-[#F75126] mb-8 md:mb-12">Web Audit</h3>
-              <form onSubmit={handleSubmit} className="space-y-8 md:space-y-10">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-10">
-                  <div className="relative group">
-                    <input type="text" id="name" name="name" className="peer w-full border-b-2 border-gray-200 bg-transparent outline-none focus:border-[#F75126] transition-all py-3 text-lg placeholder-transparent" placeholder="Full Name" required />
-                    <label htmlFor="name" className="absolute left-0 -top-5 text-sm font-bold text-gray-500 transition-all peer-placeholder-shown:text-lg peer-placeholder-shown:top-3 peer-focus:-top-5 peer-focus:text-sm peer-focus:text-[#F75126]">Full Name</label>
+
+            <div className="hero-form w-full max-w-lg lg:ml-auto">
+              <div className="relative group">
+                <div className="absolute -inset-4 bg-[#2a8b3a]/40 blur-[60px] opacity-100 animate-pulse -z-10 rounded-3xl" />
+                <div className="absolute -inset-10 bg-[#2a8b3a]/25 blur-[120px] opacity-80 -z-20 rounded-full" />
+                <div className="bg-[#111111] border border-white/10 rounded-2xl p-8 md:p-10 shadow-2xl backdrop-blur-sm">
+                  <div className="mb-8">
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="w-10 h-[2px] bg-[#39b54a]" />
+                      <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#39b54a]">Free SEO Audit</span>
+                    </div>
+                    <h2 className="text-3xl font-black text-white">Book a Free <span className="text-[#39b54a]">Web Audit</span></h2>
                   </div>
-                  <div className="relative group">
-                    <input type="email" id="email" name="email" className="peer w-full border-b-2 border-gray-200 bg-transparent outline-none focus:border-[#F75126] transition-all py-3 text-lg placeholder-transparent" placeholder="Email" required />
-                    <label htmlFor="email" className="absolute left-0 -top-5 text-sm font-bold text-gray-500 transition-all peer-placeholder-shown:text-lg peer-placeholder-shown:top-3 peer-focus:-top-5 peer-focus:text-sm peer-focus:text-[#F75126]">Email</label>
-                  </div>
+                  <form onSubmit={handleSubmit} className="space-y-8 md:space-y-10">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+                      <div className="relative group">
+                        <input type="text" id="name" name="name" className="peer w-full border-b-2 border-gray-200 bg-transparent outline-none focus:border-[color:var(--brand-primary)] transition-all py-3 text-base sm:text-lg placeholder-transparent text-white" placeholder="Full Name" required />
+                        <label htmlFor="name" className="absolute left-0 -top-5 text-xs sm:text-sm font-bold text-gray-400 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:sm:text-lg peer-placeholder-shown:top-3 peer-focus:-top-5 peer-focus:text-xs peer-focus:sm:text-sm peer-focus:text-[color:var(--brand-primary)]">Full Name</label>
+                      </div>
+                      <div className="relative group">
+                        <input type="email" id="email" name="email" className="peer w-full border-b-2 border-gray-200 bg-transparent outline-none focus:border-[color:var(--brand-primary)] transition-all py-3 text-base sm:text-lg placeholder-transparent text-white" placeholder="Email" required />
+                        <label htmlFor="email" className="absolute left-0 -top-5 text-xs sm:text-sm font-bold text-gray-400 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:sm:text-lg peer-placeholder-shown:top-3 peer-focus:-top-5 peer-focus:text-xs peer-focus:sm:text-sm peer-focus:text-[color:var(--brand-primary)]">Email</label>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+                      <div className="relative group">
+                        <input type="tel" id="number" name="phone" className="peer w-full border-b-2 border-gray-200 bg-transparent outline-none focus:border-[color:var(--brand-primary)] transition-all py-3 text-base sm:text-lg placeholder-transparent text-white" placeholder="Number" required />
+                        <label htmlFor="number" className="absolute left-0 -top-5 text-xs sm:text-sm font-bold text-gray-400 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:sm:text-lg peer-placeholder-shown:top-3 peer-focus:-top-5 peer-focus:text-xs peer-focus:sm:text-sm peer-focus:text-[color:var(--brand-primary)]">Number</label>
+                      </div>
+                      <div className="relative group">
+                        <input type="text" id="project" name="message" className="peer w-full border-b-2 border-gray-200 bg-transparent outline-none focus:border-[color:var(--brand-primary)] transition-all py-3 text-base sm:text-lg placeholder-transparent text-white" placeholder="Project Need" required />
+                        <label htmlFor="project" className="absolute left-0 -top-5 text-xs sm:text-sm font-bold text-gray-400 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:sm:text-lg peer-placeholder-shown:top-3 peer-focus:-top-5 peer-focus:text-xs peer-focus:sm:text-sm peer-focus:text-[color:var(--brand-primary)]">Describe Your Project</label>
+                      </div>
+                    </div>
+                    <button type="submit" disabled={loading} className="w-full inline-flex items-center justify-center bg-gradient-to-r from-[#39b54a] via-[#2f9234] to-[#1f7f2b] text-white font-bold py-4 sm:py-6 rounded-lg text-lg sm:text-xl shadow-[0_20px_40px_rgba(57,181,74,0.25)] hover:shadow-[0_24px_50px_rgba(57,181,74,0.35)] transition-all mt-6 active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed">{loading ? "Sending..." : "Schedule A Call"}</button>
+                    <p className="text-center text-xs text-gray-400 mt-8 font-medium">By submitting this form, you agree to our <Link href="/privacypolicy" className="text-[color:var(--brand-primary)] hover:underline">Privacy Policy</Link></p>
+                  </form>
+                  {successMsg && (
+                    <div className="mt-6 p-4 bg-green-500/10 border border-green-500/20 rounded-lg text-[#39b54a] text-xs font-bold text-center">{successMsg}</div>
+                  )}
+                  {errorMsg && (
+                    <div className="mt-6 p-4 bg-red-500/10 border border-red-500/20 rounded-lg text-red-400 text-xs font-bold text-center">{errorMsg}</div>
+                  )}
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-10">
-                  <div className="relative group">
-                    <input type="tel" id="number" name="phone" className="peer w-full border-b-2 border-gray-200 bg-transparent outline-none focus:border-[#F75126] transition-all py-3 text-lg placeholder-transparent" placeholder="Number" required />
-                    <label htmlFor="number" className="absolute left-0 -top-5 text-sm font-bold text-gray-500 transition-all peer-placeholder-shown:text-lg peer-placeholder-shown:top-3 peer-focus:-top-5 peer-focus:text-sm peer-focus:text-[#F75126]">Number</label>
-                  </div>
-                  <div className="relative group">
-                    <input type="text" id="project" name="message" className="peer w-full border-b-2 border-gray-200 bg-transparent outline-none focus:border-[#F75126] transition-all py-3 text-lg placeholder-transparent" placeholder="Project Need" required />
-                    <label htmlFor="project" className="absolute left-0 -top-5 text-sm font-bold text-gray-500 transition-all peer-placeholder-shown:text-lg peer-placeholder-shown:top-3 peer-focus:-top-5 peer-focus:text-sm peer-focus:text-[#F75126]">Describe Your Project Need.</label>
-                  </div>
-                </div>
-                {successMsg && <p className="text-green-700 bg-green-100 border border-green-200 rounded-xl px-4 py-3 text-sm">{successMsg}</p>}
-                {errorMsg && <p className="text-red-700 bg-red-100 border border-red-200 rounded-xl px-4 py-3 text-sm">{errorMsg}</p>}
-                <button type="submit" disabled={loading} className="w-full bg-[#F75126] text-white font-bold py-6 rounded-2xl text-xl hover:bg-[#E0441D] hover:shadow-[0_20px_40px_rgba(247,81,38,0.3)] transition-all mt-6 active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed">{loading ? "Sending..." : "Schedule A Call"}</button>
-                <p className="text-center text-xs text-gray-400 mt-8 font-medium">By submitting this form, you agree to our <Link href="/privacypolicy" className="text-[#F75126] hover:underline">Privacy Policy</Link></p>
-              </form>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── SUSTAINABLE GROWTH ── */}
-      <section className="relative py-24 px-6 md:px-20 max-w-[1440px] mx-auto overflow-hidden bg-white">
-        {/* Background Image */}
-        <div className="absolute -bottom-20 -right-40 z-0 opacity-20 pointer-events-none w-[80%] md:w-[80%] lg:w-[70%] aspect-square rotate-[-12deg]">
-          <div className="relative w-full h-full scale-125 origin-bottom-right">
-            <Image
-              src="/assets/images/AI-02.png"
-              alt="Design Element"
-              fill
-              className="object-contain object-right-bottom"
-              priority
-            />
-          </div>
+      <section className="relative isolate py-16 md:py-24 px-4 sm:px-8 md:px-12 lg:px-20 max-w-[1440px] mx-auto overflow-hidden bg-[#0a0a0a] text-neutral-200">
+        <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+          <Image
+            src={WEB_BG_VECTOR}
+            alt=""
+            fill
+            className="object-contain object-right-bottom opacity-[0.14] sm:opacity-[0.16] md:opacity-[0.18]"
+            sizes="100vw"
+            priority
+          />
         </div>
-
-        {/* Content */}
         <div className="relative z-10 max-w-4xl">
-          <div className="flex items-center gap-3 mb-6">
-            <span className="w-12 h-[2px] bg-[#F75126]"></span>
-            <h3 className="text-[#F75126] font-bold uppercase tracking-[0.25em] text-sm">Strategic SEO</h3>
+          <div className="flex items-center gap-2 sm:gap-3 mb-4 md:mb-6">
+            <span className="w-8 sm:w-12 h-[2px] bg-[color:var(--brand-primary)]" />
+            <h3 className="text-[color:var(--brand-primary)] font-bold uppercase tracking-[0.15em] sm:tracking-[0.25em] text-xs sm:text-sm">Strategic SEO</h3>
           </div>
-
-          <h2 className="text-4xl md:text-6xl font-black text-gray-900 mb-8 leading-[1.1] uppercase relative z-20">
+          <h2 className="text-3xl sm:text-4xl md:text-6xl font-black text-white mb-6 md:mb-8 leading-[1.2] md:leading-[1.1] uppercase relative z-20">
             Grow Your Business with Result-Driven
-            <span className="text-[#F75126] block mt-2"> SEO Services</span>
+            <span className="text-[color:var(--brand-primary)] block mt-1 md:mt-2">SEO Services</span>
           </h2>
-
-          <div className="space-y-8 text-gray-800 leading-relaxed text-lg md:text-xl relative z-20">
-            <p className="max-w-3xl">Pure Design Hub provides professional SEO services in USA for businesses that want more visibility, better rankings, and qualified traffic.</p>
-            <div className="grid md:grid-cols-2 gap-8 py-6">
-              <div className="border-l-4 border-[#F75126] pl-6 bg-white/60 backdrop-blur-sm p-4 rounded-r-2xl shadow-sm">
-                <h4 className="font-bold text-gray-900 mb-2 uppercase tracking-tight">Sustainable Growth</h4>
-                <p className="text-base text-gray-600">Focusing on long-term authority rather than short-term tricks.</p>
+          <div className="space-y-6 md:space-y-8 leading-relaxed text-base sm:text-lg md:text-xl relative z-20">
+            <p className="max-w-3xl text-neutral-300">Pure Design Hub provides professional <strong className="text-white">SEO services in USA</strong> for businesses that want more visibility, better rankings, and qualified traffic.</p>
+            <div className="grid md:grid-cols-2 gap-6 md:gap-8 py-4 md:py-6">
+              <div className="border-l-4 border-[color:var(--brand-primary)] pl-5 sm:pl-6 bg-white/[0.04] backdrop-blur-sm p-4 rounded-r-2xl shadow-sm border-white/10">
+                <h4 className="font-bold text-white mb-2 uppercase tracking-tight text-sm sm:text-base">Sustainable Growth</h4>
+                <p className="text-sm sm:text-base text-neutral-400">Long-term authority rather than short-term tricks.</p>
               </div>
-              <div className="border-l-4 border-[#F75126] pl-6 bg-white/60 backdrop-blur-sm p-4 rounded-r-2xl shadow-sm">
-                <h4 className="font-bold text-gray-900 mb-2 uppercase tracking-tight">Custom Strategies</h4>
-                <p className="text-base text-gray-600">Tailored consulting to match your specific niche and market.</p>
+              <div className="border-l-4 border-[color:var(--brand-primary)] pl-5 sm:pl-6 bg-white/[0.04] backdrop-blur-sm p-4 rounded-r-2xl shadow-sm border-white/10">
+                <h4 className="font-bold text-white mb-2 uppercase tracking-tight text-sm sm:text-base">Custom Strategies</h4>
+                <p className="text-sm sm:text-base text-neutral-400">Tailored to your niche, competition, and goals in the USA.</p>
               </div>
             </div>
           </div>
-
           <div className="mt-12">
-            <button className="relative z-30 bg-gray-900 text-white px-10 py-4 rounded-xl font-bold hover:bg-[#F75126] transition-all duration-500 shadow-xl">
+            <Link href="/get-quote" className="relative z-30 inline-block bg-[color:var(--brand-primary)] text-black px-10 py-4 rounded-xl font-bold hover:bg-white transition-all duration-300 shadow-xl">
               Get a Free Audit
-            </button>
+            </Link>
           </div>
         </div>
       </section>
-      {/* ── WHY SEO MATTERS ── */}
-      <section className="bg-[#f9f9f9] py-20 px-4 sm:px-8 md:px-12 lg:px-20">
-        <div className="max-w-[1400px] mx-auto grid lg:grid-cols-2 gap-16 items-center">
+
+      <section className="bg-[#0a0a0a] py-16 md:py-20 px-4 sm:px-8 md:px-12 lg:px-20 overflow-hidden text-neutral-200">
+        <div className="max-w-[1400px] mx-auto grid lg:grid-cols-2 gap-10 md:gap-16 items-center">
           <div className="reveal-left">
-            <h2 className="title2 mb-6">Why SEO Matters for <span className="text-[#F75126]">Businesses in the USA</span></h2>
-            <p className="text text-gray-600 mb-6">The online market in the USA is highly competitive. People search every day for products, services, and solutions, and most of them click on businesses that appear on the first page of Google.</p>
-            <p className="text text-gray-600 mb-6">Professional SEO service help businesses improve their online visibility and attract users who are already searching for what they offer.</p>
-            <p className="text text-gray-600 mb-6 font-semibold">With the right strategy, SEO can help your business:</p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {["increase organic traffic", "improve keyword rankings", "generate better quality leads", "build trust and authority", "reduce dependency on paid ads", "create long-term digital growth"].map((item, i) => (
-                <div key={i} className="flex items-center gap-2 text-gray-700 reveal-up" style={{ transitionDelay: `${i * 80}ms` }}>
-                  <span className="w-5 h-5 rounded-full bg-[#F75126]/10 flex items-center justify-center flex-shrink-0">
-                    <svg className="w-3 h-3 text-[#F75126]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+            <h2 className="title2 !text-white text-3xl md:text-5xl font-black mb-4 md:mb-6 leading-tight">Why SEO Matters for <span className="text-[color:var(--brand-primary)]">Businesses in the USA</span></h2>
+            <p className="text text-neutral-400 mb-4 md:mb-6 text-base sm:text-lg">The online market in the USA is highly competitive. People search every day for products and services, and most click businesses on the first page of Google.</p>
+            <p className="text text-neutral-300 mb-4 md:mb-6 font-semibold text-base sm:text-lg">With the right strategy, SEO can help your business:</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
+              {["Increase organic traffic", "Improve keyword rankings", "Generate better quality leads", "Build trust and authority", "Reduce dependency on paid ads", "Create long-term digital growth"].map((item, i) => (
+                <div key={i} className="flex items-center gap-2 text-sm sm:text-base text-neutral-300 reveal-up" style={{ transitionDelay: `${i * 80}ms` }}>
+                  <span className="w-5 h-5 rounded-full bg-[color-mix(in_srgb,var(--brand-primary)_18%,transparent)] flex items-center justify-center flex-shrink-0">
+                    <svg className="w-3 h-3 text-[color:var(--brand-primary)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
                   </span>
                   {item}
                 </div>
               ))}
             </div>
-            <p className="text text-gray-600 mt-6">Professional SEO service help businesses improve their online visibility and attract users who are already searching for what they offer.</p>
+            <p className="text text-neutral-400 mt-6 text-base sm:text-lg">Professional SEO helps you attract users who are already searching for what you offer.</p>
           </div>
-          <div className="reveal-right bg-[#272D4E] p-10 rounded-[40px] text-white relative h-[250px] sm:h-[350px] md:h-[450px] shadow-[0_20px_50px_-10px_rgba(247,81,38,0.2)] overflow-hidden">
-            <Image src={SEOpng} alt="Targeted Traffic SEO" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover rounded-[30px] hover:scale-105 transition-transform duration-700" />
+          <div className="reveal-right rounded-3xl md:rounded-[40px] overflow-hidden relative h-[250px] sm:h-[350px] md:h-[450px] shadow-[0_20px_50px_-10px_rgba(44,159,0,0.18)] ring-1 ring-white/10">
+            <Image src={SEOpng} alt="Why SEO matters" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover transition-transform duration-700 hover:scale-105" />
           </div>
         </div>
       </section>
 
-      {/* ── SEO SERVICES GRID ── */}
-      <section className="py-20 px-4 sm:px-8 md:px-12 lg:px-20">
-        <div className="max-w-[1400px] mx-auto text-center mb-16 reveal-up">
-          <h2 className="title2 mb-4 uppercase text-[#272D4E]">Our SEO <span className="text-[#F75126]">Services Include</span></h2>
-          <p className="text max-w-2xl mx-auto text-gray-500">We provide specialized SEO techniques aligned with your business needs rather than using generic tactics.</p>
+      <section className="py-16 md:py-20 px-4 sm:px-8 md:px-12 lg:px-20 overflow-hidden bg-white">
+        <div className="max-w-[1400px] mx-auto text-center mb-10 md:mb-16 reveal-up">
+          <h2 className="title2 text-3xl md:text-5xl font-black mb-3 md:mb-4 uppercase text-[#272D4E]">Our SEO <span className="text-[color:var(--brand-primary)] block sm:inline">Services Include</span></h2>
+          <p className="text max-w-2xl mx-auto text-gray-500 text-base sm:text-lg">Specialized SEO aligned with your business needs — not generic tactics.</p>
         </div>
-        <div className="max-w-[1400px] mx-auto grid md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 stagger-child">
+        <div className="max-w-[1400px] mx-auto grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 stagger-child">
           {seoServices.map((s, i) => (
-            <div key={i} className="reveal-up bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-500 border border-gray-100 group hover:-translate-y-1 hover:border-[#F75126]/30">
+            <div key={i} className="reveal-up bg-white p-6 sm:p-8 rounded-2xl shadow-sm hover:shadow-xl hover:shadow-[color-mix(in_srgb,var(--brand-primary)_8%,transparent)] transition-all duration-500 border border-gray-100 group hover:-translate-y-1 hover:border-[color-mix(in_srgb,var(--brand-primary)_22%,transparent)]">
               <div className="svc-icon-box"><s.Icon /></div>
-              <h3 className="font-bold text-xl mb-3 text-[#272D4E] group-hover:text-[#F75126] transition-colors">{s.title}</h3>
-              <p className="text-sm text-gray-500 leading-relaxed">{s.desc}</p>
+              <h3 className="font-bold text-lg sm:text-xl mb-2 sm:mb-3 text-[#272D4E] group-hover:text-[color:var(--brand-primary)] transition-colors duration-300">{s.title}</h3>
+              <p className="text-xs sm:text-sm text-gray-500 leading-relaxed">{s.desc}</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* ── STATS ── */}
-      <section className="py-20 bg-[#0B0D17] text-white px-4">
+      <section className="py-16 md:py-20 bg-[#0a0a0a] text-white px-4 sm:px-8 md:px-12 lg:px-20 overflow-hidden">
         <div className="max-w-[1400px] mx-auto text-center">
-          <h2 className="reveal-up text-3xl md:text-5xl font-bold mb-6">Over <span className="text-[#F75126]">68,000 Searches</span> On Google Every Second!</h2>
-          <p className="reveal-up text-gray-400 mb-12">Is your brand visible for the terms that matter most to your business?</p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 stagger-child">
+          <h2 className="reveal-up text-2xl sm:text-3xl md:text-5xl font-bold mb-4 md:mb-6">Over <span className="text-[color:var(--brand-primary)]">68,000 Searches</span> On Google Every Second!</h2>
+          <p className="reveal-up text-neutral-400 mb-10 md:mb-12 text-sm sm:text-base md:text-lg">Is your brand visible for the terms that matter most?</p>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 stagger-child">
             {[{ val: 95, suffix: "%", label: "First Page Rank" }, { val: 78, suffix: "%", label: "Traffic Increase" }, { val: 62, suffix: "%", label: "Conversion Lift" }, { val: 100, suffix: "%", label: "White Hat SEO" }].map((stat, i) => (
               <div key={i} className="reveal-up">
-                <div className="text-4xl md:text-5xl font-bold text-[#F75126] mb-2"><AnimatedCounter target={stat.val} suffix={stat.suffix} /></div>
-                <div className="text-gray-400 font-semibold uppercase text-xs tracking-widest">{stat.label}</div>
+                <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-[color:var(--brand-primary)] mb-1 sm:mb-2"><AnimatedCounter target={stat.val} suffix={stat.suffix} /></div>
+                <div className="text-gray-400 font-semibold uppercase text-[10px] sm:text-xs tracking-widest">{stat.label}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── WHY CHOOSE US ── */}
-      <section className="py-20 bg-white px-4 sm:px-8 md:px-12 lg:px-20">
+      <section className="py-16 md:py-20 bg-white px-4 sm:px-8 md:px-12 lg:px-20 overflow-hidden">
         <div className="max-w-[1400px] mx-auto">
-          <h2 className="reveal-up title2 text-center mb-4 uppercase">Why Choose <span className="text-[#F75126]">Pure Design Hub</span> for SEO Services</h2>
-          <p className="reveal-up text max-w-6xl mx-auto text-gray-500 text-center mb-8">Pure Design Hub understands that businesses do not just want rankings. They want measurable business growth. That is why Our SEO services are designed to improve visibility, build authority, and convert traffic into real results.</p>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 stagger-child">
+          <h2 className="reveal-up title2 text-3xl md:text-5xl font-black text-center mb-3 md:mb-4 uppercase">Why Choose <span className="text-[color:var(--brand-primary)] block sm:inline">Pure Design Hub</span></h2>
+          <p className="reveal-up text max-w-6xl mx-auto text-gray-500 text-center mb-10 text-base sm:text-lg">We focus on measurable growth: visibility, authority, and traffic that converts.</p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 stagger-child">
             {whyChooseUs.map((item, i) => (
-              <div key={i} className="reveal-up p-8 bg-[#f9f9f9] rounded-3xl border border-gray-100 hover:border-[#F75126]/30 hover:bg-white hover:-translate-y-1 hover:shadow-md transition-all duration-500 group">
+              <div key={i} className="reveal-up p-6 sm:p-8 bg-[#f9f9f9] rounded-3xl border border-transparent hover:border-[color-mix(in_srgb,var(--brand-primary)_28%,transparent)] hover:bg-white hover:-translate-y-1 hover:shadow-xl hover:shadow-[color-mix(in_srgb,var(--brand-primary)_10%,transparent)] transition-all duration-500 group">
                 <div className="why-icon-box"><item.Icon /></div>
-                <h4 className="font-bold text-xl text-[#272D4E] mb-3 group-hover:text-[#F75126] transition-colors">{item.title}</h4>
-                <p className="text-sm text-gray-500">{item.text}</p>
+                <h4 className="font-bold text-lg sm:text-xl text-[#272D4E] mb-2 sm:mb-3 group-hover:text-[color:var(--brand-primary)] transition-colors duration-300">{item.title}</h4>
+                <p className="text-xs sm:text-sm text-gray-500">{item.text}</p>
               </div>
             ))}
           </div>
-          <p className="text-center mt-12 text-gray-600 max-w-3xl mx-auto reveal-up">We combine strategy, content, and optimization into one clear process. This allows businesses in the USA to build a stronger digital presence without depending only on paid marketing.</p>
+          <p className="text-center mt-10 md:mt-12 text-gray-600 max-w-3xl mx-auto reveal-up text-sm sm:text-base">We combine strategy, content, and optimization into one clear process for a stronger digital presence.</p>
         </div>
       </section>
 
-      {/* ── SEO PROCESS ── */}
-      <section className="relative py-20 bg-[#F9F9F9] px-4 sm:px-8 md:px-12 lg:px-20 xl:mb-40 lg:mb-20 mb-10 overflow-hidden">
+      <PricingPlansBlock />
+
+      <section className="relative py-16 md:py-20 bg-[#0a0a0a] px-4 sm:px-8 md:px-12 lg:px-20 overflow-hidden text-neutral-200">
+        <Image src={Circle} alt="circle" width={0} height={0} sizes="100vw" loading="lazy" className="float-anim xl:w-66 xl:h-66 w-24 h-24 object-cover absolute top-0 xl:-left-33 -left-4 -z-1 circle_img pointer-events-none opacity-30" />
+        <Image src={Circle} alt="circle" width={0} height={0} sizes="100vw" loading="lazy" className="float-anim-slow xl:w-66 xl:h-66 w-24 h-24 object-cover absolute bottom-0 xl:-right-10 -right-6 -z-1 circle_img pointer-events-none opacity-30" />
         <div className="max-w-[1400px] mx-auto relative z-10">
-
-          <h2 className="reveal-up title2 text-center lg:mb-6 mb-4">
-            Our SEO{" "}<span className="relative inline-block">Process<SvgUnderline /></span>
+          <h2 className="reveal-up title2 !text-white text-3xl md:text-5xl font-black text-center mb-3 md:mb-6">
+            Our SEO{" "}<span className="relative inline-block mt-2 sm:mt-0">Process<SvgUnderline /></span>
           </h2>
-          <p className="reveal-up text text-center lg:mb-16 mb-8 max-w-2xl mx-auto">Our proven 4-step SEO framework delivers consistent, measurable results. Every campaign follows a structured process refined through years of experience.</p>
-          <Image src={Circle} alt="circle" width={0} height={0} sizes="100vw" loading="lazy" className="float-anim xl:w-66 xl:h-66 w-24 h-24 object-cover absolute top-0 xl:-left-33 -left-4 -z-1 circle_img" />
-          <Image src={Circle} alt="circle" width={0} height={0} sizes="100vw" loading="lazy" className="float-anim-slow xl:w-66 xl:h-66 w-24 h-24 object-cover absolute bottom-0 xl:-right-10 -right-6 -z-1 circle_img" />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 stagger-child">
+          <p className="reveal-up text text-neutral-400 text-center mb-10 md:mb-16 max-w-2xl mx-auto text-base sm:text-lg">Our proven 4-step SEO framework delivers consistent, measurable results.</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 stagger-child">
             {strategySteps.map((s, i) => (
-              <div key={i} className="reveal-up relative rounded-2xl p-6 border-2 transition-all duration-500 group hover:-translate-y-1 border-gray-100 bg-white shadow-sm hover:border-[#F75126]/30 hover:bg-[#F75126]/5 hover:shadow-lg">
-                <div className="text-6xl font-black text-[#F75126]/10 absolute top-3 right-4 leading-none select-none transition-all duration-500 group-hover:text-[#F75126]/20 group-hover:scale-110">{s.number}</div>
-                <div className="text-[#F75126] font-bold text-xs mb-2 tracking-widest uppercase">Step {s.number}</div>
-                <h3 className="font-bold text-xl text-[#272D4E] mb-2 group-hover:text-[#F75126] transition-colors">{s.title}</h3>
-                <p className="text-sm text-gray-500 leading-relaxed">{s.desc}</p>
+              <div key={i} className="reveal-up relative rounded-2xl p-5 sm:p-6 border transition-all duration-500 group hover:-translate-y-1 border-white/10 bg-white/[0.04] shadow-sm hover:border-[color-mix(in_srgb,var(--brand-primary)_40%,transparent)] hover:bg-[color-mix(in_srgb,var(--brand-primary)_8%,transparent)] hover:shadow-lg">
+                <div className="text-5xl md:text-6xl font-black text-[color-mix(in_srgb,var(--brand-primary)_14%,transparent)] absolute top-3 right-4 leading-none select-none transition-all duration-500 group-hover:text-[color-mix(in_srgb,var(--brand-primary)_22%,transparent)] group-hover:scale-105">{s.number}</div>
+                <div className="text-[color:var(--brand-primary)] font-bold text-[10px] sm:text-xs mb-1 sm:mb-2 tracking-widest uppercase">Step {s.number}</div>
+                <h3 className="font-bold text-lg sm:text-xl text-white mb-2 group-hover:text-[color:var(--brand-primary)] transition-colors duration-300">{s.title}</h3>
+                <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed">{s.desc}</p>
               </div>
             ))}
           </div>
-
         </div>
       </section>
 
-      {/* ── WHO BENEFITS ── */}
-      {/* <section className="services_sec px-4 sm:px-8 md:px-12 lg:px-20 xl:mb-40 lg:mb-20 mb-10">
-        <div className="max-w-[1400px] mx-auto">
+      <IndustriesSection variant="dark" />
 
-          <h2 className="reveal-up title2 text-center lg:mb-6 mb-4">
-            Who Can Benefit from Our{" "}<span className="relative inline-block">SEO Services<SvgUnderline /></span>
-          </h2>
-          <p className="reveal-up text text-center lg:mb-16 mb-8 max-w-4xl mx-auto">Whether your business is new or already established, the right SEO strategy can help create better search visibility and stronger lead generation.</p>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-4 stagger-child">
-            {industries.map((ind, i) => (
-              <div key={i} className="reveal-up bg-white border border-gray-100 rounded-2xl p-5 text-center shadow-sm hover:shadow-md hover:-translate-y-1 hover:border-[#F75126]/30 transition-all duration-500 group cursor-default">
-                <div className="ind-icon-box"><ind.Icon /></div>
-                <div className="text-sm font-bold text-[#1a1a2e] group-hover:text-[#F75126] transition-colors">{ind.label}</div>
-              </div>
-            ))}
-          </div>
-
-        </div>
-      </section> */}
-      <IndustriesSection />
-
-      {/* ── REAL BUSINESS GROWTH ── */}
-      <section className="py-20 bg-[#272D4E] text-white px-4 sm:px-8 md:px-12 lg:px-20 overflow-hidden relative">
+      <section className="py-16 md:py-20 bg-white text-[#1a1a1a] px-4 sm:px-8 md:px-12 lg:px-20 overflow-hidden relative">
         <div className="max-w-[1200px] mx-auto text-center relative z-10">
-          <h2 className="reveal-up text-3xl md:text-5xl font-bold mb-6">SEO Services Focused on <span className="text-[#F75126]">Real Business Growth</span></h2>
-          <p className="reveal-up text-gray-300 max-w-8xl mx-auto mb-12 text-lg">
-            The goal of SEO should never be traffic alone. It should be qualified traffic that supports real business outcomes.
-            <br />When your website is optimized correctly, it becomes easier for users to find you, trust you, and contact you.
+          <h2 className="reveal-up text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 leading-tight text-[#1a1a1a]">SEO Focused on <span className="text-[color:var(--brand-primary)] block sm:inline mt-2 sm:mt-0">Real Business Growth</span></h2>
+          <p className="reveal-up text-gray-600 max-w-4xl mx-auto mb-10 md:mb-12 text-base sm:text-lg leading-relaxed">
+            The goal of SEO should be qualified traffic that supports real outcomes.
+            <br className="hidden sm:block" />When your site is optimized correctly, users find you, trust you, and contact you.
           </p>
-          <div className="reveal-scale bg-white/5 p-12 rounded-[50px] border border-white/10 backdrop-blur-sm max-w-4xl mx-auto">
-            <h4 className="text-2xl font-bold mb-4 text-white uppercase tracking-wider">Let Pure Design Hub Help You Rank Higher</h4>
-            <p className="text-gray-400 mb-8 text-lg">If you're looking for affordable SEO services, we are ready to help you to improve your search presence with a strategy built for long-term growth.</p>
-            <Link href="/get-quote" className="pulse-btn bg-[#F75126] text-white px-8 py-4 sm:px-10 sm:py-5 rounded-full font-bold text-lg sm:text-xl hover:bg-white hover:text-[#F75126] transition-all inline-block shadow-2xl">Contact Us Today</Link>
+          <div className="reveal-scale bg-[#f8fafc] p-6 sm:p-10 md:p-12 rounded-3xl md:rounded-[50px] border border-gray-200 max-w-4xl mx-auto">
+            <h4 className="text-xl sm:text-2xl md:text-3xl font-bold mb-3 md:mb-4 text-[#1a1a1a] uppercase tracking-wider">Let Pure Design Hub Help You Rank Higher</h4>
+            <p className="text-gray-700 mb-6 md:mb-8 text-sm sm:text-base md:text-lg">If you are looking for <strong className="text-[#1a1a1a]">affordable SEO services in USA</strong>, we are ready to improve your search presence with a strategy built for long-term growth.</p>
+            <Link href="/get-quote" className="pulse-btn bg-[color:var(--brand-primary)] text-white px-8 sm:px-10 py-4 sm:py-5 rounded-full font-bold text-lg sm:text-xl hover:bg-white hover:text-[color:var(--brand-primary)] transition-all inline-block shadow-2xl will-change-transform">Contact Us Today</Link>
           </div>
         </div>
-        <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none">
-          <div className="absolute top-10 left-10 w-64 h-64 bg-[#F75126] rounded-full blur-[100px]" />
-          <div className="absolute bottom-10 right-10 w-96 h-96 bg-[#F75126] rounded-full blur-[120px]" />
+        <div className="absolute top-0 left-0 w-full h-full opacity-[0.07] pointer-events-none">
+          <div className="absolute -top-20 -left-20 sm:top-10 sm:left-10 w-48 sm:w-64 h-48 sm:h-64 bg-[color:var(--brand-primary)] rounded-full blur-[80px] sm:blur-[100px]" />
+          <div className="absolute -bottom-20 -right-20 sm:bottom-10 sm:right-10 w-72 sm:w-96 h-72 sm:h-96 bg-[color:var(--brand-primary)] rounded-full blur-[100px] sm:blur-[120px]" />
         </div>
       </section>
 
-      {/* ── FAQs ── */}
-      <section className="px-4 sm:px-8 md:px-12 lg:px-20 mb-16 lg:mb-20 xl:mb-40 mt-16 lg:mt-20">
+      <section className="bg-[#0a0a0a] px-4 sm:px-8 md:px-12 lg:px-20 py-16 md:py-24 mb-0 overflow-hidden">
         <div className="max-w-[1400px] mx-auto">
-
-          <h2 className="reveal-up title2 text-center lg:mb-6 mb-4">
-            Search Engine Optimization{" "}<span className="relative inline-block">FAQs<SvgUnderline /></span>
+          <h2 className="reveal-up title2 !text-white text-3xl md:text-5xl font-black text-center mb-3 md:mb-6">
+            Search Engine Optimization{" "}<span className="relative inline-block mt-2 sm:mt-0">FAQs<SvgUnderline /></span>
           </h2>
-          <p className="reveal-up text text-center lg:mb-16 mb-8">Everything you need to know about our SEO services.</p>
-          <div className="w-full space-y-3">
-            {faqs.map((faq, i) => <FaqItem key={i} faq={faq} index={i} />)}
+          <p className="reveal-up text text-neutral-400 text-center mb-8 md:mb-16 text-base sm:text-lg">Everything you need to know about our SEO services.</p>
+          <div className="w-full space-y-3 md:space-y-4 max-w-4xl mx-auto">
+            {faqs.map((faq, i) => (
+              <FaqItem key={i} faq={faq} index={i} dark />
+            ))}
           </div>
-
         </div>
       </section>
 
@@ -529,19 +518,4 @@ export default function SEOServicesNew() {
       <Footer />
     </main>
   );
-}
-
-function ScrollRevealInit() {
-  useEffect(() => {
-    const classes = ["reveal-up", "reveal-left", "reveal-right", "reveal-fade", "reveal-scale"];
-    const allEls: Element[] = [];
-    classes.forEach(cls => allEls.push(...Array.from(document.querySelectorAll(`.${cls}`))));
-    const obs = new IntersectionObserver(
-      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("in-view"); }),
-      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
-    );
-    allEls.forEach(el => obs.observe(el));
-    return () => obs.disconnect();
-  }, []);
-  return null;
 }

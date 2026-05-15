@@ -1,14 +1,13 @@
-import type { Metadata } from "next";
+"use client";
 
-export const metadata: Metadata = {
-  title: "Secure Checkout | PureDesignHub",
-  description: "Complete your order securely with PureDesignHub. Choose your payment method and start your digital project with us today.",
-};
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import type { ReactNode } from "react";
 
-export default function Layout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return <>{children}</>;
+const stripePromise = loadStripe(
+    process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+);
+
+export default function CheckoutLayout({ children }: { children: ReactNode }) {
+    return <Elements stripe={stripePromise}>{children}</Elements>;
 }

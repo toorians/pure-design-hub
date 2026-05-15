@@ -3,8 +3,6 @@
 import Image from "next/image";
 import { useState, useMemo } from "react";
 import Circle from "@/public/assets/images/circle.png";
-import Header from "@/app/component/header";
-import Footer from "../component/footer";
 
 const categories = ["Web Design", "Mobile Apps", "Branding", "Logo"] as const;
 
@@ -34,6 +32,12 @@ const portfolioItems: PortfolioItem[] = [
   { cat: "Mobile Apps", src: "/assets/images/App/Mobile_App_2-100.jpg", label: "", tag: "Mobile App" },
   { cat: "Mobile Apps", src: "/assets/images/App/Mobile_App_3-100.jpg", label: "", tag: "Mobile App" },
   { cat: "Mobile Apps", src: "/assets/images/App/Mobile_App_4-100.jpg", label: "", tag: "Mobile App" },
+  { cat: "Mobile Apps", src: "/assets/images/App/Mobile_app_06-100.jpg", label: "", tag: "Mobile App" },
+  { cat: "Mobile Apps", src: "/assets/images/App/Mobile_app_07-100.jpg", label: "", tag: "Mobile App" },
+  { cat: "Mobile Apps", src: "/assets/images/App/Mobile_app_08-100.jpg", label: "", tag: "Mobile App" },
+  { cat: "Mobile Apps", src: "/assets/images/App/Mobile_app_09-100.jpg", label: "", tag: "Mobile App" },
+  { cat: "Mobile Apps", src: "/assets/images/App/Mobile_app_10-100.jpg", label: "", tag: "Mobile App" },
+  { cat: "Mobile Apps", src: "/assets/images/App/Mobile_app_11-100.jpg", label: "", tag: "Mobile App" },
   { cat: "Mobile Apps", src: "/assets/images/App/app_img1.png", label: "", tag: "Mobile App" },
   { cat: "Mobile Apps", src: "/assets/images/App/app_img2.png", label: "", tag: "Mobile App" },
   { cat: "Mobile Apps", src: "/assets/images/App/app_img3.png", label: "", tag: "Mobile App" },
@@ -49,6 +53,12 @@ const portfolioItems: PortfolioItem[] = [
   { cat: "Branding", src: "/assets/images/Portfolio/Branding/Branding_2-100.jpg", label: "", tag: "Branding" },
   { cat: "Branding", src: "/assets/images/Portfolio/Branding/Branding_3-100.jpg", label: "", tag: "Branding" },
   { cat: "Branding", src: "/assets/images/Portfolio/Branding/Branding_4-100.jpg", label: "", tag: "Branding" },
+  { cat: "Branding", src: "/assets/images/Portfolio/Branding/Branding_01-100.jpg", label: "", tag: "Branding" },
+  { cat: "Branding", src: "/assets/images/Portfolio/Branding/Branding_02-100.jpg", label: "", tag: "Branding" },
+  { cat: "Branding", src: "/assets/images/Portfolio/Branding/Branding_03-100.jpg", label: "", tag: "Branding" },
+  { cat: "Branding", src: "/assets/images/Portfolio/Branding/Branding_04-100.jpg", label: "", tag: "Branding" },
+  { cat: "Branding", src: "/assets/images/Portfolio/Branding/Branding_05-100.jpg", label: "", tag: "Branding" },
+  { cat: "Branding", src: "/assets/images/Portfolio/Branding/Branding_06-100.jpg", label: "", tag: "Branding" },
   { cat: "Branding", src: "/assets/images/Portfolio/Branding/branding_img1.png", label: "", tag: "Branding" },
   { cat: "Branding", src: "/assets/images/Portfolio/Branding/branding_img2.png", label: "", tag: "Branding" },
   { cat: "Branding", src: "/assets/images/Portfolio/Branding/branding_img3.png", label: "", tag: "Branding" },
@@ -68,14 +78,24 @@ const portfolioItems: PortfolioItem[] = [
   { cat: "Logo", src: "/assets/images/Logo/Artboard_1_copy_5-100.jpg", label: "", tag: "Logo" },
   { cat: "Logo", src: "/assets/images/Logo/Artboard_1_copy_6-100.jpg", label: "", tag: "Logo" },
   { cat: "Logo", src: "/assets/images/Logo/Artboard_1_copy_7-100.jpg", label: "", tag: "Logo" },
+  { cat: "Logo", src: "/assets/images/Logo/Artboard_1_copy_8-100.jpg", label: "", tag: "Logo" },
+  { cat: "Logo", src: "/assets/images/Logo/Artboard_1_copy_9-100.jpg", label: "", tag: "Logo" },
+  { cat: "Logo", src: "/assets/images/Logo/Artboard_1_copy_10-100.jpg", label: "", tag: "Logo" },
+  { cat: "Logo", src: "/assets/images/Logo/Artboard_1_copy_11-100.jpg", label: "", tag: "Logo" },
+  { cat: "Logo", src: "/assets/images/Logo/Artboard_1_copy_12-100.jpg", label: "", tag: "Logo" },
+  { cat: "Logo", src: "/assets/images/Logo/Artboard_1_copy_13-100.jpg", label: "", tag: "Logo" },
+  { cat: "Logo", src: "/assets/images/Logo/Artboard_1_copy_14-100.jpg", label: "", tag: "Logo" },
+  { cat: "Logo", src: "/assets/images/Logo/Artboard_1_copy_15-100.jpg", label: "", tag: "Logo" },
 ];
 
 function PortfolioTabs({
   active,
   onChange,
+  isWhite
 }: {
   active: Category;
   onChange: (category: Category) => void;
+  isWhite: boolean;
 }) {
   return (
     <div className="flex flex-wrap justify-center gap-3 lg:mb-12 mb-8">
@@ -89,8 +109,8 @@ function PortfolioTabs({
             onClick={() => onChange(cat)}
             className={`portfolio-tab relative px-6 py-2.5 rounded-full text-sm font-bold tracking-wide border-2 transition-all duration-300 overflow-hidden
               ${isActive
-                ? "bg-[#F75126] border-[#F75126] text-white shadow-[0_8px_24px_rgba(247,81,38,0.35)] scale-105"
-                : "bg-white border-gray-200 text-gray-600 hover:border-[#F75126] hover:text-[#F75126]"
+                ? "bg-[#39b54a] border-[#39b54a] text-white shadow-[0_8px_24px_rgba(57,181,74,0.35)] scale-105"
+                : `${isWhite ? 'bg-white border-gray-100 text-gray-500' : 'bg-white/5 border-white/10 text-gray-400'} hover:border-[#39b54a] hover:text-[#39b54a]`
               }`}
           >
             <span className="relative z-10">{cat}</span>
@@ -111,70 +131,53 @@ function PortfolioCard({ item }: { item: PortfolioItem }) {
   return (
     <>
       <div
-        className={`port-card group relative rounded-2xl overflow-hidden border-2 border-gray-100 hover:border-[#F75126]/30 hover:shadow-[0_20px_50px_rgba(247,81,38,0.15)] transition-all duration-500 cursor-pointer ${item.cat === "Web Design" ? "h-[650px] overflow-y-scroll" : "h-[350px]"
+        className={`port-card group relative rounded-3xl overflow-hidden border-2 border-transparent hover:border-[#39b54a]/30 transition-all duration-500 cursor-pointer ${item.cat === "Web Design" ? "h-[600px]" : "h-[350px]"
           }`}
+        onClick={toggleLightbox}
       >
         <div className="absolute inset-0 overflow-hidden bg-black/5">
-          <div className="h-full w-full overflow-hidden">
-            <img
-              src={item.src}
-              alt={item.label || item.tag}
-              className={`w-full ${item.cat === "Web Design"
-                ? "h-auto group-hover:-translate-y-[60%]"
-                : "h-full"
-                } block object-cover transition-transform duration-[9000ms] ease-linear`}
-              onClick={toggleLightbox}
-            />
-          </div>
+          <img
+            src={item.src}
+            alt={item.label || item.tag}
+            className={`w-full ${item.cat === "Web Design" ? "h-auto group-hover:translate-y-[calc(-100%+600px)]" : "h-full object-cover"} block transition-transform duration-[5s] ease-linear`}
+          />
         </div>
 
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
-        <div className="absolute bottom-0 left-0 right-0 p-5 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-          <span className="text-[10px] font-bold tracking-widest uppercase text-[#F75126] block mb-1">
+        <div className="absolute bottom-0 left-0 right-0 p-8 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+          <span className="text-[10px] font-black tracking-[0.3em] uppercase text-[#39b54a] block mb-2">
             {item.tag}
           </span>
-
           {item.label && (
-            <span className="font-bold text-white text-base">{item.label}</span>
+            <span className="font-black text-white text-xl">{item.label}</span>
           )}
         </div>
 
-        <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-[#F75126] flex items-center justify-center opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300">
-          <svg
-            className="w-4 h-4 text-white"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2.5}
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
-            />
+        <div className="absolute top-6 right-6 w-12 h-12 rounded-full bg-[#39b54a] flex items-center justify-center opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300">
+          <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
           </svg>
         </div>
       </div>
 
-      {/* Lightbox Modal */}
       {isLightboxOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-4"
+          className="fixed inset-0 bg-black/95 flex items-center justify-center z-[9999] p-4 backdrop-blur-sm"
           onClick={toggleLightbox}
         >
           <div
-            className="relative max-w-[90vw] max-h-[90vh] flex items-center justify-center"
+            className="relative max-w-[95vw] max-h-[95vh] flex items-center justify-center"
             onClick={(e) => e.stopPropagation()}
           >
             <img
               src={item.src}
               alt={item.tag}
-              className="max-w-full max-h-[90vh] w-auto h-auto object-contain rounded-xl"
+              className="max-w-full max-h-[90vh] w-auto h-auto object-contain rounded-2xl shadow-2xl"
             />
             <button
               onClick={toggleLightbox}
-              className="absolute -top-4 -right-4 w-9 h-9 rounded-full bg-[#F75126] text-white text-xl flex items-center justify-center shadow-lg hover:bg-red-600 transition-colors duration-200"
+              className="absolute -top-6 -right-6 w-12 h-12 rounded-full bg-white text-black text-2xl flex items-center justify-center shadow-2xl hover:bg-[#39b54a] hover:text-white transition-all"
             >
               ×
             </button>
@@ -185,14 +188,16 @@ function PortfolioCard({ item }: { item: PortfolioItem }) {
   );
 }
 
-function PortfolioGrid({ activeCategory }: { activeCategory: Category }) {
+function PortfolioGrid({ activeCategory, singleCategory, seeAll }: { activeCategory: Category; singleCategory?: Category; seeAll: boolean }) {
   const shownItems = useMemo(() => {
-    const filtered = portfolioItems.filter((item) => item.cat === activeCategory);
-    return filtered.length > 0 ? filtered : portfolioItems;
-  }, [activeCategory]);
+    const effectiveCategory = singleCategory ?? activeCategory;
+    const filtered = portfolioItems.filter((item) => item.cat === effectiveCategory);
+    const items = filtered.length > 0 ? filtered : portfolioItems;
+    return seeAll ? items : items.slice(0, 9);
+  }, [activeCategory, singleCategory, seeAll]);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {shownItems.map((item, index) => (
         <PortfolioCard key={`${item.cat}-${item.src}-${index}`} item={item} />
       ))}
@@ -200,74 +205,86 @@ function PortfolioGrid({ activeCategory }: { activeCategory: Category }) {
   );
 }
 
-export default function Portfolio() {
-  const [activeCategory, setActiveCategory] = useState<Category>("Web Design");
+export default function Portfolio({
+  isWhite = false,
+  initialCategory,
+  singleCategory,
+  hideTabs = false,
+  showHeader = true
+}: {
+  isWhite?: boolean;
+  initialCategory?: Category;
+  singleCategory?: Category;
+  hideTabs?: boolean;
+  showHeader?: boolean;
+}) {
+  const [activeCategory, setActiveCategory] = useState<Category>(singleCategory ?? initialCategory ?? "Web Design");
+  const [seeAll, setSeeAll] = useState(false);
+
+  const effectiveCategory = singleCategory ?? activeCategory;
+  const filteredItems = portfolioItems.filter((item) => item.cat === effectiveCategory);
+  const totalCount = filteredItems.length > 0 ? filteredItems.length : portfolioItems.length;
+  const showSeeMore = totalCount > 9;
 
   return (
-    <>
-      <style jsx global>{`
-        @keyframes floatY {
-          0%,
-          100% {
-            transform: translateY(0);
-          }
-          50% {
-            transform: translateY(-14px);
-          }
-        }
+    <section className={`relative py-24 lg:py-32 px-4 md:px-12 lg:px-[150px] overflow-hidden transition-colors duration-700 ${isWhite ? "bg-white" : "bg-[#0a0a0a]"}`}>
+      <div className="max-w-[1400px] mx-auto relative z-10">
+        {showHeader && (
+          <div className="text-center mb-16">
+            <span className="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#39b54a] bg-[#39b54a]/10 border border-[#39b54a]/20 px-4 py-1.5 rounded-full mb-6">
+              Our Work
+            </span>
+            <h2 className={`text-4xl md:text-6xl font-black mb-6 ${isWhite ? "text-[#272D4E]" : "text-white"}`}>
+              Explore our <span className="text-[#39b54a]">Portfolio</span>
+            </h2>
+            <p className={`max-w-2xl mx-auto text-lg leading-relaxed ${isWhite ? "text-gray-500" : "text-gray-400"}`}>
+              High-end digital solutions across every category. From complex web architectures to premium brand identities.
+            </p>
+          </div>
+        )}
 
-        .float-anim {
-          animation: floatY 5s ease-in-out infinite;
-        }
+        {!hideTabs && !singleCategory && (
+          <PortfolioTabs active={activeCategory} onChange={(cat) => { setActiveCategory(cat); setSeeAll(false); }} isWhite={isWhite} />
+        )}
 
-        .float-anim-slow {
-          animation: floatY 7s ease-in-out infinite;
-        }
+        <PortfolioGrid activeCategory={activeCategory} singleCategory={singleCategory} seeAll={seeAll} />
 
-        .port-card {
-          overflow: hidden;
-        }
-      `}</style>
+        {showSeeMore && (
+          <div className="flex justify-center mt-14">
+            <button
+              onClick={() => setSeeAll(!seeAll)}
+              className="group inline-flex items-center gap-3 px-10 py-4 rounded-full text-sm font-bold tracking-wide border-2 transition-all duration-300"
+              style={{
+                borderColor: seeAll ? '#39b54a' : 'var(--brand-primary, #39b54a)',
+                color: seeAll ? '#39b54a' : 'var(--brand-primary, #39b54a)',
+                backgroundColor: seeAll ? 'rgba(57,181,74,0.1)' : 'transparent'
+              }}
+            >
+              {seeAll ? (
+                <>Show Less <svg className={`w-5 h-5 transition-transform group-hover:-translate-y-1`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" /></svg></>
+              ) : (
+                <>See More ({totalCount - 9}+) <svg className={`w-5 h-5 transition-transform group-hover:translate-y-1`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg></>
+              )}
+            </button>
+          </div>
+        )}
+      </div>
 
-      <section className="services_sec relative 2xl:px-55 xl:px-20 px-4 mb-20 py-10 overflow-hidden">
-        <div className="text-center mb-4">
-          <span className="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#F75126] bg-[rgba(247,81,38,.08)] border border-[rgba(247,81,38,.18)] px-4 py-1.5 rounded-full mb-4">
-            Our Work
-          </span>
-
-          <h2 className="title2 text-center">
-            Explore our{" "}
-            <span className="relative inline-block">portfolio</span>
-          </h2>
-        </div>
-
-        <p className="text !text-[#4b5563] lg:my-12 md:my-8 my-4 text-center max-w-2xl mx-auto">
-          Get the perfect design in any category. Whatever your business need or
-          budget, our team delivers beyond expectations.
-        </p>
-
-        <Image
-          src={Circle}
-          alt="circle"
-          width={260}
-          height={260}
-          loading="lazy"
-          className="float-anim xl:w-66 xl:h-66 w-24 h-24 object-cover absolute top-0 xl:-left-33 -left-4 -z-1 circle_img"
-        />
-
-        <Image
-          src={Circle}
-          alt="circle"
-          width={260}
-          height={260}
-          loading="lazy"
-          className="float-anim-slow xl:w-66 xl:h-66 w-24 h-24 object-cover absolute top-50 xl:-right-10 -right-6 -z-1 circle_img"
-        />
-
-        <PortfolioTabs active={activeCategory} onChange={setActiveCategory} />
-
-        <PortfolioGrid activeCategory={activeCategory} />
-      </section>
-    </>
+      {/* Decorative Circles */}
+      <Image
+        src={Circle}
+        alt="circle"
+        width={400}
+        height={400}
+        className="absolute top-0 -left-48 z-0 opacity-20 pointer-events-none grayscale brightness-50"
+      />
+      <Image
+        src={Circle}
+        alt="circle"
+        width={400}
+        height={400}
+        className="absolute bottom-0 -right-48 z-0 opacity-10 pointer-events-none grayscale"
+      />
+    </section>
   );
 }

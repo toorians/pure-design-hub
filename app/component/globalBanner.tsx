@@ -30,6 +30,14 @@ export default function GlobalBanner({ title, text, imagePath }: GlobalBannerPro
             transform: translateY(0);
           }
         }
+        @media (prefers-reduced-motion: reduce) {
+          .hero-fade-up,
+          .hero-fade-up-delay {
+            animation: none !important;
+            opacity: 1 !important;
+            transform: none !important;
+          }
+        }
       `}</style>
       <div className='global_baner grid lg:grid-cols-2 grid-cols-1 items-center xl:gap-10 lg:gap-5 gap-4 2xl:px-55 xl:px-30 lg:py-20 py-10 px-4'>
         <div className='hero-fade-up lg:order-0 order-1 lg:text-left text-center'>
@@ -37,9 +45,9 @@ export default function GlobalBanner({ title, text, imagePath }: GlobalBannerPro
             {title}
           </h1>
           {text != '' && (
-            <p className='text !text-[#4B5565] sm:mb-4 mb-2'>{text}</p>
+            <p className="global-banner-desc sm:mb-4 mb-2">{text}</p>
           )}
-          <Link href='/get-quote' className='globalBtn bg-[#F75126] text-white inline-flex transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_14px_28px_rgba(247,81,38,0.35)]'>Lets get Started</Link>
+          <Link href='/get-quote' className='globalBtn bg-[color:var(--brand-primary)] text-white inline-flex transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_14px_28px_color-mix(in_srgb,var(--brand-primary)_35%,transparent)]'>Lets get Started</Link>
         </div>
         <div className='hero-fade-up-delay lg:order-1 order-0 overflow-hidden rounded-2xl'>
           <Image

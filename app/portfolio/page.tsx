@@ -7,7 +7,7 @@ import GlobalBanner from "../component/globalBanner";
 export default function PFGal() {
   return (
     <>
-      <section className="globalBanner_sec relative overflow-hidden h-full w-full xl:mb-40 lg:mb-20 mb-10 bg-linear-to-b from-[#E5EFFF] from-40% to-[#FB591E] to-100% ">
+      <section className="globalBanner_sec portfolio-page-banner relative overflow-hidden h-full w-full mb-0 bg-linear-to-b from-[#E5EFFF] from-40% to-[color:var(--brand-primary)] to-100%">
         <Header />
         <GlobalBanner
           title={

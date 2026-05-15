@@ -1,17 +1,15 @@
 "use client";
 import Circle from "@/public/assets/images/circle.png";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Header from "@/app/component/header";
 import Footer from "@/app/component/footer";
 import ContactUs from "@/app/component/contactUs";
-import PricingSection from "@/app/component/web-development-pricing";
-import { useState } from "react";
-import TechStack from "@/app/component/tech-stack"
+import TechStack from "@/app/component/tech-stack";
 import IndustriesSection from "@/app/component/IndustriesSection";
+import PricingPlansBlock from "@/app/component/PricingPlansBlock";
 /* ── Image paths (replace placeholders with real assets) ── */
-const WEB_HERO_IMG = "/assets/images/web-dev-hero.png";   /* hero right side image  */
 const SMM_WHY_IMG = "/assets/images/smm-why.png";    /* why smm matters     */
 const WEB_BG_VECTOR = "/assets/images/AI-02.png";          /* bg decorative vector   */
 
@@ -41,7 +39,6 @@ const IcMaintain = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentCol
 /* ── SVG Icons — Why Choose Us ── */
 const IcCustomize = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3" /><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" /></svg>;
 const IcDesign = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>;
-const IcMobile = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" /><circle cx="12" cy="17" r="1" /><path d="M9 6h6" /></svg>;
 const IcUserFocus = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 00-3-3.87" /><path d="M16 3.13a4 4 0 010 7.75" /></svg>;
 const IcTech = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="16 18 22 12 16 6" /><polyline points="8 6 2 12 8 18" /></svg>;
 const IcGrowth = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18" /><polyline points="17 6 23 6 23 12" /></svg>;
@@ -72,7 +69,7 @@ const industries = [
 const SvgUnderline = () => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 150" preserveAspectRatio="none" className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full">
     <path d="M325,18C228.7-8.3,118.5,8.3,78,21C22.4,38.4,4.6,54.6,5.6,77.6c1.4,32.4,52.2,54,142.6,63.7c66.2,7.1,212.2,7.5,273.5-8.3c64.4-16.6,104.3-57.6,33.8-98.2C386.7-4.9,179.4-1.4,126.3,20.7"
-      fill="none" stroke="#f75126" strokeWidth="6" strokeLinecap="round" className="animated-path" />
+      fill="none" stroke="var(--brand-primary)" strokeWidth="6" strokeLinecap="round" className="animated-path" />
   </svg>
 );
 
@@ -95,19 +92,33 @@ function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: str
 }
 
 /* ── FAQ Item ── */
-const FaqItem = ({ faq, index }: { faq: { q: string; a: string }; index: number }) => {
+const FaqItem = ({ faq, index, dark = false }: { faq: { q: string; a: string }; index: number; dark?: boolean }) => {
   const [open, setOpen] = useState(false);
   return (
-    <div className="border border-gray-200 rounded-xl overflow-hidden reveal-up" style={{ animationDelay: `${index * 80}ms` }}>
-      <button onClick={() => setOpen(!open)} className="w-full flex items-center justify-between px-6 py-5 text-left hover:bg-gray-50 transition-colors">
-        <span className="font-semibold text-[#1a1a2e] pr-4 text-base">{faq.q}</span>
-        <span className={`flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-all duration-500 ${open ? "bg-[#F75126] rotate-180" : "bg-gray-100"}`}>
-          <svg className={`w-4 h-4 ${open ? "text-white" : "text-gray-500"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <div
+      className={`rounded-xl overflow-hidden reveal-up ${dark ? "border border-white/10 bg-white/[0.04]" : "border border-gray-200"}`}
+      style={{ animationDelay: `${index * 80}ms` }}
+    >
+      <button
+        onClick={() => setOpen(!open)}
+        className={`w-full flex items-center justify-between px-6 py-5 text-left transition-colors ${dark ? "hover:bg-white/5" : "hover:bg-gray-50"}`}
+      >
+        <span className={`font-semibold pr-4 text-base ${dark ? "text-white" : "text-[#1a1a2e]"}`}>{faq.q}</span>
+        <span
+          className={`flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-all duration-300 ${open ? "bg-[color:var(--brand-primary)] rotate-180" : dark ? "bg-white/10" : "bg-gray-100"}`}
+        >
+          <svg className={`w-4 h-4 ${open ? "text-white" : dark ? "text-neutral-400" : "text-gray-500"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
           </svg>
         </span>
       </button>
-      {open && <div className="px-6 pb-5 text-gray-500 leading-relaxed text-sm border-t border-gray-100 pt-4 animate-faq-open">{faq.a}</div>}
+      {open && (
+        <div
+          className={`px-6 pb-5 leading-relaxed text-sm pt-4 animate-faq-open border-t ${dark ? "text-neutral-300 border-white/10" : "text-gray-500 border-gray-100"}`}
+        >
+          {faq.a}
+        </div>
+      )}
     </div>
   );
 };
@@ -131,37 +142,50 @@ function ScrollRevealInit() {
 /* ════════════════════════════════════════
    PAGE COMPONENT
 ════════════════════════════════════════ */
-export default function WebDevelopmentServices() {
-  const [loading, setLoading] = useState(false);
-  const [successMsg, setSuccessMsg] = useState("");
-  const [errorMsg, setErrorMsg] = useState("");
+export default function SocialMediaMarketingServices() {
+  const [form, setForm] = React.useState({
+    name: "",
+    email: "",
+    phone: "",
+    service: "SocialMediaMarketing",
+    message: "",
+  });
+  const [errors, setErrors] = React.useState<{ [key: string]: string }>({});
+  const [loading, setLoading] = React.useState(false);
+  const [successMsg, setSuccessMsg] = React.useState("");
+  const [errorMsg, setErrorMsg] = React.useState("");
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const validate = () => {
+    const newErrors: { [key: string]: string } = {};
+    if (!form.name.trim()) newErrors.name = "Name is required";
+    if (!form.email.trim()) newErrors.email = "Email is required";
+    if (!form.phone.trim()) newErrors.phone = "Phone is required";
+    if (!form.message.trim()) newErrors.message = "Project details are required";
+    return newErrors;
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSuccessMsg("");
     setErrorMsg("");
 
-    const formEl = e.currentTarget;
-    const formData = new FormData(formEl);
-    const payload = {
-      name: String(formData.get("name") || "").trim(),
-      email: String(formData.get("email") || "").trim(),
-      phone: String(formData.get("phone") || "").trim(),
-      service: "SocialMediaMarketing",
-      message: String(formData.get("message") || "").trim(),
-    };
-
-    if (!payload.name || !payload.email || !payload.phone || !payload.message) {
-      setErrorMsg("Please fill all required fields.");
-      return;
-    }
+    const validationErrors = validate();
+    setErrors(validationErrors);
+    if (Object.keys(validationErrors).length > 0) return;
 
     try {
       setLoading(true);
       const res = await fetch("https://puredesignhub.com/api/get-quote.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(form),
       });
       const data = await res.json();
 
@@ -170,7 +194,14 @@ export default function WebDevelopmentServices() {
       }
 
       setSuccessMsg(data?.message || "Thank you! Your request has been submitted successfully.");
-      formEl.reset();
+      setForm({
+        name: "",
+        email: "",
+        phone: "",
+        service: "SocialMediaMarketing",
+        message: "",
+      });
+      setErrors({});
     } catch (err: any) {
       console.error(err);
       setErrorMsg(err?.message || "Something went wrong. Please try again.");
@@ -188,23 +219,23 @@ export default function WebDevelopmentServices() {
     { title: "YouTube Marketing Services", desc: "Tap into video discovery with branded content, ads, and storytelling that captivate viewers, enhance your brand’s story, and drive traffic back to your business.", Icon: IcRedesign }];
 
   const processSteps = [
-    { title: "Data Driven Planning", desc: "We define clear goals so every post, campaign, and ad aligns with your business vision." },
-    { title: "Targeted Audience Research", desc: "We dive into your audience’s behaviors, interests, and preferences so your content reaches the right people at the right time." },
-    { title: "Tailored Platform Selection", desc: "Not every platform suits every brand — we choose the channels that deliver the biggest impact for your niche." },
-    { title: "Engaging Content Creation", desc: "From visuals to captions and video, we craft content that resonates, entertains, and converts." },
-    { title: "Performance Tracking & Optimization", desc: "Week by week insights let us refine your strategy, improve engagement rates, and maximize your ROI." },
+    { number: "01", title: "Data Driven Planning", desc: "We define clear goals so every post, campaign, and ad aligns with your business vision." },
+    { number: "02", title: "Targeted Audience Research", desc: "We dive into your audience’s behaviors, interests, and preferences so your content reaches the right people at the right time." },
+    { number: "03", title: "Tailored Platform Selection", desc: "Not every platform suits every brand — we choose the channels that deliver the biggest impact for your niche." },
+    { number: "04", title: "Engaging Content Creation", desc: "From visuals to captions and video, we craft content that resonates, entertains, and converts." },
+    { number: "05", title: "Performance Tracking & Optimization", desc: "Week by week insights let us refine your strategy, improve engagement rates, and maximize your ROI." },
   ];
 
   const whyChooseUs = [
     { title: "Expert Strategists", text: "Our team doesn’t just create content; we combine imaginative ideas with deep analytics to build campaigns that are smart, purposeful, and uniquely tailored to your brand’s goals.", Icon: IcCustomize },
     { title: "Market Intelligence", text: "We constantly analyze the latest social media trends, audience behaviors, and platform updates so your brand stays relevant, visible, and ahead of the competition.", Icon: IcDesign },
-    { title: "Custom Built Solutions", desc: "Every campaign we develop is personalized for your audience, industry, and objectives — ensuring maximum engagement and tangible results every time.", Icon: IcMobile, text: "All websites we build are fully responsive — looking and working perfectly across all devices and screen sizes." },
+    { title: "Custom Built Solutions", text: "Every campaign is tailored to your audience, industry, and goals so content, cadence, and spend work together for engagement you can measure.", Icon: IcGrowth },
     { title: "Collaborative Partnership", text: "We work hand-in-hand with your team to capture your brand’s true personality, making sure every post, story, and ad reflects your unique identity.", Icon: IcUserFocus },
     { title: "Measurable Growth", text: "From tracking likes and shares to analyzing conversions and sales, our approach emphasizes metrics that truly matter and drive your business forward.", Icon: IcTech },
   ];
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-[#0a0a0a]">
       <style jsx global>{`
         /* ── Reveal animations (Premium Minimal) ── */
         .reveal-up    { opacity:0; transform:translateY(30px);  transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1); will-change: opacity, transform; }
@@ -235,8 +266,8 @@ export default function WebDevelopmentServices() {
         .float-anim{animation:floatY 6s ease-in-out infinite}
         .float-anim-slow{animation:floatY 8s ease-in-out infinite}
         @keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
-        .shimmer-badge{background:linear-gradient(90deg,rgba(247,81,38,.1) 0%,rgba(247,81,38,.3) 40%,rgba(247,81,38,.1) 100%);background-size:200% auto;animation:shimmer 4s linear infinite}
-        @keyframes pulseRing{0%{box-shadow:0 0 0 0 rgba(247,81,38,.3)}70%{box-shadow:0 0 0 12px rgba(247,81,38,0)}100%{box-shadow:0 0 0 0 rgba(247,81,38,0)}}
+        .shimmer-badge{background:linear-gradient(90deg,color-mix(in srgb,var(--brand-primary) 12%,transparent) 0%,color-mix(in srgb,var(--brand-primary) 32%,transparent) 40%,color-mix(in srgb,var(--brand-primary) 12%,transparent) 100%);background-size:200% auto;animation:shimmer 4s linear infinite}
+        @keyframes pulseRing{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--brand-primary) 35%,transparent)}70%{box-shadow:0 0 0 12px transparent}100%{box-shadow:0 0 0 0 transparent}}
         .pulse-btn{animation:pulseRing 2.5s ease infinite}
         .animated-path{stroke-dasharray:1500;stroke-dashoffset:1500;animation:drawPath 1.6s cubic-bezier(.16,1,.3,1) forwards .3s}
         @keyframes drawPath{to{stroke-dashoffset:0}}
@@ -248,32 +279,29 @@ export default function WebDevelopmentServices() {
         .hero-form{animation:heroSlideUp .9s cubic-bezier(.16,1,.3,1) forwards .4s;opacity:0}
 
         /* ── Icon boxes ── */
-        .svc-icon-box{width:52px;height:52px;border-radius:14px;background:rgba(247,81,38,.05);display:flex;align-items:center;justify-content:center;margin-bottom:20px;transition:all .4s cubic-bezier(.16,1,.3,1)}
-        .svc-icon-box svg{width:24px;height:24px;color:#F75126;transition:color .4s ease}
-        .group:hover .svc-icon-box{background:#F75126;transform:scale(1.05) rotate(-2deg)}
+        .svc-icon-box{width:52px;height:52px;border-radius:14px;background:color-mix(in srgb,var(--brand-primary) 8%,transparent);display:flex;align-items:center;justify-content:center;margin-bottom:20px;transition:all .4s cubic-bezier(.16,1,.3,1)}
+        .svc-icon-box svg{width:24px;height:24px;color:var(--brand-primary);transition:color .4s ease}
+        .group:hover .svc-icon-box{background:var(--brand-primary);transform:scale(1.05) rotate(-2deg)}
         .group:hover .svc-icon-box svg{color:#fff}
 
-        .why-icon-box{width:46px;height:46px;border-radius:12px;background:rgba(247,81,38,.05);display:flex;align-items:center;justify-content:center;margin-bottom:16px;transition:all .4s cubic-bezier(.16,1,.3,1)}
-        .why-icon-box svg{width:20px;height:20px;color:#F75126;transition:color .4s ease}
-        .group:hover .why-icon-box{background:#F75126;transform:scale(1.05)}
+        .why-icon-box{width:46px;height:46px;border-radius:12px;background:color-mix(in srgb,var(--brand-primary) 8%,transparent);display:flex;align-items:center;justify-content:center;margin-bottom:16px;transition:all .4s cubic-bezier(.16,1,.3,1)}
+        .why-icon-box svg{width:20px;height:20px;color:var(--brand-primary);transition:color .4s ease}
+        .group:hover .why-icon-box{background:var(--brand-primary);transform:scale(1.05)}
         .group:hover .why-icon-box svg{color:#fff}
 
-        .ind-icon-box{width:50px;height:50px;border-radius:50%;background:rgba(247,81,38,.05);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;transition:all .4s cubic-bezier(.16,1,.3,1)}
-        .ind-icon-box svg{width:22px;height:22px;color:#F75126;transition:color .4s ease}
-        .group:hover .ind-icon-box{background:#F75126;transform:scale(1.1) rotate(-4deg)}
+        .ind-icon-box{width:50px;height:50px;border-radius:50%;background:color-mix(in srgb,var(--brand-primary) 8%,transparent);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;transition:all .4s cubic-bezier(.16,1,.3,1)}
+        .ind-icon-box svg{width:22px;height:22px;color:var(--brand-primary);transition:color .4s ease}
+        .group:hover .ind-icon-box{background:var(--brand-primary);transform:scale(1.1) rotate(-4deg)}
         .group:hover .ind-icon-box svg{color:#fff}
 
         /* ── placeholder image ── */
         .img-placeholder{background:linear-gradient(135deg,#1a2040 0%,#2d3568 50%,#1e3060 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;color:rgba(255,255,255,.3);font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
         .img-placeholder svg{opacity:.25;width:48px;height:48px}
-        @keyframes scrollLeft {
-}
 
-/* Optional: Animation pauses on hover */
-.group:hover .animate-scroll-left,
-.group:hover .animate-scroll-right {
-  animation-play-state: paused;
-}
+        .group:hover .animate-scroll-left,
+        .group:hover .animate-scroll-right {
+          animation-play-state: paused;
+        }
       `}</style>
 
       <ScrollRevealInit />
@@ -282,33 +310,33 @@ export default function WebDevelopmentServices() {
       {/* ══════════════════════════════════
           HERO
       ══════════════════════════════════ */}
-      <section className="pt-24 bg-gradient-to-br from-[#1E2B3A] via-[#2D3E50] to-[#1E2B3A] text-white py-16 px-4 sm:px-8 md:px-12 lg:px-20 lg:pt-24 lg:pb-40 relative overflow-hidden">
-        <div className="absolute top-[-10%] left-[-5%] w-[40%] h-[60%] bg-[#F75126] opacity-[0.08] blur-[120px] rounded-full animate-pulse" />
-        <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[70%] bg-[#2470ff] opacity-[0.05] blur-[150px] rounded-full" />
+      <section className="pt-24 bg-[#0a0a0a] text-white py-16 px-4 sm:px-8 md:px-12 lg:px-20 lg:pt-24 lg:pb-40 relative overflow-hidden">
+        <div className="absolute top-[-10%] left-[-5%] w-[60%] md:w-[40%] h-[60%] bg-[color-mix(in_srgb,var(--brand-primary)_35%,transparent)] opacity-[0.12] blur-[120px] rounded-full animate-pulse pointer-events-none" />
+        <div className="absolute bottom-[-20%] right-[-10%] w-[70%] md:w-[50%] h-[70%] bg-[color-mix(in_srgb,var(--brand-primary)_18%,#0a3d0c)] opacity-[0.15] blur-[150px] rounded-full pointer-events-none" />
         <div className="max-w-[1400px] mx-auto z-10 relative">
-          <div className="grid lg:grid-cols-2 gap-10 sm:gap-16 items-center">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             {/* Left */}
-            <div className="space-y-8">
-              <div className="hero-line-1 inline-block px-4 py-1.5 shimmer-badge border border-[#F75126]/20 rounded-full">
-                <span className="text-[#F75126] text-sm font-bold tracking-wider uppercase">Professional SMM Solutions 2026</span>
+            <div className="space-y-6 md:space-y-8">
+              <div className="hero-line-1 inline-block px-4 py-1.5 shimmer-badge border border-[color-mix(in_srgb,var(--brand-primary)_25%,transparent)] rounded-full">
+                <span className="text-[color:var(--brand-primary)] text-xs sm:text-sm font-bold tracking-wider uppercase">Professional Social Media Marketing 2026</span>
               </div>
-              <h1 className="hero-line-2 text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-[1.1] tracking-tight">
+              <h1 className="hero-line-2 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-4 md:mb-6 leading-[1.1] tracking-tight">
                 Social Media <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">Marketing Services</span>
               </h1>
-              <p className="hero-line-3 text-gray-300 text-xl md:text-2xl mb-12 max-w-xl leading-relaxed font-light">
-                Unlock the full potential of your brand online with focused social media marketing that builds followers, increases engagement, and turns traffic into sales.
+              <p className="hero-line-3 text-gray-300 text-lg sm:text-xl md:text-2xl mb-8 md:mb-12 max-w-xl leading-relaxed font-light">
+                Unlock your brand online with <span className="text-white font-semibold">focused social campaigns</span> that build followers, lift engagement, and turn attention into sales.
               </p>
-              <div className="hero-line-4 flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-4 sm:gap-10 pt-4">
-                <Link href="/get-quote" className="pulse-btn bg-[#F75126] text-white px-8 py-4 sm:px-12 sm:py-6 rounded-full font-bold text-base sm:text-lg hover:shadow-[0_20px_50px_rgba(247,81,38,0.3)] hover:-translate-y-1 transition-all flex items-center gap-3 group">
+              <div className="hero-line-4 flex flex-col sm:flex-row items-start sm:items-center gap-6 sm:gap-10 pt-2 md:pt-4">
+                <Link href="/get-quote" className="pulse-btn bg-[color:var(--brand-primary)] text-white px-8 sm:px-12 py-4 sm:py-6 rounded-lg font-bold text-base sm:text-lg hover:shadow-[0_20px_50px_rgba(44,159,0,0.35)] hover:-translate-y-1 transition-all flex items-center gap-3 group will-change-transform">
                   Get Free Proposal
                   <svg fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-5 h-5 group-hover:translate-x-1 transition-transform">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
                   </svg>
                 </Link>
-                <Link href="tel:+1234567890" className="flex items-center gap-3 font-bold text-xl hover:text-[#F75126] transition-all group">
-                  <div className="bg-white/5 border border-white/10 p-3 rounded-full group-hover:bg-[#F75126]/20 group-hover:border-[#F75126]/30 transition-all">
-                    <svg fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="#F75126" className="w-6 h-6">
+                <Link href="tel:+1234567890" className="flex items-center gap-3 font-bold text-lg sm:text-xl hover:text-[color:var(--brand-primary)] transition-all group">
+                  <div className="bg-white/5 border border-white/10 p-3 rounded-full group-hover:bg-[color-mix(in_srgb,var(--brand-primary)_18%,transparent)] group-hover:border-[color-mix(in_srgb,var(--brand-primary)_35%,transparent)] transition-all">
+                    <svg fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="var(--brand-primary)" className="w-6 h-6">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
                     </svg>
                   </div>
@@ -318,36 +346,61 @@ export default function WebDevelopmentServices() {
             </div>
 
             {/* Right — Contact Form */}
-            <div className="hero-form bg-white/95 backdrop-blur-md rounded-3xl md:rounded-[40px] p-6 sm:p-8 md:p-14 text-[#2D3E50] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border border-white/20 relative mt-8 lg:mt-0">
-              <div className="absolute -top-4 -left-2 sm:-top-6 sm:-left-6 bg-[#F75126] text-white px-4 py-1.5 sm:px-6 sm:py-2 rounded-full text-xs sm:text-sm font-bold shadow-lg">FREE CONSULTATION</div>
-              <h3 className="text-3xl md:text-4xl font-black mb-1 md:mb-2 mt-4 sm:mt-0">Book a Free</h3>
-              <h3 className="text-3xl md:text-4xl font-black text-[#F75126] mb-8 md:mb-12">Consultation</h3>
-              <form onSubmit={handleSubmit} className="space-y-8 md:space-y-10">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-10">
-                  <div className="relative group">
-                    <input type="text" id="name" name="name" className="peer w-full border-b-2 border-gray-200 bg-transparent outline-none focus:border-[#F75126] transition-all py-3 text-lg placeholder-transparent" placeholder="Full Name" required />
-                    <label htmlFor="name" className="absolute left-0 -top-5 text-sm font-bold text-gray-500 transition-all peer-placeholder-shown:text-lg peer-placeholder-shown:top-3 peer-focus:-top-5 peer-focus:text-sm peer-focus:text-[#F75126]">Full Name</label>
+            <div className="hero-form w-full max-w-lg lg:ml-auto">
+              <div className="relative group">
+                <div className="absolute -inset-4 bg-[#2a8b3a]/40 blur-[60px] opacity-100 animate-pulse -z-10 rounded-3xl" />
+                <div className="absolute -inset-10 bg-[#2a8b3a]/25 blur-[120px] opacity-80 -z-20 rounded-full" />
+
+                <div className="bg-[#111111] border border-white/10 rounded-2xl p-8 md:p-10 shadow-2xl backdrop-blur-sm">
+                  <div className="mb-8">
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="w-10 h-[2px] bg-[#39b54a]"></div>
+                      <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#39b54a]">Direct Inquiry</span>
+                    </div>
+                    <h2 className="text-3xl font-black text-white">Book a Free <span className="text-[#39b54a]">Consultation</span></h2>
                   </div>
-                  <div className="relative group">
-                    <input type="email" id="email" name="email" className="peer w-full border-b-2 border-gray-200 bg-transparent outline-none focus:border-[#F75126] transition-all py-3 text-lg placeholder-transparent" placeholder="Email" required />
-                    <label htmlFor="email" className="absolute left-0 -top-5 text-sm font-bold text-gray-500 transition-all peer-placeholder-shown:text-lg peer-placeholder-shown:top-3 peer-focus:-top-5 peer-focus:text-sm peer-focus:text-[#F75126]">Email</label>
-                  </div>
+
+                  <form onSubmit={handleSubmit} className="space-y-8 md:space-y-10">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+                      <div className="relative group">
+                        <input type="text" id="name" name="name" value={form.name} onChange={handleChange} className="peer w-full border-b-2 border-gray-200 bg-transparent outline-none focus:border-[color:var(--brand-primary)] transition-all py-3 text-base sm:text-lg placeholder-transparent text-white" placeholder="Full Name" required />
+                        <label htmlFor="name" className="absolute left-0 -top-5 text-xs sm:text-sm font-bold text-gray-400 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:sm:text-lg peer-placeholder-shown:top-3 peer-focus:-top-5 peer-focus:text-xs peer-focus:sm:text-sm peer-focus:text-[color:var(--brand-primary)]">Full Name</label>
+                        {errors.name && <p className="text-red-400 text-xs mt-2">{errors.name}</p>}
+                      </div>
+                      <div className="relative group">
+                        <input type="email" id="email" name="email" value={form.email} onChange={handleChange} className="peer w-full border-b-2 border-gray-200 bg-transparent outline-none focus:border-[color:var(--brand-primary)] transition-all py-3 text-base sm:text-lg placeholder-transparent text-white" placeholder="Email" required />
+                        <label htmlFor="email" className="absolute left-0 -top-5 text-xs sm:text-sm font-bold text-gray-400 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:sm:text-lg peer-placeholder-shown:top-3 peer-focus:-top-5 peer-focus:text-xs peer-focus:sm:text-sm peer-focus:text-[color:var(--brand-primary)]">Email</label>
+                        {errors.email && <p className="text-red-400 text-xs mt-2">{errors.email}</p>}
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+                      <div className="relative group">
+                        <input type="tel" id="number" name="phone" value={form.phone} onChange={handleChange} className="peer w-full border-b-2 border-gray-200 bg-transparent outline-none focus:border-[color:var(--brand-primary)] transition-all py-3 text-base sm:text-lg placeholder-transparent text-white" placeholder="Number" required />
+                        <label htmlFor="number" className="absolute left-0 -top-5 text-xs sm:text-sm font-bold text-gray-400 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:sm:text-lg peer-placeholder-shown:top-3 peer-focus:-top-5 peer-focus:text-xs peer-focus:sm:text-sm peer-focus:text-[color:var(--brand-primary)]">Number</label>
+                        {errors.phone && <p className="text-red-400 text-xs mt-2">{errors.phone}</p>}
+                      </div>
+                      <div className="relative group">
+                        <input type="text" id="project" name="message" value={form.message} onChange={handleChange} className="peer w-full border-b-2 border-gray-200 bg-transparent outline-none focus:border-[color:var(--brand-primary)] transition-all py-3 text-base sm:text-lg placeholder-transparent text-white" placeholder="Project Need" required />
+                        <label htmlFor="project" className="absolute left-0 -top-5 text-xs sm:text-sm font-bold text-gray-400 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:sm:text-lg peer-placeholder-shown:top-3 peer-focus:-top-5 peer-focus:text-xs peer-focus:sm:text-sm peer-focus:text-[color:var(--brand-primary)]">Describe Your Project</label>
+                        {errors.message && <p className="text-red-400 text-xs mt-2">{errors.message}</p>}
+                      </div>
+                    </div>
+                    <button type="submit" disabled={loading} className="w-full inline-flex items-center justify-center bg-gradient-to-r from-[#39b54a] via-[#2f9234] to-[#1f7f2b] text-white font-bold py-4 sm:py-6 rounded-lg text-lg sm:text-xl shadow-[0_20px_40px_rgba(57,181,74,0.25)] hover:shadow-[0_24px_50px_rgba(57,181,74,0.35)] transition-all mt-6 active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed">{loading ? "Sending..." : "Schedule A Call"}</button>
+                    <p className="text-center text-xs text-gray-400 mt-8 font-medium">By submitting this form, you agree to our <Link href="/privacypolicy" className="text-[color:var(--brand-primary)] hover:underline">Privacy Policy</Link></p>
+                  </form>
+
+                  {successMsg && (
+                    <div className="mt-6 p-4 bg-green-500/10 border border-green-500/20 rounded-lg text-[#39b54a] text-xs font-bold text-center animate-fade-in">
+                      {successMsg}
+                    </div>
+                  )}
+                  {errorMsg && (
+                    <div className="mt-6 p-4 bg-red-500/10 border border-red-500/20 rounded-lg text-red-400 text-xs font-bold text-center animate-fade-in">
+                      {errorMsg}
+                    </div>
+                  )}
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-10">
-                  <div className="relative group">
-                    <input type="tel" id="number" name="phone" className="peer w-full border-b-2 border-gray-200 bg-transparent outline-none focus:border-[#F75126] transition-all py-3 text-lg placeholder-transparent" placeholder="Number" required />
-                    <label htmlFor="number" className="absolute left-0 -top-5 text-sm font-bold text-gray-500 transition-all peer-placeholder-shown:text-lg peer-placeholder-shown:top-3 peer-focus:-top-5 peer-focus:text-sm peer-focus:text-[#F75126]">Number</label>
-                  </div>
-                  <div className="relative group">
-                    <input type="text" id="project" name="message" className="peer w-full border-b-2 border-gray-200 bg-transparent outline-none focus:border-[#F75126] transition-all py-3 text-lg placeholder-transparent" placeholder="Project Need" required />
-                    <label htmlFor="project" className="absolute left-0 -top-5 text-sm font-bold text-gray-500 transition-all peer-placeholder-shown:text-lg peer-placeholder-shown:top-3 peer-focus:-top-5 peer-focus:text-sm peer-focus:text-[#F75126]">Describe Your Project Need</label>
-                  </div>
-                </div>
-                {successMsg && <p className="text-green-700 bg-green-100 border border-green-200 rounded-xl px-4 py-3 text-sm">{successMsg}</p>}
-                {errorMsg && <p className="text-red-700 bg-red-100 border border-red-200 rounded-xl px-4 py-3 text-sm">{errorMsg}</p>}
-                <button type="submit" disabled={loading} className="w-full bg-[#F75126] text-white font-bold py-6 rounded-2xl text-xl hover:bg-[#E0441D] hover:shadow-[0_20px_40px_rgba(247,81,38,0.3)] transition-all mt-6 active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed">{loading ? "Sending..." : "Schedule A Call"}</button>
-                <p className="text-center text-xs text-gray-400 mt-8 font-medium">By submitting this form, you agree to our <Link href="/privacypolicy" className="text-[#F75126] hover:underline">Privacy Policy</Link></p>
-              </form>
+              </div>
             </div>
           </div>
         </div>
@@ -356,29 +409,42 @@ export default function WebDevelopmentServices() {
       {/* ══════════════════════════════════
           INTRO — Grow Your Business
       ══════════════════════════════════ */}
-      <section className="relative py-24 px-6 md:px-20 max-w-[1440px] mx-auto overflow-hidden bg-white">
-        {/* bg vector */}
-        <div className="absolute -bottom-20 -right-40 z-0 opacity-20 pointer-events-none w-[80%] md:w-[80%] lg:w-[70%] aspect-square rotate-[-12deg]">
-          <div className="relative w-full h-full scale-125 origin-bottom-right">
-            <Image src={WEB_BG_VECTOR} alt="Design Element" fill className="object-contain object-right-bottom" priority />
-          </div>
+      <section className="relative isolate py-16 md:py-24 px-4 sm:px-8 md:px-12 lg:px-20 max-w-[1440px] mx-auto overflow-hidden bg-[#0a0a0a] text-neutral-200">
+        <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+          <Image
+            src={WEB_BG_VECTOR}
+            alt=""
+            fill
+            className="object-contain object-right-bottom opacity-[0.14] sm:opacity-[0.16] md:opacity-[0.18]"
+            sizes="100vw"
+            priority
+          />
         </div>
 
         <div className="relative z-10 max-w-4xl">
-          <div className="flex items-center gap-3 mb-6">
-            <span className="w-12 h-[2px] bg-[#F75126]" />
-            <h3 className="text-[#F75126] font-bold uppercase tracking-[0.25em] text-sm">Professional App Development</h3>
+          <div className="flex items-center gap-2 sm:gap-3 mb-4 md:mb-6">
+            <span className="w-8 sm:w-12 h-[2px] bg-[color:var(--brand-primary)]" />
+            <h3 className="text-[color:var(--brand-primary)] font-bold uppercase tracking-[0.15em] sm:tracking-[0.25em] text-xs sm:text-sm">Professional Social Media Marketing</h3>
           </div>
-          <h2 className="text-4xl md:text-6xl font-black text-gray-900 mb-8 leading-[1.1] uppercase relative z-20">
-            Social Media Marketing Services
-            <span className="text-[#F75126] block mt-2">That Grow Brands & Drive Revenue</span>
+          <h2 className="text-3xl sm:text-4xl md:text-6xl font-black text-white mb-6 md:mb-8 leading-[1.2] md:leading-[1.1] uppercase relative z-20">
+            Grow Your Business with
+            <span className="text-[color:var(--brand-primary)] block mt-1 md:mt-2">Professional Social Media Marketing Services</span>
           </h2>
-          <div className="space-y-8 text-gray-800 leading-relaxed text-lg md:text-xl relative z-20">
-            <p className="max-w-3xl">Are you pouring time and budget into social media without seeing real results? PureDesignHub social media marketing services give your business the strategic edge it needs to grow online, connect with your ideal audience, and boost measurable ROI.</p>
-            <p className="max-w-3xl">We don’t just post content — we create meaningful engagement that translates into higher brand visibility, quality leads, and loyal customers.</p>
+          <div className="space-y-6 md:space-y-8 leading-relaxed text-base sm:text-lg md:text-xl relative z-20">
+            <p className="max-w-3xl text-neutral-300">At Pure Design Hub, we provide professional <strong className="text-white">social media marketing services in the USA</strong> for brands that want stronger reach, consistent engagement, and campaigns built around clear business outcomes.</p>
+            <div className="grid md:grid-cols-2 gap-6 md:gap-8 py-4 md:py-6">
+              <div className="border-l-4 border-[color:var(--brand-primary)] pl-5 sm:pl-6 bg-white/[0.04] backdrop-blur-sm p-4 rounded-r-2xl shadow-sm border-white/10">
+                <h4 className="font-bold text-white mb-2 uppercase tracking-tight text-sm sm:text-base">Strategy & Content</h4>
+                <p className="text-sm sm:text-base text-neutral-400">Platform plans, creative direction, and posting rhythms aligned with your brand voice.</p>
+              </div>
+              <div className="border-l-4 border-[color:var(--brand-primary)] pl-5 sm:pl-6 bg-white/[0.04] backdrop-blur-sm p-4 rounded-r-2xl shadow-sm border-white/10">
+                <h4 className="font-bold text-white mb-2 uppercase tracking-tight text-sm sm:text-base">Paid & Organic</h4>
+                <p className="text-sm sm:text-base text-neutral-400">We blend organic community-building with targeted ads for reach you can track.</p>
+              </div>
+            </div>
           </div>
           <div className="mt-12">
-            <Link href="/get-quote" className="relative z-30 inline-block bg-gray-900 text-white px-10 py-4 rounded-xl font-bold hover:bg-[#F75126] transition-all duration-500 shadow-xl">
+            <Link href="/get-quote" className="relative z-30 inline-block bg-[color:var(--brand-primary)] text-black px-10 py-4 rounded-xl font-bold hover:bg-white transition-all duration-300 shadow-xl">
               Get a Free Consultation
             </Link>
           </div>
@@ -386,30 +452,29 @@ export default function WebDevelopmentServices() {
       </section>
 
       {/* ══════════════════════════════════
-          WHY WEB DEV MATTERS
+          WHY SOCIAL MEDIA MATTERS
       ══════════════════════════════════ */}
-      <section className="bg-[#f9f9f9] py-20 px-4 sm:px-8 md:px-12 lg:px-20">
-        <div className="max-w-[1400px] mx-auto grid lg:grid-cols-2 gap-16 items-center">
+      <section className="bg-[#0a0a0a] py-16 md:py-20 px-4 sm:px-8 md:px-12 lg:px-20 overflow-hidden text-neutral-200">
+        <div className="max-w-[1400px] mx-auto grid lg:grid-cols-2 gap-10 md:gap-16 items-center">
           <div className="reveal-left">
-            <h2 className="title2 mb-6">Why Social Media Marketing Matters for <span className="text-[#F75126]">Businesses in the USA</span></h2>
-            <p className="text text-gray-600 mb-6">Social media has become one of the most powerful digital marketing channels in the USA. Customers spend hours daily on platforms like Instagram, Facebook, and TikTok, and businesses that fail to build a strong presence risk losing visibility and customers to competitors.</p>
-            <p className="text text-gray-600 mb-6 font-semibold">With the right mobile app strategy, your business can:</p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <h2 className="title2 !text-white text-3xl md:text-5xl font-black mb-4 md:mb-6 leading-tight">Why Social Media Marketing Matters for <span className="text-[color:var(--brand-primary)]">Businesses in the USA</span></h2>
+            <p className="text text-neutral-400 mb-4 md:mb-6 text-base sm:text-lg">Social media is one of the most influential digital channels in the USA. Customers spend hours daily on platforms like Instagram, Facebook, and TikTok — and brands that do not show up consistently risk losing visibility to competitors.</p>
+            <p className="text text-neutral-300 mb-4 md:mb-6 font-semibold text-base sm:text-lg">With the right social media strategy, your business can:</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
               {["Increase brand awareness and online reach", "Boost customer engagement and build trust", "Generate high-quality leads and conversions", "Grow followers through targeted campaigns", "Improve ROI with data-driven marketing strategies"].map((item, i) => (
-                <div key={i} className="flex items-center gap-2 text-gray-700 reveal-up" style={{ transitionDelay: `${i * 80}ms` }}>
-                  <span className="w-5 h-5 rounded-full bg-[#F75126]/10 flex items-center justify-center flex-shrink-0">
-                    <svg className="w-3 h-3 text-[#F75126]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                <div key={i} className="flex items-center gap-2 text-sm sm:text-base text-neutral-300 reveal-up" style={{ transitionDelay: `${i * 80}ms` }}>
+                  <span className="w-5 h-5 rounded-full bg-[color-mix(in_srgb,var(--brand-primary)_18%,transparent)] flex items-center justify-center flex-shrink-0">
+                    <svg className="w-3 h-3 text-[color:var(--brand-primary)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
                   </span>
                   {item}
                 </div>
               ))}
             </div>
-            <p className="text text-gray-600 mt-6">A strong social media presence helps your business connect directly with your audience, build long-term relationships, and drive consistent, measurable growth in today’s competitive digital landscape.</p>
+            <p className="text text-neutral-400 mt-6 text-base sm:text-lg">A strong social presence helps you connect with your audience, build relationships, and drive consistent, measurable growth in today’s digital landscape.</p>
           </div>
 
-          {/* Image */}
-          <div className="reveal-right rounded-[40px] overflow-hidden relative h-[250px] sm:h-[350px] md:h-[450px] shadow-[0_20px_50px_-10px_rgba(247,81,38,0.2)]">
-            <Image src={SMM_WHY_IMG} alt="Why Social Media Marketing Matters" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover hover:scale-105 transition-transform duration-700" />
+          <div className="reveal-right rounded-3xl md:rounded-[40px] overflow-hidden relative h-[250px] sm:h-[350px] md:h-[450px] shadow-[0_20px_50px_-10px_rgba(44,159,0,0.18)] ring-1 ring-white/10">
+            <Image src={SMM_WHY_IMG} alt="Why Social Media Marketing Matters" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover transition-transform duration-700 hover:scale-105" />
           </div>
         </div>
       </section>
@@ -417,17 +482,17 @@ export default function WebDevelopmentServices() {
       {/* ══════════════════════════════════
           SERVICES GRID
       ══════════════════════════════════ */}
-      <section className="py-20 px-4 sm:px-8 md:px-12 lg:px-20">
-        <div className="max-w-[1400px] mx-auto text-center mb-16 reveal-up">
-          <h2 className="title2 mb-4 uppercase text-[#272D4E]">Our Social Media Marketing <span className="text-[#F75126]">Services Include</span></h2>
-          <p className="text max-w-2xl mx-auto text-gray-500">PureDesignHub offers a full suite of tailored services designed to elevate your brand across major social channels. From content creation to advanced paid campaigns, we help your business get noticed — and remembered.</p>
+      <section className="py-16 md:py-20 px-4 sm:px-8 md:px-12 lg:px-20 overflow-hidden bg-white">
+        <div className="max-w-[1400px] mx-auto text-center mb-10 md:mb-16 reveal-up">
+          <h2 className="title2 text-3xl md:text-5xl font-black mb-3 md:mb-4 uppercase text-[#272D4E]">Our Social Media Marketing <span className="text-[color:var(--brand-primary)] block sm:inline">Services Include</span></h2>
+          <p className="text max-w-2xl mx-auto text-gray-500 text-base sm:text-lg">Pure Design Hub offers tailored services to elevate your brand across major social channels — from content creation to advanced paid campaigns.</p>
         </div>
         <div className="max-w-[1400px] mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 stagger-child">
           {webServices.map((s, i) => (
-            <div key={i} className="reveal-up bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-500 border border-gray-100 group hover:-translate-y-1 hover:border-[#F75126]/30/20">
+            <div key={i} className="reveal-up bg-white p-6 sm:p-8 rounded-2xl shadow-sm hover:shadow-xl hover:shadow-[color-mix(in_srgb,var(--brand-primary)_8%,transparent)] transition-all duration-500 border border-gray-100 group hover:-translate-y-1 hover:border-[color-mix(in_srgb,var(--brand-primary)_22%,transparent)]">
               <div className="svc-icon-box"><s.Icon /></div>
-              <h3 className="font-bold text-xl mb-3 text-[#272D4E] group-hover:text-[#F75126] transition-colors">{s.title}</h3>
-              <p className="text-sm text-gray-500 leading-relaxed">{s.desc}</p>
+              <h3 className="font-bold text-lg sm:text-xl mb-2 sm:mb-3 text-[#272D4E] group-hover:text-[color:var(--brand-primary)] transition-colors duration-300">{s.title}</h3>
+              <p className="text-xs sm:text-sm text-gray-500 leading-relaxed">{s.desc}</p>
             </div>
           ))}
         </div>
@@ -436,20 +501,20 @@ export default function WebDevelopmentServices() {
       {/* ══════════════════════════════════
           STATS BAR
       ══════════════════════════════════ */}
-      <section className="py-20 bg-[#0B0D17] text-white px-4">
+      <section className="py-16 md:py-20 bg-[#0a0a0a] text-white px-4 sm:px-8 md:px-12 lg:px-20 overflow-hidden">
         <div className="max-w-[1400px] mx-auto text-center">
-          <h2 className="reveal-up text-3xl md:text-5xl font-bold mb-6">Social Media Marketing That Drives <span className="text-[#F75126]">Results</span></h2>
-          <p className="reveal-up text-gray-400 mb-12">We don’t just post content — we create strategies that build awareness, boost engagement, and convert followers into customers.</p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 stagger-child">
+          <h2 className="reveal-up text-2xl sm:text-3xl md:text-5xl font-bold mb-4 md:mb-6">Social Media Marketing That Drives <span className="text-[color:var(--brand-primary)]">Results</span></h2>
+          <p className="reveal-up text-neutral-400 mb-10 md:mb-12 text-sm sm:text-base md:text-lg">We build strategies that grow awareness, lift engagement, and convert followers into customers.</p>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 stagger-child">
             {[
               { val: 98, suffix: "%", label: "Client Satisfaction" },
               { val: 450, suffix: "+", label: "Campaigns Managed" },
               { val: 8, suffix: "+", label: "Industry Experience" },
-              { val: 100, suffix: "%", label: "User-Centric Strategy" },
+              { val: 100, suffix: "%", label: "Audience-First Strategy" },
             ].map((stat, i) => (
               <div key={i} className="reveal-up">
-                <div className="text-4xl md:text-5xl font-bold text-[#F75126] mb-2"><AnimatedCounter target={stat.val} suffix={stat.suffix} /></div>
-                <div className="text-gray-400 font-semibold uppercase text-xs tracking-widest">{stat.label}</div>
+                <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-[color:var(--brand-primary)] mb-1 sm:mb-2"><AnimatedCounter target={stat.val} suffix={stat.suffix} /></div>
+                <div className="text-gray-400 font-semibold uppercase text-[10px] sm:text-xs tracking-widest">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -459,44 +524,47 @@ export default function WebDevelopmentServices() {
       {/* ══════════════════════════════════
           WHY CHOOSE US
       ══════════════════════════════════ */}
-      <section className="py-20 bg-white px-4 sm:px-8 md:px-12 lg:px-20">
+      <section className="py-16 md:py-20 bg-white px-4 sm:px-8 md:px-12 lg:px-20 overflow-hidden">
         <div className="max-w-[1400px] mx-auto">
-          <h2 className="reveal-up title2 text-center mb-4 uppercase">Why Choose <span className="text-[#F75126]">Pure Design Hub</span> Social Media Marketing</h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 stagger-child">
+          <h2 className="reveal-up title2 text-3xl md:text-5xl font-black text-center mb-3 md:mb-4 uppercase">Why Choose <span className="text-[color:var(--brand-primary)] block sm:inline">Pure Design Hub</span></h2>
+          <p className="reveal-up text max-w-6xl mx-auto text-gray-500 text-center mb-10 text-base sm:text-lg">When you invest in social media marketing, you need a partner who understands your audience, brand voice, and growth goals. Our services combine strategy, creative, analytics, and paid media.</p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 stagger-child">
             {whyChooseUs.map((item, i) => (
-              <div key={i} className="reveal-up p-8 bg-[#f9f9f9] rounded-3xl border border-gray-100 hover:border-[#F75126]/30 hover:bg-white hover:-translate-y-1 hover:shadow-md transition-all duration-500 group">
+              <div key={i} className="reveal-up p-6 sm:p-8 bg-[#f9f9f9] rounded-3xl border border-transparent hover:border-[color-mix(in_srgb,var(--brand-primary)_28%,transparent)] hover:bg-white hover:-translate-y-1 hover:shadow-xl hover:shadow-[color-mix(in_srgb,var(--brand-primary)_10%,transparent)] transition-all duration-500 group">
                 <div className="why-icon-box"><item.Icon /></div>
-                <h4 className="font-bold text-xl text-[#272D4E] mb-3 group-hover:text-[#F75126] transition-colors">{item.title}</h4>
-                <p className="text-sm text-gray-500">{item.text}</p>
+                <h4 className="font-bold text-lg sm:text-xl text-[#272D4E] mb-2 sm:mb-3 group-hover:text-[color:var(--brand-primary)] transition-colors duration-300">{item.title}</h4>
+                <p className="text-xs sm:text-sm text-gray-500">{item.text}</p>
               </div>
             ))}
           </div>
-          <p className="text-center mt-12 text-gray-600 max-w-3xl mx-auto reveal-up">By combining technical expertise with a user-centered approach, PureDesignHub ensures your mobile app delivers more than just functionality—it creates an outstanding user experience, strengthens your brand authority, and drives measurable business growth.</p>
+          <p className="text-center mt-10 md:mt-12 text-gray-600 max-w-3xl mx-auto reveal-up text-sm sm:text-base">We combine planning, creative, and performance reporting so your social channels support trust, engagement, and measurable business outcomes.</p>
         </div>
       </section>
+
+      <PricingPlansBlock />
 
       {/* ══════════════════════════════════
           PROCESS
       ══════════════════════════════════ */}
-      <section className="relative py-20 bg-[#F9F9F9] px-4 sm:px-8 md:px-12 lg:px-20  overflow-hidden">
+      <section className="relative py-16 md:py-20 bg-[#0a0a0a] px-4 sm:px-8 md:px-12 lg:px-20 overflow-hidden text-neutral-200">
+        <Image src={Circle} alt="circle" width={0} height={0} sizes="100vw" loading="lazy" className="float-anim xl:w-66 xl:h-66 w-24 h-24 object-cover absolute top-0 xl:-left-33 -left-4 -z-1 circle_img pointer-events-none opacity-30" />
+        <Image src={Circle} alt="circle" width={0} height={0} sizes="100vw" loading="lazy" className="float-anim-slow xl:w-66 xl:h-66 w-24 h-24 object-cover absolute bottom-0 xl:-right-10 -right-6 -z-1 circle_img pointer-events-none opacity-30" />
+
         <div className="max-w-[1400px] mx-auto relative z-10">
-
-          <Image src={Circle} alt="circle" width={0} height={0} sizes="100vw" loading="lazy" className="float-anim xl:w-66 xl:h-66 w-24 h-24 object-cover absolute top-0 xl:-left-33 -left-4 -z-1 circle_img" />
-          <Image src={Circle} alt="circle" width={0} height={0} sizes="100vw" loading="lazy" className="float-anim-slow xl:w-66 xl:h-66 w-24 h-24 object-cover absolute bottom-0 xl:-right-10 -right-6 -z-1 circle_img" />
-
-          <h2 className="reveal-up title2 text-center lg:mb-6 mb-4">
-            Strategic Social Media That {" "}<span className="relative inline-block">Works</span>
+          <h2 className="reveal-up title2 !text-white text-3xl md:text-5xl font-black text-center mb-3 md:mb-6">
+            Social Media Marketing{" "}<span className="relative inline-block mt-2 sm:mt-0">Process<SvgUnderline /></span>
           </h2>
-          <p className="reveal-up text text-center lg:mb-16 mb-8 max-w-2xl mx-auto">We follow a structured, transparent process that ensures every app is high-quality, scalable, and user-centric.</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 sm:gap-6 stagger-child">
+          <p className="reveal-up text text-neutral-400 text-center mb-10 md:mb-16 max-w-2xl mx-auto text-base sm:text-lg">We follow a structured process so every campaign stays on-brand, data-informed, and optimized for engagement and ROI.</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 stagger-child">
             {processSteps.map((s, i) => (
-              <div key={i} className="reveal-up relative rounded-2xl p-6 border-2 transition-all duration-500 group hover:-translate-y-1 border-gray-100 bg-white shadow-sm hover:border-[#F75126]/30 hover:bg-[#F75126]/5 hover:shadow-lg">
-                <h3 className="font-bold text-xl text-[#272D4E] mb-2 group-hover:text-[#F75126] transition-colors">{s.title}</h3>
-                <p className="text-sm text-gray-500 leading-relaxed">{s.desc}</p>
+              <div key={i} className="reveal-up relative rounded-2xl p-5 sm:p-6 border transition-all duration-500 group hover:-translate-y-1 border-white/10 bg-white/[0.04] shadow-sm hover:border-[color-mix(in_srgb,var(--brand-primary)_40%,transparent)] hover:bg-[color-mix(in_srgb,var(--brand-primary)_8%,transparent)] hover:shadow-lg">
+                <div className="text-5xl md:text-6xl font-black text-[color-mix(in_srgb,var(--brand-primary)_14%,transparent)] absolute top-3 right-4 leading-none select-none transition-all duration-500 group-hover:text-[color-mix(in_srgb,var(--brand-primary)_22%,transparent)] group-hover:scale-105">{s.number}</div>
+                <div className="text-[color:var(--brand-primary)] font-bold text-[10px] sm:text-xs mb-1 sm:mb-2 tracking-widest uppercase">Step {s.number}</div>
+                <h3 className="font-bold text-lg sm:text-xl text-white mb-2 group-hover:text-[color:var(--brand-primary)] transition-colors duration-300">{s.title}</h3>
+                <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed">{s.desc}</p>
               </div>
             ))}
           </div>
-
         </div>
       </section>
       <TechStack type="social" />
@@ -525,49 +593,41 @@ export default function WebDevelopmentServices() {
 
         </div>
       </section> */}
-      <IndustriesSection />
+      <IndustriesSection variant="dark" />
 
       {/* ══════════════════════════════════
           REAL BUSINESS GROWTH CTA
       ══════════════════════════════════ */}
-      <section className="py-20 bg-[#272D4E] text-white px-4 sm:px-8 md:px-12 lg:px-20 overflow-hidden relative">
+      <section className="py-16 md:py-20 bg-white text-[#1a1a1a] px-4 sm:px-8 md:px-12 lg:px-20 overflow-hidden relative">
         <div className="max-w-[1200px] mx-auto text-center relative z-10">
-          <h2 className="reveal-up text-3xl md:text-5xl font-bold mb-6">Social Media Marketing That <span className="text-[#F75126]">Grows Your Brand </span></h2>
-          <p className="reveal-up text-gray-300 max-w-8xl mx-auto mb-12 text-lg">
-            We create powerful social media strategies that go beyond posting content — we build real connections, boost engagement, and drive measurable business growth.
-            Your brand deserves more than just visibility. It deserves impact, recognition, and results.<br />
-            Your brand deserves more than just visibility. It deserves impact, recognition, and results.
+          <h2 className="reveal-up text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 leading-tight text-[#1a1a1a]">Social Media Focused on <span className="text-[color:var(--brand-primary)] block sm:inline mt-2 sm:mt-0">Real Business Growth</span></h2>
+          <p className="reveal-up text-gray-600 max-w-4xl mx-auto mb-10 md:mb-12 text-base sm:text-lg leading-relaxed">
+            We design social strategies that deliver measurable outcomes — not just vanity metrics.
+            <br className="hidden sm:block" />When your channels are managed with intent, they become a powerful asset that strengthens your brand and drives results.
           </p>
-          <div className="reveal-scale bg-white/5 p-12 rounded-[50px] border border-white/10 backdrop-blur-sm max-w-4xl mx-auto">
-            <h4 className="text-2xl font-bold mb-4 text-white uppercase tracking-wider">Grow Your Business with PureDesignHub</h4>
-            <p className="text-gray-400 mb-8 text-lg">At PureDesignHub, we turn social media into a powerful growth engine for your business by handling everything from content creation to full campaign management with a results-driven approach. Whether your goal is to gain more followers, increase engagement, or boost sales, we’ve got you covered—get in touch today for a free consultation and let’s grow your brand together.
-            </p>
-            <Link href="/get-quote" className="pulse-btn bg-[#F75126] text-white px-8 py-4 sm:px-10 sm:py-5 rounded-full font-bold text-lg sm:text-xl hover:bg-white hover:text-[#F75126] transition-all inline-block shadow-2xl">Contact Us Today</Link>
+          <div className="reveal-scale bg-[#f8fafc] p-6 sm:p-10 md:p-12 rounded-3xl md:rounded-[50px] border border-gray-200 max-w-4xl mx-auto">
+            <h4 className="text-xl sm:text-2xl md:text-3xl font-bold mb-3 md:mb-4 text-[#1a1a1a] uppercase tracking-wider">Get Started with Pure Design Hub</h4>
+            <p className="text-gray-700 mb-6 md:mb-8 text-sm sm:text-base md:text-lg">If you are looking for professional <strong className="text-[#1a1a1a]">social media marketing services in the USA</strong>, we are ready to help you grow reach, engagement, and conversions with a clear, accountable plan.</p>
+            <Link href="/get-quote" className="pulse-btn bg-[color:var(--brand-primary)] text-white px-8 sm:px-10 py-4 sm:py-5 rounded-full font-bold text-lg sm:text-xl hover:bg-white hover:text-[color:var(--brand-primary)] transition-all inline-block shadow-2xl will-change-transform">Contact Us Today</Link>
           </div>
         </div>
-        <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none">
-          <div className="absolute top-10 left-10 w-64 h-64 bg-[#F75126] rounded-full blur-[100px]" />
-          <div className="absolute bottom-10 right-10 w-96 h-96 bg-[#F75126] rounded-full blur-[120px]" />
+        <div className="absolute top-0 left-0 w-full h-full opacity-[0.07] pointer-events-none">
+          <div className="absolute -top-20 -left-20 sm:top-10 sm:left-10 w-48 sm:w-64 h-48 sm:h-64 bg-[color:var(--brand-primary)] rounded-full blur-[80px] sm:blur-[100px]" />
+          <div className="absolute -bottom-20 -right-20 sm:bottom-10 sm:right-10 w-72 sm:w-96 h-72 sm:h-96 bg-[color:var(--brand-primary)] rounded-full blur-[100px] sm:blur-[120px]" />
         </div>
       </section>
 
-      {/* ══════════════════════════════════
-          PRICING
-      ══════════════════════════════════ */}
-      {/* ══════════════════════════════════
-          FAQs
-      ══════════════════════════════════ */}
-      <section className="px-4 sm:px-8 md:px-12 lg:px-20 mb-16 lg:mb-20 xl:mb-40 mt-16 lg:mt-20">
+      <section className="bg-[#0a0a0a] px-4 sm:px-8 md:px-12 lg:px-20 py-16 md:py-24 mb-0 overflow-hidden">
         <div className="max-w-[1400px] mx-auto">
-
-          <h2 className="reveal-up title2 text-center lg:mb-6 mb-4">
-            Social Media Marketing{" "}<span className="relative inline-block">FAQs<SvgUnderline /></span>
+          <h2 className="reveal-up title2 !text-white text-3xl md:text-5xl font-black text-center mb-3 md:mb-6">
+            Social Media Marketing{" "}<span className="relative inline-block mt-2 sm:mt-0">FAQs<SvgUnderline /></span>
           </h2>
-          <p className="reveal-up text text-center lg:mb-16 mb-8">Everything you need to know about our Social Media Marketing services.</p>
-          <div className="w-full space-y-3">
-            {faqs.map((faq, i) => <FaqItem key={i} faq={faq} index={i} />)}
+          <p className="reveal-up text text-neutral-400 text-center mb-8 md:mb-16 text-base sm:text-lg">Everything you need to know about our Social Media Marketing services.</p>
+          <div className="w-full space-y-3 md:space-y-4 max-w-4xl mx-auto">
+            {faqs.map((faq, i) => (
+              <FaqItem key={i} faq={faq} index={i} dark />
+            ))}
           </div>
-
         </div>
       </section>
 

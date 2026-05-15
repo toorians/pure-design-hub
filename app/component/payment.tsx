@@ -13,7 +13,7 @@ const NewContactPage = () => {
   return (
     <>
       {/* Banner Section */}
-      <section className="globalBanner_sec relative overflow-hidden h-full w-full xl:mb-40 lg:mb-20 mb-10 bg-linear-to-b from-[#E5EFFF] from-40% to-[#FB591E] to-100%">
+      <section className="globalBanner_sec relative overflow-hidden h-full w-full xl:mb-40 lg:mb-20 mb-10 bg-linear-to-b from-[#E5EFFF] from-40% to-[color:var(--brand-primary)] to-100%">
         <Header />
         <GlobalBanner
           title={
@@ -51,17 +51,17 @@ const NewContactPage = () => {
       <section className="steps_sec relative xl:py-40 lg:py-20 py-10 px-4 bg-[#F5F7FF]">
         <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-10 text-center">
           <div className="step bg-white shadow-lg rounded-2xl p-6 flex flex-col items-center">
-            <span className="text-[#F75126] text-3xl font-bold mb-4">1</span>
+            <span className="text-[color:var(--brand-primary)] text-3xl font-bold mb-4">1</span>
             <h4 className="font-semibold mb-2">Plan</h4>
             <p className="text-gray-600">We analyze your needs and create a tailored strategy.</p>
           </div>
           <div className="step bg-white shadow-lg rounded-2xl p-6 flex flex-col items-center">
-            <span className="text-[#F75126] text-3xl font-bold mb-4">2</span>
+            <span className="text-[color:var(--brand-primary)] text-3xl font-bold mb-4">2</span>
             <h4 className="font-semibold mb-2">Execute</h4>
             <p className="text-gray-600">Our team implements the plan efficiently and effectively.</p>
           </div>
           <div className="step bg-white shadow-lg rounded-2xl p-6 flex flex-col items-center">
-            <span className="text-[#F75126] text-3xl font-bold mb-4">3</span>
+            <span className="text-[color:var(--brand-primary)] text-3xl font-bold mb-4">3</span>
             <h4 className="font-semibold mb-2">Grow</h4>
             <p className="text-gray-600">Monitor results, optimize strategies, and grow your brand online.</p>
           </div>
@@ -76,26 +76,26 @@ const NewContactPage = () => {
             <input
               type="text"
               placeholder="Your Name"
-              className="border border-gray-300 rounded-lg p-4 focus:outline-none focus:ring-2 focus:ring-[#F75126]"
+              className="border border-gray-300 rounded-lg p-4 focus:outline-none focus:ring-2 focus:ring-[color:var(--brand-primary)]"
             />
             <input
               type="email"
               placeholder="Your Email"
-              className="border border-gray-300 rounded-lg p-4 focus:outline-none focus:ring-2 focus:ring-[#F75126]"
+              className="border border-gray-300 rounded-lg p-4 focus:outline-none focus:ring-2 focus:ring-[color:var(--brand-primary)]"
             />
             <input
               type="text"
               placeholder="Subject"
-              className="border border-gray-300 rounded-lg p-4 focus:outline-none focus:ring-2 focus:ring-[#F75126]"
+              className="border border-gray-300 rounded-lg p-4 focus:outline-none focus:ring-2 focus:ring-[color:var(--brand-primary)]"
             />
             <textarea
               placeholder="Message"
               rows={5}
-              className="border border-gray-300 rounded-lg p-4 focus:outline-none focus:ring-2 focus:ring-[#F75126]"
+              className="border border-gray-300 rounded-lg p-4 focus:outline-none focus:ring-2 focus:ring-[color:var(--brand-primary)]"
             ></textarea>
             <button
               type="submit"
-              className="bg-[#F75126] text-white py-4 px-6 rounded-xl font-semibold hover:bg-[#d9441f] transition"
+              className="bg-[color:var(--brand-primary)] text-white py-4 px-6 rounded-xl font-semibold hover:bg-[color:color-mix(in_srgb,var(--brand-primary)_86%,#000)] transition"
             >
               Send Message
             </button>

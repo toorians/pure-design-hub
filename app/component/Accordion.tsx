@@ -26,7 +26,9 @@ export default function Accordion({ items }: AccordionProps) {
           <div
             key={item.id}
             className={`transition-all ${
-              isOpen ? "bg-[#F75126] text-white" : "bg-[#FFD2C7] text-black"
+              isOpen
+                ? "bg-[color:var(--brand-primary)] text-white"
+                : "bg-[color:color-mix(in_srgb,var(--brand-primary)_20%,#fff)] text-black"
             }`}
           >
             {/* Header */}
@@ -54,7 +56,7 @@ export default function Accordion({ items }: AccordionProps) {
 
             {/* Content */}
             {isOpen && (
-              <div className="bg-[#F75126] text-black px-[25px] pb-[22px]">
+              <div className="bg-[color:var(--brand-primary)] text-black px-[25px] pb-[22px]">
                 {/* custom border line */}
                 <div className="h-[1px] w-full bg-white mb-5"></div>
                 <p className="px-4 py-5 bg-white sm:text-[1rem] text-sm">{item.answer}</p>

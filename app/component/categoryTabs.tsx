@@ -19,9 +19,9 @@ export default function CategoryTabs({
         <button
           key={category}
           onClick={() => onChange(category)}
-          className={`xl:px-11 px-5 xl:py-4 py-2 cursor-pointer rounded-[60px] xl:text-2xl text-sm transition-all duration-300 hover:bg-white hover:text-[#F75126] hover:shadow-[2px_8px_24px_0_#F75126] ${
+          className={`xl:px-11 px-5 xl:py-4 py-2 cursor-pointer rounded-[60px] xl:text-2xl text-sm transition-all duration-300 hover:bg-white hover:text-[color:var(--brand-primary)] hover:shadow-[2px_8px_24px_0_var(--brand-primary)] ${
             activeCategory === category
-              ? "bg-white text-[#F75126] shadow-[2px_8px_24px_0_#F75126]"
+              ? "bg-white text-[color:var(--brand-primary)] shadow-[2px_8px_24px_0_var(--brand-primary)]"
               : "bg-transparent text-black"
           }`}
         >

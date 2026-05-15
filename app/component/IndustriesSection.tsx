@@ -87,16 +87,36 @@ const industries: IndustryItem[] = [
   { name: "Website Upgrade Seekers", icon: UpgradeIcon },
 ];
 
+export type IndustriesSectionProps = {
+  variant?: "light" | "dark";
+};
+
 /* ================= COMPONENT ================= */
 
-export default function IndustriesSection() {
+export default function IndustriesSection({ variant = "light" }: IndustriesSectionProps) {
+  const isDark = variant === "dark";
   return (
-    <section className="industries-section">
+    <section className={`industries-section ${isDark ? "industries-section--dark" : ""}`}>
       <style>{`
         .industries-section {
           background: #fff;
           padding: 80px 40px;
           font-family: 'Segoe UI', sans-serif;
+        }
+
+        .industries-section--dark {
+          background: #0a0a0a;
+          color: #f5f5f5;
+        }
+
+        .industries-section--dark .industries-header .title2,
+        .industries-section--dark .industries-header h2 {
+          color: #fff !important;
+        }
+
+        .industries-section--dark .industries-header .text,
+        .industries-section--dark .industries-header p {
+          color: #a3a3a3 !important;
         }
 
         .industries-header {
@@ -114,6 +134,10 @@ export default function IndustriesSection() {
           border-left: 1px solid #e2e8f0;
         }
 
+        .industries-section--dark .industries-grid {
+          border-color: rgba(255, 255, 255, 0.08);
+        }
+
         .industry-card {
           padding: 40px 20px;
           border-right: 1px solid #e2e8f0;
@@ -128,8 +152,13 @@ export default function IndustriesSection() {
           gap: 14px;
         }
 
+        .industries-section--dark .industry-card {
+          border-color: rgba(255, 255, 255, 0.08);
+          color: #d4d4d4;
+        }
+
         .industry-card:hover {
-          background: #F75126;
+          background: var(--brand-primary);
           color: #fff;
         }
 

@@ -176,11 +176,11 @@ const catColors: Record<string, string> = {
 // ─── HELPER COMPONENTS ───
 function TechBadge({ item }: { item: TechItem }) {
   return (
-    <div className="flex-shrink-0 flex items-center gap-3 bg-white/5 border border-white/[0.08] rounded-full px-5 py-3 hover:bg-[#F75126]/5 hover:border-[#F75126]/30 transition-all duration-300 group">
-      <span className="w-5 h-5 text-[#F75126] flex-shrink-0">
+    <div className="flex-shrink-0 flex items-center gap-3 bg-[#f8fafc] border border-gray-200 rounded-full px-5 py-3 hover:bg-white hover:border-[color-mix(in_srgb,var(--brand-primary)_28%,transparent)] transition-all duration-300 group">
+      <span className="w-5 h-5 text-[color:var(--brand-primary)] flex-shrink-0">
         <item.Icon />
       </span>
-      <span className="text-sm font-bold text-gray-300 group-hover:text-white transition-colors">
+      <span className="text-sm font-bold text-[#1a1a1a] group-hover:text-[color:var(--brand-primary)] transition-colors">
         {item.name}
       </span>
       <span className={`text-[10px] font-semibold hidden sm:block ${catColors[item.category] || "text-gray-500"}`}>
@@ -194,15 +194,15 @@ const TechStack = ({ type = "web" }: { type?: "web" | "app" | "branding" | "writ
   const currentData = dataSets[type] || dataSets.web;
 
   return (
-    <section className="py-20 bg-[#0B0D17] overflow-hidden">
+    <section className="py-20 bg-white overflow-hidden">
       <div className="max-w-[1400px] mx-auto px-4 mb-14 text-center">
-        <span className="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[#F75126] bg-[#F75126]/10 border border-[#F75126]/20 px-4 py-1.5 rounded-full mb-4">
+        <span className="inline-block text-[11px] font-bold tracking-[0.2em] uppercase text-[color:var(--brand-primary)] bg-[color-mix(in_srgb,var(--brand-primary)_12%,transparent)] border border-[color-mix(in_srgb,var(--brand-primary)_22%,transparent)] px-4 py-1.5 rounded-full mb-4">
           Technologies & Tools
         </span>
-        <h2 className="text-3xl md:text-5xl font-black font-bold text-white leading-tight">
+        <h2 className="text-3xl md:text-5xl font-black font-bold text-[#1a1a1a] leading-tight">
           Built with {" "}<span className="relative inline-block">Industry-Leading Tools</span>
         </h2>
-        <p className="text-gray-500 text-sm md:text-base mt-4 max-w-2xl mx-auto">
+        <p className="text-gray-600 text-sm md:text-base mt-4 max-w-2xl mx-auto">
           {currentData.sub}
         </p>
       </div>

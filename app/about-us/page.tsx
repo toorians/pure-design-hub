@@ -15,7 +15,7 @@ const AboutUs = () => {
   return (
     <>
       {/* Banner Section */}
-      <section className="globalBanner_sec relative overflow-hidden h-full w-full xl:mb-40 lg:mb-20 mb-10 bg-linear-to-b from-[#E5EFFF] from-40% to-[#FB591E] to-100% ">
+      <section className="globalBanner_sec relative overflow-hidden h-full w-full xl:mb-40 lg:mb-20 mb-10 bg-linear-to-b from-[#E5EFFF] from-40% to-[color:var(--brand-primary)] to-100% ">
         <Header />
         <GlobalBanner
           title={
@@ -44,7 +44,7 @@ const AboutUs = () => {
                c64.4-16.6,104.3-57.6,33.8-98.2
                C386.7-4.9,179.4-1.4,126.3,20.7"
               fill="none"
-              stroke="#f75126"
+              stroke="var(--brand-primary)"
               strokeWidth="6"
               strokeLinecap="round"
               className="animated-path"
@@ -86,7 +86,7 @@ const AboutUs = () => {
             </p>
             <Link
               href="/get-quote"
-              className="globalBtn bg-[#F75126] text-white inline-flex transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_14px_28px_rgba(247,81,38,0.35)]"
+              className="globalBtn bg-[color:var(--brand-primary)] text-white inline-flex transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_14px_28px_color-mix(in_srgb,var(--brand-primary)_35%,transparent)]"
             >
               Let’s Talk
             </Link>
@@ -95,7 +95,7 @@ const AboutUs = () => {
         <div className="grid lg:grid-cols-2 grid-cols-1 items-center xl:gap-10 lg:gap-5 gap-4">
           {/* Text Content */}
           <div className="lg:order-0 order-1">
-            <h3 className="title3 !text-[#F75126] mb-2">What we do</h3>
+            <h3 className="title3 !text-[color:var(--brand-primary)] mb-2">What we do</h3>
             <p className="text mb-4">
               We are your partner in digital excellence. Our company was founded
               with the vision of empowering businesses through innovative
@@ -105,7 +105,7 @@ const AboutUs = () => {
               deliver exceptional results that drive growth and exceed
               expectations.
             </p>
-            <h3 className="title3 !text-[#F75126] mb-2">Our Approach</h3>
+            <h3 className="title3 !text-[color:var(--brand-primary)] mb-2">Our Approach</h3>
             <p className="text">
               We believe in taking a client-centric approach focused on
               collaboration, creativity, and excellence. We work closely with

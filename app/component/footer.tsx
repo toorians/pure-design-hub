@@ -1,186 +1,175 @@
-import React, { useState, useEffect } from 'react'
+import React, { useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import SmallCircle from "@/public/assets/images/smallCircle.png";
-import FooterLogo from "@/public/assets/images/footer_logo.png";
+import FooterLogo from "@/public/assets/images/Png_2.png";
 import PaymentIcon1 from "@/public/assets/images/payment_icon1.png";
 import PaymentIcon2 from "@/public/assets/images/payment_icon2.png";
-import LocationIcon from "@/public/assets/images/location_icon.svg";
-import MessageIcon from "@/public/assets/images/message_icon.svg";
-import USAIcon from "@/public/assets/images/USA.svg";
-import UKIcon from "@/public/assets/images/UK.svg";
-
-
+import SmallCircle from "@/public/assets/images/smallCircle.png";
 import { useGeo } from "@/app/context/GeoContext";
+import {
+  SITE_SUPPORT_EMAIL,
+  buildTelHref,
+  buildWhatsAppHref,
+} from "@/app/lib/siteContact";
 
+const footerNavLink =
+  "group/nav relative inline-block py-1 text-base md:text-lg font-semibold text-white/85 transition-all duration-300 ease-out hover:text-[color:var(--brand-primary)] hover:translate-x-1";
 
+const footerNavLinkBar =
+  "absolute left-0 bottom-0 h-[2px] w-0 rounded-full bg-[color:var(--brand-primary)] transition-[width] duration-300 ease-out group-hover/nav:w-full";
 
+const footerHeading =
+  "text-xs font-black tracking-[0.2em] uppercase text-[color:var(--brand-primary)] mb-5";
 
+const socialBtn =
+  "group/social w-11 h-11 md:w-[47px] md:h-[47px] rounded-full bg-[color:var(--brand-primary)] flex items-center justify-center text-[color:var(--brand-accent)] transition-all duration-300 ease-out hover:scale-110 hover:shadow-[0_8px_24px_color-mix(in_srgb,var(--brand-primary)_45%,transparent)] hover:bg-[color:color-mix(in_srgb,var(--brand-primary)_88%,#000)] hover:text-white active:scale-95";
+
+function IconLocation({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden
+    >
+      <path
+        d="M12 21c-4.418-3.479-8-7.238-8-11a8 8 0 1116 0c0 3.762-3.582 7.521-8 11Z"
+        stroke="currentColor"
+        strokeWidth="1.75"
+        strokeLinejoin="round"
+      />
+      <circle cx="12" cy="10" r="2.25" fill="currentColor" />
+    </svg>
+  );
+}
+
+function IconEnvelope({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden
+    >
+      <path
+        d="M4 6h16v12H4V6Zm0 0 8 6 8-6"
+        stroke="currentColor"
+        strokeWidth="1.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function FooterNavItem({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <li className="mb-1">
+      <Link href={href} className={footerNavLink}>
+        <span className={footerNavLinkBar} aria-hidden />
+        {children}
+      </Link>
+    </li>
+  );
+}
 
 export default function Footer() {
-
-  const [showScrollTop, setShowScrollTop] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => setShowScrollTop(window.scrollY > 500);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-
-
-
   const { phone, address, icon } = useGeo();
-
-
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+  const whatsappHref = useMemo(() => buildWhatsAppHref(phone), [phone]);
+  const callHref = useMemo(() => buildTelHref(phone), [phone]);
 
   return (
     <>
-      <section className="group relative overflow-hidden 2xl:px-80 xl:px-55 lg:p-15 md:p-10 p-4 bg-[#F75126] transition-all duration-500">
+      <section className="group relative overflow-hidden 2xl:px-80 xl:px-55 lg:p-15 md:p-10 p-4 bg-[color:var(--brand-primary)] transition-all duration-500">
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out" />
         <div className="relative grid md:grid-cols-3 grid-cols-1 items-center justify-center xl:gap-20 lg:gap-10 gap-5">
           <p className="title3 !text-white md:col-span-2 transition-all duration-500 group-hover:translate-x-1">
-            Your business deserves more than just a website. get fully
-            customizable Website Services designed for growth.
+            Your business deserves more than just a website. get fully customizable Website Services designed for growth.
           </p>
           <Link
             href="/get-quote"
-            className="md:px-11 px-6 2xl:py-6 md:py-4 py-3  md:text-[18px] text-sm font-bold bg-[#F75126] text-white border-white border-2 w-fit rounded-[60px] transition-all duration-300 ease-out hover:bg-white hover:text-[#F75126] hover:shadow-[0_12px_30px_rgba(0,0,0,0.2)] hover:-translate-y-1"
+            className="md:px-11 px-6 2xl:py-6 md:py-4 py-3 md:text-[18px] text-sm font-bold bg-[color:var(--brand-primary)] text-white border-white border-2 w-fit rounded-[60px] transition-all duration-300 ease-out hover:bg-white hover:text-[color:var(--brand-primary)] hover:shadow-[0_12px_30px_rgba(0,0,0,0.2)] hover:-translate-y-1"
           >
             Get Started
           </Link>
         </div>
       </section>
-      <footer className="2xl:px-45 xl:px-20 px-4 xl:pt-20 pt-10 pb-4 bg-[#101010] relative">
+
+      <footer className="relative border-t border-white/[0.05] bg-[#030303] text-white 2xl:px-45 xl:px-20 px-4 xl:pt-20 pt-12 pb-8">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,color-mix(in_srgb,var(--brand-primary)_12%,transparent),transparent_55%)]" />
+
+        {/* Filhaal: decorative corner image band */}
         <Image
           src={SmallCircle}
           title="circle"
-          alt="circle"
+          alt=""
           width={0}
           height={0}
           sizes="100vw"
           decoding="async"
           loading="lazy"
-          className="w-12 h-12 object-cover object-center absolute -top-6 right-40"
+          className="w-12 h-12 object-cover object-center absolute -top-6 right-40 opacity-80"
         />
-        <div className="grid xl:grid-cols-4 lg:grid-cols-2 grid-cols-1 items-start gap-10 mb-10">
+       
+
+        <div className="relative grid xl:grid-cols-4 lg:grid-cols-2 grid-cols-1 items-start gap-12 xl:gap-10 mb-12">
           <div>
-            <Link href="/" className="inline-flex">
+            <Link href="/" className="inline-flex transition-opacity duration-300 hover:opacity-90">
               <Image
                 src={FooterLogo}
                 title="Logo"
-                alt="Logo"
-                width={0}
-                height={0}
+                alt="Pure Design Hub"
+                width={220}
+                height={60}
                 decoding="async"
                 loading="lazy"
-                className="w-67 h-21 object-cover object-center mb-7"
+                className="w-auto h-auto mb-7"
               />
             </Link>
-            <p className="text !text-[20px] !text-white">
-              We conduct our business with honesty and transparency, building
-              trust with our clients and partners.
+            <p className="text-base md:text-lg leading-relaxed text-white/70 max-w-sm">
+              We conduct our business with honesty and transparency, building trust with our clients and partners.
             </p>
           </div>
-          <div className="flex lg:flex-row flex-col items-start gap-10">
-            <ul>
-              <li className="text-xl text-bold text-[#F75126] font-bold mb-4 text-nowrap">
-                WHO WE ARE
-              </li>
-              <li className="text-xl text-bold text-white mb-4">
-                <Link href="about-us">About Us</Link>
-              </li>
-              <li className="text-xl text-bold text-white mb-4">
-                <Link href="portfolio">Portfolio</Link>
-              </li>
-              <li className="text-xl text-bold text-white mb-4">
-                <Link href="contact-us">Contact Us</Link>
-              </li>
-              <li className="text-xl text-bold text-white mb-4">
-                <Link href="pricing">Pricing</Link>
-              </li>
-              {/* <li className="text-xl text-bold text-white mb-4">
-                <Link href="blogs">Blogs</Link>
-              </li> */}
-              <li className="text-xl text-bold text-white mb-4">
-                <Link href="faqs">FAQs</Link>
-              </li>
+
+          <div className="flex lg:flex-row flex-col items-start gap-12 lg:gap-10">
+            <ul className="min-w-0">
+              <li className={footerHeading}>Company</li>
+              <FooterNavItem href="/about-us">About Us</FooterNavItem>
+              <FooterNavItem href="/portfolio">Portfolio</FooterNavItem>
+              <FooterNavItem href="/contact-us">Contact Us</FooterNavItem>
+              <FooterNavItem href="/pricing">Pricing</FooterNavItem>
+              <FooterNavItem href="/faqs">FAQs</FooterNavItem>
             </ul>
-            <ul>
-              <li className="text-xl text-bold text-[#F75126] font-bold mb-4">
-                WHO WE ARE
-              </li>
-              <li className="text-xl text-bold text-white mb-4">
-                <Link href="/services/branding-design">Branding</Link>
-              </li>
-              {/* <li className="text-xl text-bold text-white mb-4">
-                <Link href="/services/logo-design">Logo Design</Link>
-              </li> */}
-              <li className="text-xl text-bold text-white mb-4">
-                <Link href="/services/web-development">Web Development</Link>
-              </li>
-              <li className="text-xl text-bold text-white mb-4">
-                <Link href="/services/app-development">App Development</Link>
-              </li>
-              <li className="text-xl text-bold text-white mb-4">
-                <Link href="/services/content-writing">Content Writing</Link>
-              </li>
-              <li className="text-xl text-bold text-white mb-4">
-                <Link href="/services/social-media-marketing">
-                  Social Media Marketing
-                </Link>
-              </li>
-              <li className="text-xl text-bold text-white mb-4">
-                <Link href="/services/seo-service">SEO Service</Link>
-              </li>
+            <ul className="min-w-0">
+              <li className={footerHeading}>Services</li>
+              <FooterNavItem href="/services/branding-design">Branding</FooterNavItem>
+              <FooterNavItem href="/services/web-development">Web Development</FooterNavItem>
+              <FooterNavItem href="/services/app-development">App Development</FooterNavItem>
+              <FooterNavItem href="/services/content-writing">Content Writing</FooterNavItem>
+              <FooterNavItem href="/services/social-media-marketing">Social Media Marketing</FooterNavItem>
+              <FooterNavItem href="/services/seo-services">SEO Services</FooterNavItem>
             </ul>
           </div>
+
           <ul>
-            <li className="text-xl text-bold text-[#F75126] font-bold mb-4">
-              Location
-            </li>
-            {/* <li className="text-xl text-bold text-white mb-4 flex items-start gap-3">
-              <Image
-                src={LocationIcon}
-                title="Location"
-                alt="Location"
-                width={0}
-                height={0}
-                decoding="async"
-                loading="lazy"
-                className="w-[13px] h-[19px] object-cover object-center"
-              />
-              <span className="text-xl text-bold text-white">
-                941 Stratford Road, Hall Green, Birmingham, England, B28 8BH
-              </span>
-            </li> */}
-            <li className="text-xl text-bold text-white mb-4 flex items-start gap-3">
-              <Image
-                src={LocationIcon}
-                title="Location"
-                alt="Location"
-                width={0}
-                height={0}
-                decoding="async"
-                loading="lazy"
-                className="w-[13px] h-[19px] object-cover object-center"
-              />
-              <span className="text-xl text-bold text-white">
-                {address}
-              </span>
+            <li className={footerHeading}>Location</li>
+            <li className="text-base md:text-lg text-white/80 mb-6 flex items-start gap-3">
+              <IconLocation className="h-7 w-7 shrink-0 mt-0.5 text-[color:var(--brand-primary)] opacity-95" />
+              <span>{address}</span>
             </li>
             <li className="flex flex-col items-start gap-4">
               <Image
                 src={PaymentIcon1}
-                title="DMCA Procted"
-                alt="DMCA Procted"
+                title="DMCA Protected"
+                alt="DMCA Protected"
                 width={0}
                 height={0}
                 sizes="100vw"
                 decoding="async"
                 loading="lazy"
-                className="w-auto h-11 object-contain object-center"
+                className="w-auto h-11 object-contain object-center opacity-90 transition-opacity duration-300 hover:opacity-100"
               />
               <Image
                 src={PaymentIcon2}
@@ -191,74 +180,49 @@ export default function Footer() {
                 sizes="100vw"
                 decoding="async"
                 loading="lazy"
-                className="w-auto h-11 object-contain object-center"
+                className="w-auto h-11 object-contain object-center opacity-90 transition-opacity duration-300 hover:opacity-100"
               />
             </li>
           </ul>
-          <ul>
-            <li className="text-xl text-bold text-[#F75126] font-bold mb-4">
-              Get In Touch
-            </li>
-            <li className="text-xl text-bold text-white mb-10 flex items-start gap-3">
-              <Image
-                src={MessageIcon}
-                title="Mesage"
-                alt="Mesage"
-                width={0}
-                height={0}
-                decoding="async"
-                loading="lazy"
-                className="w-6 h-6 object-cover object-center"
-              />
-              <span className="text-xl text-bold text-white">
 
-                <Link href="mailto:support@puredesignhub.com">support@puredesignhub.com</Link>
-              </span>
+          <ul>
+            <li className={footerHeading}>Get In Touch</li>
+            <li className="text-base md:text-lg text-white/80 mb-6 flex items-start gap-3">
+              <IconEnvelope className="h-7 w-7 shrink-0 mt-0.5 text-[color:var(--brand-primary)] opacity-95" />
+              <Link
+                href={`mailto:${SITE_SUPPORT_EMAIL}`}
+                className="transition-colors duration-300 hover:text-[color:var(--brand-primary)]"
+              >
+                {SITE_SUPPORT_EMAIL}
+              </Link>
             </li>
-            <li className="text-xl text-bold text-white mb-10 flex items-start gap-3">
+            <li className="text-base md:text-lg text-white/80 mb-8 flex items-start gap-3">
               <Image
                 src={icon}
-                title="USA"
-                alt="USA"
+                title="Phone"
+                alt=""
                 width={0}
                 height={0}
                 decoding="async"
                 loading="lazy"
-                className="w-7 h-5 object-cover object-center"
+                className="w-7 h-5 object-cover object-center mt-1 shrink-0 opacity-90"
               />
-              <span className="text-xl text-bold text-white">
-                <Link href={`tel:${phone.replace(/\s+/g, '')}`}>{phone}</Link>
-              </span>
+              <Link
+                href={callHref}
+                className="transition-colors duration-300 hover:text-[color:var(--brand-primary)]"
+              >
+                {phone}
+              </Link>
             </li>
-            {/* <li className="text-xl text-bold text-white mb-10 flex items-start gap-3">
-              <Image
-                src={UKIcon}
-                title="UK"
-                alt="UK"
-                width={0}
-                height={0}
-                decoding="async"
-                loading="lazy"
-                className="w-7 h-5 object-cover object-center"
-              />
-              <span className="text-xl text-bold text-white">
-                +1 940 2454 561
-              </span>
-            </li> */}
-            <li className="mb-4 flex items-center gap-2.5">
+            <li className="flex flex-wrap items-center gap-2.5">
               <Link
                 href="https://www.facebook.com/profile.php?id=61577469429417"
-                className="w-[47px] h-[47px] rounded-[50%] bg-[#F75126] flex items-center justify-center"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={socialBtn}
+                aria-label="Facebook"
               >
-                <svg
-                  className="w-6 h-6 text-gray-800 dark:text-white"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                >
+                <svg className="w-6 h-6 shrink-0 transition-colors duration-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                   <path
                     fillRule="evenodd"
                     d="M13.135 6H15V3h-1.865a4.147 4.147 0 0 0-4.142 4.142V9H7v3h2v9.938h3V12h2.021l.592-3H12V6.591A.6.6 0 0 1 12.592 6h.543Z"
@@ -268,17 +232,12 @@ export default function Footer() {
               </Link>
               <Link
                 href="https://www.instagram.com/puredesignhubofficial/"
-                className="w-[47px] h-[47px] rounded-[50%] bg-[#F75126] flex items-center justify-center"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={socialBtn}
+                aria-label="Instagram"
               >
-                <svg
-                  className="w-6 h-6 text-gray-800 dark:text-white"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
+                <svg className="w-6 h-6 shrink-0 transition-colors duration-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                   <path
                     fill="currentColor"
                     fillRule="evenodd"
@@ -287,38 +246,8 @@ export default function Footer() {
                   />
                 </svg>
               </Link>
-              <Link
-                href=""
-                className="w-[47px] h-[47px] rounded-[50%] bg-[#F75126] flex items-center justify-center"
-              >
-                <svg
-                  className="w-6 h-6 text-gray-800 dark:text-white"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  fill="none"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    fill="currentColor"
-                    fillRule="evenodd"
-                    d="M8 0a8 8 0 0 0-2.915 15.452c-.07-.633-.134-1.606.027-2.297.146-.625.938-3.977.938-3.977s-.239-.479-.239-1.187c0-1.113.645-1.943 1.448-1.943.682 0 1.012.512 1.012 1.127 0 .686-.437 1.712-.663 2.663-.188.796.4 1.446 1.185 1.446 1.422 0 2.515-1.5 2.515-3.664 0-1.915-1.377-3.254-3.342-3.254-2.276 0-3.612 1.707-3.612 3.471 0 .688.265 1.425.595 1.826a.24.24 0 0 1 .056.23c-.061.252-.196.796-.222.907-.035.146-.116.177-.268.107-1-.465-1.624-1.926-1.624-3.1 0-2.523 1.834-4.84 5.286-4.84 2.775 0 4.932 1.977 4.932 4.62 0 2.757-1.739 4.976-4.151 4.976-.811 0-1.573-.421-1.834-.919l-.498 1.902c-.181.695-.669 1.566-.995 2.097A8 8 0 1 0 8 0"
-                  />
-                </svg>
-              </Link>
-              <Link
-                href=""
-                className="w-[47px] h-[47px] rounded-[50%] bg-[#F75126] flex items-center justify-center"
-              >
-                <svg
-                  className="w-6 h-6 text-gray-800 dark:text-white"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
+              <Link href={whatsappHref} target="_blank" rel="noopener noreferrer" className={socialBtn} aria-label="WhatsApp">
+                <svg className="w-6 h-6 shrink-0 transition-colors duration-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                   <path
                     fill="currentColor"
                     fillRule="evenodd"
@@ -334,22 +263,26 @@ export default function Footer() {
             </li>
           </ul>
         </div>
-        <div>
-          <hr className="border-t border-gray-700 mb-6" />
-          <p className="text-center text ">
-            COPYRIGHT PURE DESIGN HUB 2026 - <Link href='/terms-and-conditions' className="link underline ml-2">TERMS & CONDITIONS </Link>  <Link href='/privacypolicy' className="link underline ml-2">PRIVACY POLICY</Link>
+
+        <div className="relative border-t border-white/10 pt-8">
+          <p className="text-center text-sm md:text-base text-white/55">
+            COPYRIGHT PURE DESIGN HUB 2026 —{" "}
+            <Link
+              href="/terms-and-conditions"
+              className="text-white/75 underline-offset-4 decoration-white/30 underline transition-colors duration-300 hover:text-[color:var(--brand-primary)] hover:decoration-[color:var(--brand-primary)]"
+            >
+              Terms &amp; Conditions
+            </Link>
+            {" · "}
+            <Link
+              href="/privacypolicy"
+              className="text-white/75 underline-offset-4 decoration-white/30 underline transition-colors duration-300 hover:text-[color:var(--brand-primary)] hover:decoration-[color:var(--brand-primary)]"
+            >
+              Privacy Policy
+            </Link>
           </p>
         </div>
-        {/* BACK TO TOP */}
-        {/* <button
-          onClick={scrollToTop}
-          className={`fixed bottom-8 right-8 z-[99] w-14 h-14 rounded-full bg-[#F75126] text-white flex items-center justify-center shadow-2xl transition-all duration-500 hover:-translate-y-2 pulse-btn ${showScrollTop ? "translate-y-0 opacity-100 visible" : "translate-y-20 opacity-0 invisible"}`}
-        >
-          <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
-          </svg>
-        </button> */}
       </footer>
     </>
-  )
+  );
 }
