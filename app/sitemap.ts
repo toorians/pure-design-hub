@@ -6,7 +6,7 @@ export const dynamic = "force-static";
 /** Public routes (static export); keep in sync with app route pages. */
 const PATHS: string[] = [
   "",
-  "/home",
+  // "/home",
   "/about-us",
   "/contact-us",
   "/portfolio",
@@ -19,7 +19,7 @@ const PATHS: string[] = [
   "/terms-and-conditions",
   "/privacypolicy",
   "/mobile-app-development",
-  "/digital-branding",
+  // "/digital-branding",
   "/services/web-development",
   "/services/app-development",
   "/services/branding-design",

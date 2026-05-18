@@ -19,47 +19,54 @@ export default function Accordion({ items }: AccordionProps) {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       {items.map((item) => {
         const isOpen = openId === item.id;
         return (
           <div
             key={item.id}
-            className={`transition-all ${
+            className={`transition-all duration-300 rounded-2xl overflow-hidden shadow-sm ${
               isOpen
-                ? "bg-[color:var(--brand-primary)] text-white"
-                : "bg-[color:color-mix(in_srgb,var(--brand-primary)_20%,#fff)] text-black"
+                ? "bg-[color:var(--brand-primary)] text-white shadow-lg shadow-[color:color-mix(in_srgb,var(--brand-primary)_20%,transparent)]"
+                : "bg-white text-black border border-gray-100 hover:border-[color:color-mix(in_srgb,var(--brand-primary)_30%,transparent)]"
             }`}
           >
             {/* Header */}
             <button
               onClick={() => toggle(item.id)}
-              className={`flex w-full items-center justify-between px-[25px] py-[22px] sm:text-[18px] text-base text-left font-semibold cursor-pointer ${
-                isOpen ? "text-white" : "text-black"
+              className={`flex w-full items-center justify-between px-6 py-5 sm:text-lg text-base text-left font-semibold cursor-pointer transition-colors duration-300 ${
+                isOpen ? "text-white" : "text-[#272D4E] hover:text-[color:var(--brand-primary)]"
               }`}
             >
-              {item.question}
-              <svg
-                width="34"
-                height="34"
-                viewBox="0 0 34 34"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className={`${openId ? "rotate-180" : ""}`}
-              >
-                <path
-                  d="M17 21.845L23.205 15.5975H10.7525L17 21.845ZM17 34C14.6767 34 12.4808 33.5538 10.4125 32.6613C8.34417 31.7688 6.53792 30.5504 4.99375 29.0063C3.44958 27.4621 2.23125 25.6558 1.33875 23.5875C0.44625 21.5192 0 19.3233 0 17C0 14.6483 0.44625 12.4383 1.33875 10.37C2.23125 8.30167 3.44958 6.5025 4.99375 4.9725C6.53792 3.4425 8.34417 2.23125 10.4125 1.33875C12.4808 0.44625 14.6767 0 17 0C19.3517 0 21.5617 0.44625 23.63 1.33875C25.6983 2.23125 27.4975 3.4425 29.0275 4.9725C30.5575 6.5025 31.7688 8.30167 32.6613 10.37C33.5538 12.4383 34 14.6483 34 17C34 19.3233 33.5538 21.5192 32.6613 23.5875C31.7688 25.6558 30.5575 27.4621 29.0275 29.0063C27.4975 30.5504 25.6983 31.7688 23.63 32.6613C21.5617 33.5538 19.3517 34 17 34ZM17 31.45C21.0233 31.45 24.4375 30.0404 27.2425 27.2213C30.0475 24.4021 31.45 20.995 31.45 17C31.45 12.9767 30.0475 9.5625 27.2425 6.7575C24.4375 3.9525 21.0233 2.55 17 2.55C13.005 2.55 9.59792 3.9525 6.77875 6.7575C3.95958 9.5625 2.55 12.9767 2.55 17C2.55 20.995 3.95958 24.4021 6.77875 27.2213C9.59792 30.0404 13.005 31.45 17 31.45Z"
-                  fill="currentColor"
-                />
-              </svg>
+              <span className="pr-4">{item.question}</span>
+              <span className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${
+                isOpen
+                  ? "bg-white/20 rotate-180"
+                  : "bg-[color:color-mix(in_srgb,var(--brand-primary)_10%,transparent)]"
+              }`}>
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2.5}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className={`transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+                >
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
+              </span>
             </button>
 
             {/* Content */}
             {isOpen && (
-              <div className="bg-[color:var(--brand-primary)] text-black px-[25px] pb-[22px]">
-                {/* custom border line */}
-                <div className="h-[1px] w-full bg-white mb-5"></div>
-                <p className="px-4 py-5 bg-white sm:text-[1rem] text-sm">{item.answer}</p>
+              <div className="bg-[color:var(--brand-primary)] px-6 pb-6">
+                <div className="h-px w-full bg-white/20 mb-4"></div>
+                <p className="px-5 py-4 bg-white rounded-xl text-gray-700 sm:text-base text-sm leading-relaxed">
+                  {item.answer}
+                </p>
               </div>
             )}
           </div>

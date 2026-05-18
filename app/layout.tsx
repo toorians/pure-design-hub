@@ -31,6 +31,9 @@ import { SITE_URL } from "./lib/siteUrl";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
+  alternates: {
+    canonical: SITE_URL,
+  },
   robots: {
     index: true,
     follow: true,

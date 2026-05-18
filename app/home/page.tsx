@@ -136,7 +136,7 @@ function TestimonialSlider(): React.ReactElement {
   // Keep transform math deterministic (no render-time window access)
   useEffect(() => {
     const update = () => {
-      setCardsPerView(window.innerWidth < 1024 ? 1 : 2);
+      setCardsPerView(window.innerWidth < 768 ? 1 : 2);
     };
     update();
     window.addEventListener("resize", update);
@@ -258,10 +258,9 @@ function TestimonialSlider(): React.ReactElement {
           }}
         >
           {clonedItems.map((item, idx) => (
-            <div key={idx} className="w-full lg:w-1/2 flex-shrink-0 px-3">
+              <div key={idx} className="w-full md:w-1/2 flex-shrink-0 px-3">
               <div
-                className="flex flex-col lg:flex-row rounded-[24px] overflow-hidden border-2 border-gray-100 bg-white transition-all duration-500 group"
-                style={{ minHeight: "480px" }}
+                className="flex flex-col lg:flex-row rounded-[24px] overflow-hidden border-2 border-gray-100 bg-white transition-all duration-500 group min-h-[400px] lg:min-h-[480px]"
               >
                 {/* ── LEFT CONTENT ── */}
                 <div className="flex-1 flex flex-col justify-between p-8 md:p-10 lg:p-12 relative">

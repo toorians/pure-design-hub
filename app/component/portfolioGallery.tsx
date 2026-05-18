@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Circle from "@/public/assets/images/circle.png";
 
 const categories = ["Web Design", "Mobile Apps", "Branding", "Logo"] as const;
@@ -123,6 +123,15 @@ function PortfolioTabs({
 
 function PortfolioCard({ item }: { item: PortfolioItem }) {
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+
+  useEffect(() => {
+    if (isLightboxOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [isLightboxOpen]);
 
   const toggleLightbox = () => {
     setIsLightboxOpen(!isLightboxOpen);
