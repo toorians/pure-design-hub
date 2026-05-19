@@ -118,18 +118,6 @@ const breadcrumbSchema = {
       "position": 1,
       "name": "Home",
       "item": "https://puredesignhub.com/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Services",
-      "item": "https://puredesignhub.com/services/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "name": "SEO Services",
-      "item": "https://puredesignhub.com/seo-services/"
     }
   ]
 };
