@@ -141,6 +141,12 @@ export default function Footer() {
               <FooterNavItem href="/contact-us">Contact Us</FooterNavItem>
               <FooterNavItem href="/pricing">Pricing</FooterNavItem>
               <FooterNavItem href="/faqs">FAQs</FooterNavItem>
+              <li className="mb-1">
+                <a href="/blogs" className={footerNavLink}>
+                  <span className={footerNavLinkBar} aria-hidden />
+                  Blogs
+                </a>
+              </li>
             </ul>
             <ul className="min-w-0">
               <li className={footerHeading}>Services</li>

@@ -177,6 +177,11 @@ export default function Homw() {
             Pricing
           </Link>
         </li>
+        <li>
+          <a href="/blogs" className={linkClass("/blogs")}>
+            Blogs
+          </a>
+        </li>
 
       </ul>
 

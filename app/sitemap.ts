@@ -20,6 +20,7 @@ const PATHS: string[] = [
   "/services/content-writing",
   "/services/seo-services",
   "/services/social-media-marketing",
+  "/blogs",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
