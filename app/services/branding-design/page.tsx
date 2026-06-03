@@ -585,7 +585,7 @@ export default function BrandingDesignServices() {
             Why Choose <span className="text-[color:var(--brand-primary)] block sm:inline">Pure Design Hub</span> for Your Digital Branding Needs?
           </h2>
           <p className="reveal-up text max-w-6xl mx-auto text-gray-500 text-center mb-10 text-base sm:text-lg">
-            At PureDesignHub, we specialize in creating impactful and memorable digital brand identities that resonate with your target audience.
+            At <a className="text-[#2C9F00]" href="/">PureDesignHub</a>, we specialize in creating impactful and memorable digital brand identities that resonate with your target audience.
           </p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 stagger-child">
             {whyChooseUs.map((item, i) => (

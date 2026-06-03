@@ -527,7 +527,7 @@ export default function AppDevelopmentServices() {
       <section className="py-16 md:py-20 bg-white px-4 sm:px-8 md:px-12 lg:px-20 overflow-hidden">
         <div className="max-w-[1400px] mx-auto">
           <h2 className="reveal-up title2 text-3xl md:text-5xl font-black text-center mb-3 md:mb-4 uppercase">Why Choose <span className="text-[color:var(--brand-primary)] block sm:inline">Pure Design Hub</span></h2>
-          <p className="reveal-up text max-w-6xl mx-auto text-gray-500 text-center mb-10 text-base sm:text-lg">When you invest in mobile app development, you need a partner who understands your vision, market, and growth goals. Our app services are built around strategy, usability, branding, and performance.</p>
+          <p className="reveal-up text max-w-6xl mx-auto text-gray-500 text-center mb-10 text-base sm:text-lg">Our app development services are designed to create intuitive, high-performing mobile applications that help businesses engage customers and scale efficiently. As a trusted <a className="text-[#2C9F00]" href="/">digital marketing agency in USA</a>, we also help brands connect their mobile presence with broader digital growth strategies.</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 stagger-child">
             {whyChooseUs.map((item, i) => (
               <div key={i} className="reveal-up p-6 sm:p-8 bg-[#f9f9f9] rounded-3xl border border-transparent hover:border-[color-mix(in_srgb,var(--brand-primary)_28%,transparent)] hover:bg-white hover:-translate-y-1 hover:shadow-xl hover:shadow-[color-mix(in_srgb,var(--brand-primary)_10%,transparent)] transition-all duration-500 group">

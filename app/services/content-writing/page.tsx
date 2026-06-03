@@ -344,9 +344,20 @@ const industries = [
 
 /* ── SVG Underline ── */
 const SvgUnderline = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 150" preserveAspectRatio="none" className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full">
-    <path d="M325,18C228.7-8.3,118.5,8.3,78,21C22.4,38.4,4.6,54.6,5.6,77.6c1.4,32.4,52.2,54,142.6,63.7c66.2,7.1,212.2,7.5,273.5-8.3c64.4-16.6,104.3-57.6,33.8-98.2C386.7-4.9,179.4-1.4,126.3,20.7"
-      fill="none" stroke="var(--brand-primary)" strokeWidth="6" strokeLinecap="round" className="animated-path" />
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 500 150"
+    preserveAspectRatio="none"
+    className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full"
+  >
+    <path
+      d="M325,18C228.7-8.3,118.5,8.3,78,21C22.4,38.4,4.6,54.6,5.6,77.6c1.4,32.4,52.2,54,142.6,63.7c66.2,7.1,212.2,7.5,273.5-8.3c64.4-16.6,104.3-57.6,33.8-98.2C386.7-4.9,179.4-1.4,126.3,20.7"
+      fill="none"
+      stroke="var(--brand-primary)"
+      strokeWidth="6"
+      strokeLinecap="round"
+      className="animated-path"
+    />
   </svg>
 );
 
@@ -392,7 +403,15 @@ function AnimatedCounter({
 }
 
 /* ── FAQ Item ── */
-const FaqItem = ({ faq, index, dark = false }: { faq: { q: string; a: string }; index: number; dark?: boolean }) => {
+const FaqItem = ({
+  faq,
+  index,
+  dark = false,
+}: {
+  faq: { q: string; a: string };
+  index: number;
+  dark?: boolean;
+}) => {
   const [open, setOpen] = useState(false);
   return (
     <div
@@ -403,12 +422,26 @@ const FaqItem = ({ faq, index, dark = false }: { faq: { q: string; a: string }; 
         onClick={() => setOpen(!open)}
         className={`w-full flex items-center justify-between px-6 py-5 text-left transition-colors ${dark ? "hover:bg-white/5" : "hover:bg-gray-50"}`}
       >
-        <span className={`font-semibold pr-4 text-base ${dark ? "text-white" : "text-[#1a1a2e]"}`}>{faq.q}</span>
+        <span
+          className={`font-semibold pr-4 text-base ${dark ? "text-white" : "text-[#1a1a2e]"}`}
+        >
+          {faq.q}
+        </span>
         <span
           className={`flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-all duration-300 ${open ? "bg-[color:var(--brand-primary)] rotate-180" : dark ? "bg-white/10" : "bg-gray-100"}`}
         >
-          <svg className={`w-4 h-4 ${open ? "text-white" : dark ? "text-neutral-400" : "text-gray-500"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          <svg
+            className={`w-4 h-4 ${open ? "text-white" : dark ? "text-neutral-400" : "text-gray-500"}`}
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M19 9l-7 7-7-7"
+            />
           </svg>
         </span>
       </button>
@@ -467,7 +500,7 @@ export default function ContentWritingServices() {
   const [errorMsg, setErrorMsg] = useState("");
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
@@ -478,7 +511,8 @@ export default function ContentWritingServices() {
     if (!form.name.trim()) newErrors.name = "Name is required";
     if (!form.email.trim()) newErrors.email = "Email is required";
     if (!form.phone.trim()) newErrors.phone = "Phone is required";
-    if (!form.message.trim()) newErrors.message = "Project details are required";
+    if (!form.message.trim())
+      newErrors.message = "Project details are required";
     return newErrors;
   };
 
@@ -504,7 +538,10 @@ export default function ContentWritingServices() {
         throw new Error(data?.message || `Server error: ${res.status}`);
       }
 
-      setSuccessMsg(data?.message || "Thank you! Your request has been submitted successfully.");
+      setSuccessMsg(
+        data?.message ||
+          "Thank you! Your request has been submitted successfully.",
+      );
       setForm({
         name: "",
         email: "",
@@ -539,7 +576,20 @@ export default function ContentWritingServices() {
     },
     {
       title: "Social Media Content",
-      desc: "We create engaging social media content that captures attention, builds audience relationships, increases engagement, and boosts your brand reach across all platforms.",
+      desc: (
+        <>
+          We create engaging{" "}
+          <a
+            href="/services/social-media-marketing"
+            className="text-[#2C9F00] "
+          >
+            social media marketing
+          </a>{" "}
+          content that captures attention, builds audience relationships,
+          increases engagement, and boosts your brand reach across all
+          platforms.
+        </>
+      ),
       Icon: IcLanding,
     },
     {
@@ -584,8 +634,19 @@ export default function ContentWritingServices() {
   const whyChooseUs = [
     {
       title: "Improved Search Engine Rankings",
-      text: "Our SEO experts optimize every piece of content with the right keywords and structure to help your pages rank higher on search engines.",
-      Icon: IcCustomize,
+      text: (
+    <>
+      Our{" "}
+      <a
+        href="/about-us"
+        className="text-[#2C9F00]"
+      >
+        SEO experts
+      </a>{" "}
+      optimize every piece of content with the right keywords and structure
+      to help your pages rank higher on search engines.
+    </>
+  ),Icon: IcCustomize,
     },
     {
       title: "Increased Organic Traffic",
@@ -612,65 +673,297 @@ export default function ContentWritingServices() {
     <main className="min-h-screen bg-[#0a0a0a]">
       <style jsx global>{`
         /* ── Reveal animations (Premium Minimal) ── */
-        .reveal-up    { opacity:0; transform:translateY(30px);  transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1); will-change: opacity, transform; }
-        .reveal-up.in-view    { opacity:1; transform:translateY(0); }
-        .reveal-left  { opacity:0; transform:translateX(-30px); transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1); will-change: opacity, transform; }
-        .reveal-left.in-view  { opacity:1; transform:translateX(0); }
-        .reveal-right { opacity:0; transform:translateX(30px);  transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1); will-change: opacity, transform; }
-        .reveal-right.in-view { opacity:1; transform:translateX(0); }
-        .reveal-fade  { opacity:0; transition:opacity .8s ease; will-change: opacity; }
-        .reveal-fade.in-view  { opacity:1; }
-        .reveal-scale { opacity:0; transform:scale(.95); transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1); will-change: opacity, transform; }
-        .reveal-scale.in-view { opacity:1; transform:scale(1); }
+        .reveal-up {
+          opacity: 0;
+          transform: translateY(30px);
+          transition:
+            opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+            transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+          will-change: opacity, transform;
+        }
+        .reveal-up.in-view {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        .reveal-left {
+          opacity: 0;
+          transform: translateX(-30px);
+          transition:
+            opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+            transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+          will-change: opacity, transform;
+        }
+        .reveal-left.in-view {
+          opacity: 1;
+          transform: translateX(0);
+        }
+        .reveal-right {
+          opacity: 0;
+          transform: translateX(30px);
+          transition:
+            opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+            transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+          will-change: opacity, transform;
+        }
+        .reveal-right.in-view {
+          opacity: 1;
+          transform: translateX(0);
+        }
+        .reveal-fade {
+          opacity: 0;
+          transition: opacity 0.8s ease;
+          will-change: opacity;
+        }
+        .reveal-fade.in-view {
+          opacity: 1;
+        }
+        .reveal-scale {
+          opacity: 0;
+          transform: scale(0.95);
+          transition:
+            opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+            transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+          will-change: opacity, transform;
+        }
+        .reveal-scale.in-view {
+          opacity: 1;
+          transform: scale(1);
+        }
 
         /* ── Stagger ── */
-        .stagger-child>*:nth-child(1){transition-delay:0ms}
-        .stagger-child>*:nth-child(2){transition-delay:100ms}
-        .stagger-child>*:nth-child(3){transition-delay:200ms}
-        .stagger-child>*:nth-child(4){transition-delay:300ms}
-        .stagger-child>*:nth-child(5){transition-delay:400ms}
-        .stagger-child>*:nth-child(6){transition-delay:500ms}
-        .stagger-child>*:nth-child(7){transition-delay:600ms}
-        .stagger-child>*:nth-child(8){transition-delay:700ms}
+        .stagger-child > *:nth-child(1) {
+          transition-delay: 0ms;
+        }
+        .stagger-child > *:nth-child(2) {
+          transition-delay: 100ms;
+        }
+        .stagger-child > *:nth-child(3) {
+          transition-delay: 200ms;
+        }
+        .stagger-child > *:nth-child(4) {
+          transition-delay: 300ms;
+        }
+        .stagger-child > *:nth-child(5) {
+          transition-delay: 400ms;
+        }
+        .stagger-child > *:nth-child(6) {
+          transition-delay: 500ms;
+        }
+        .stagger-child > *:nth-child(7) {
+          transition-delay: 600ms;
+        }
+        .stagger-child > *:nth-child(8) {
+          transition-delay: 700ms;
+        }
 
         /* ── Misc ── */
-        @keyframes faqOpen{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
-        .animate-faq-open{animation:faqOpen .4s cubic-bezier(.16,1,.3,1) forwards}
-        @keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-        .float-anim{animation:floatY 6s ease-in-out infinite}
-        .float-anim-slow{animation:floatY 8s ease-in-out infinite}
-        @keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
-        .shimmer-badge{background:linear-gradient(90deg,color-mix(in srgb,var(--brand-primary) 12%,transparent) 0%,color-mix(in srgb,var(--brand-primary) 32%,transparent) 40%,color-mix(in srgb,var(--brand-primary) 12%,transparent) 100%);background-size:200% auto;animation:shimmer 4s linear infinite}
-        @keyframes pulseRing{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--brand-primary) 35%,transparent)}70%{box-shadow:0 0 0 12px transparent}100%{box-shadow:0 0 0 0 transparent}}
-        .pulse-btn{animation:pulseRing 2.5s ease infinite}
-        .animated-path{stroke-dasharray:1500;stroke-dashoffset:1500;animation:drawPath 1.6s cubic-bezier(.16,1,.3,1) forwards .3s}
-        @keyframes drawPath{to{stroke-dashoffset:0}}
-        @keyframes heroSlideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-        .hero-line-1{animation:heroSlideUp .8s cubic-bezier(.16,1,.3,1) forwards .1s;opacity:0}
-        .hero-line-2{animation:heroSlideUp .8s cubic-bezier(.16,1,.3,1) forwards .2s;opacity:0}
-        .hero-line-3{animation:heroSlideUp .8s cubic-bezier(.16,1,.3,1) forwards .3s;opacity:0}
-        .hero-line-4{animation:heroSlideUp .8s cubic-bezier(.16,1,.3,1) forwards .4s;opacity:0}
-        .hero-form{animation:heroSlideUp .9s cubic-bezier(.16,1,.3,1) forwards .4s;opacity:0}
+        @keyframes faqOpen {
+          from {
+            opacity: 0;
+            transform: translateY(-4px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        .animate-faq-open {
+          animation: faqOpen 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes floatY {
+          0%,
+          100% {
+            transform: translateY(0);
+          }
+          50% {
+            transform: translateY(-10px);
+          }
+        }
+        .float-anim {
+          animation: floatY 6s ease-in-out infinite;
+        }
+        .float-anim-slow {
+          animation: floatY 8s ease-in-out infinite;
+        }
+        @keyframes shimmer {
+          0% {
+            background-position: -200% center;
+          }
+          100% {
+            background-position: 200% center;
+          }
+        }
+        .shimmer-badge {
+          background: linear-gradient(
+            90deg,
+            color-mix(in srgb, var(--brand-primary) 12%, transparent) 0%,
+            color-mix(in srgb, var(--brand-primary) 32%, transparent) 40%,
+            color-mix(in srgb, var(--brand-primary) 12%, transparent) 100%
+          );
+          background-size: 200% auto;
+          animation: shimmer 4s linear infinite;
+        }
+        @keyframes pulseRing {
+          0% {
+            box-shadow: 0 0 0 0
+              color-mix(in srgb, var(--brand-primary) 35%, transparent);
+          }
+          70% {
+            box-shadow: 0 0 0 12px transparent;
+          }
+          100% {
+            box-shadow: 0 0 0 0 transparent;
+          }
+        }
+        .pulse-btn {
+          animation: pulseRing 2.5s ease infinite;
+        }
+        .animated-path {
+          stroke-dasharray: 1500;
+          stroke-dashoffset: 1500;
+          animation: drawPath 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.3s;
+        }
+        @keyframes drawPath {
+          to {
+            stroke-dashoffset: 0;
+          }
+        }
+        @keyframes heroSlideUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        .hero-line-1 {
+          animation: heroSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards
+            0.1s;
+          opacity: 0;
+        }
+        .hero-line-2 {
+          animation: heroSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards
+            0.2s;
+          opacity: 0;
+        }
+        .hero-line-3 {
+          animation: heroSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards
+            0.3s;
+          opacity: 0;
+        }
+        .hero-line-4 {
+          animation: heroSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards
+            0.4s;
+          opacity: 0;
+        }
+        .hero-form {
+          animation: heroSlideUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards
+            0.4s;
+          opacity: 0;
+        }
 
         /* ── Icon boxes ── */
-        .svc-icon-box{width:52px;height:52px;border-radius:14px;background:color-mix(in srgb,var(--brand-primary) 8%,transparent);display:flex;align-items:center;justify-content:center;margin-bottom:20px;transition:all .4s cubic-bezier(.16,1,.3,1)}
-        .svc-icon-box svg{width:24px;height:24px;color:var(--brand-primary);transition:color .4s ease}
-        .group:hover .svc-icon-box{background:var(--brand-primary);transform:scale(1.05) rotate(-2deg)}
-        .group:hover .svc-icon-box svg{color:#fff}
+        .svc-icon-box {
+          width: 52px;
+          height: 52px;
+          border-radius: 14px;
+          background: color-mix(in srgb, var(--brand-primary) 8%, transparent);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 20px;
+          transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .svc-icon-box svg {
+          width: 24px;
+          height: 24px;
+          color: var(--brand-primary);
+          transition: color 0.4s ease;
+        }
+        .group:hover .svc-icon-box {
+          background: var(--brand-primary);
+          transform: scale(1.05) rotate(-2deg);
+        }
+        .group:hover .svc-icon-box svg {
+          color: #fff;
+        }
 
-        .why-icon-box{width:46px;height:46px;border-radius:12px;background:color-mix(in srgb,var(--brand-primary) 8%,transparent);display:flex;align-items:center;justify-content:center;margin-bottom:16px;transition:all .4s cubic-bezier(.16,1,.3,1)}
-        .why-icon-box svg{width:20px;height:20px;color:var(--brand-primary);transition:color .4s ease}
-        .group:hover .why-icon-box{background:var(--brand-primary);transform:scale(1.05)}
-        .group:hover .why-icon-box svg{color:#fff}
+        .why-icon-box {
+          width: 46px;
+          height: 46px;
+          border-radius: 12px;
+          background: color-mix(in srgb, var(--brand-primary) 8%, transparent);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 16px;
+          transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .why-icon-box svg {
+          width: 20px;
+          height: 20px;
+          color: var(--brand-primary);
+          transition: color 0.4s ease;
+        }
+        .group:hover .why-icon-box {
+          background: var(--brand-primary);
+          transform: scale(1.05);
+        }
+        .group:hover .why-icon-box svg {
+          color: #fff;
+        }
 
-        .ind-icon-box{width:50px;height:50px;border-radius:50%;background:color-mix(in srgb,var(--brand-primary) 8%,transparent);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;transition:all .4s cubic-bezier(.16,1,.3,1)}
-        .ind-icon-box svg{width:22px;height:22px;color:var(--brand-primary);transition:color .4s ease}
-        .group:hover .ind-icon-box{background:var(--brand-primary);transform:scale(1.1) rotate(-4deg)}
-        .group:hover .ind-icon-box svg{color:#fff}
+        .ind-icon-box {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          background: color-mix(in srgb, var(--brand-primary) 8%, transparent);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0 auto 12px;
+          transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .ind-icon-box svg {
+          width: 22px;
+          height: 22px;
+          color: var(--brand-primary);
+          transition: color 0.4s ease;
+        }
+        .group:hover .ind-icon-box {
+          background: var(--brand-primary);
+          transform: scale(1.1) rotate(-4deg);
+        }
+        .group:hover .ind-icon-box svg {
+          color: #fff;
+        }
 
         /* ── placeholder image ── */
-        .img-placeholder{background:linear-gradient(135deg,#1a2040 0%,#2d3568 50%,#1e3060 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;color:rgba(255,255,255,.3);font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
-        .img-placeholder svg{opacity:.25;width:48px;height:48px}
+        .img-placeholder {
+          background: linear-gradient(
+            135deg,
+            #1a2040 0%,
+            #2d3568 50%,
+            #1e3060 100%
+          );
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          gap: 12px;
+          color: rgba(255, 255, 255, 0.3);
+          font-size: 0.75rem;
+          font-weight: 600;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+        }
+        .img-placeholder svg {
+          opacity: 0.25;
+          width: 48px;
+          height: 48px;
+        }
 
         .group:hover .animate-scroll-left,
         .group:hover .animate-scroll-right {
@@ -692,26 +985,64 @@ export default function ContentWritingServices() {
             {/* Left */}
             <div className="space-y-6 md:space-y-8">
               <div className="hero-line-1 inline-block px-4 py-1.5 shimmer-badge border border-[color-mix(in_srgb,var(--brand-primary)_25%,transparent)] rounded-full">
-                <span className="text-[color:var(--brand-primary)] text-xs sm:text-sm font-bold tracking-wider uppercase">Professional Content Writing Solutions 2026</span>
+                <span className="text-[color:var(--brand-primary)] text-xs sm:text-sm font-bold tracking-wider uppercase">
+                  Professional Content Writing Solutions 2026
+                </span>
               </div>
               <h1 className="hero-line-2 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-4 md:mb-6 leading-[1.1] tracking-tight">
                 Content Writing <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">Services in USA</span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">
+                  Services in USA
+                </span>
               </h1>
               <p className="hero-line-3 text-gray-300 text-lg sm:text-xl md:text-2xl mb-8 md:mb-12 max-w-xl leading-relaxed font-light">
-                At PureDesignHub, we offer <span className="text-white font-semibold">content writing services</span> designed to enhance your online presence, engage your audience, and drive conversions. Whether you&apos;re a startup, small business, or established brand, our expert writers craft compelling, SEO-optimized content that resonates with both users and search engines.
+                At PureDesignHub, we offer{" "}
+                <span className="text-white font-semibold">
+                  content writing services
+                </span>{" "}
+                designed to enhance your online presence, engage your audience,
+                and drive conversions. Whether you&apos;re a startup, small
+                business, or established brand, our expert writers craft
+                compelling, SEO-optimized content that resonates with both users
+                and search engines.
               </p>
               <div className="hero-line-4 flex flex-col sm:flex-row items-start sm:items-center gap-6 sm:gap-10 pt-2 md:pt-4">
-                <Link href="/get-quote" className="pulse-btn bg-[color:var(--brand-primary)] text-white px-8 sm:px-12 py-4 sm:py-6 rounded-lg font-bold text-base sm:text-lg hover:shadow-[0_20px_50px_rgba(44,159,0,0.35)] hover:-translate-y-1 transition-all flex items-center gap-3 group will-change-transform">
+                <Link
+                  href="/get-quote"
+                  className="pulse-btn bg-[color:var(--brand-primary)] text-white px-8 sm:px-12 py-4 sm:py-6 rounded-lg font-bold text-base sm:text-lg hover:shadow-[0_20px_50px_rgba(44,159,0,0.35)] hover:-translate-y-1 transition-all flex items-center gap-3 group will-change-transform"
+                >
                   Get Free Proposal
-                  <svg fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-5 h-5 group-hover:translate-x-1 transition-transform">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
+                  <svg
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={3}
+                    stroke="currentColor"
+                    className="w-5 h-5 group-hover:translate-x-1 transition-transform"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
+                    />
                   </svg>
                 </Link>
-                <Link href="tel:+1234567890" className="flex items-center gap-3 font-bold text-lg sm:text-xl hover:text-[color:var(--brand-primary)] transition-all group">
+                <Link
+                  href="tel:+1234567890"
+                  className="flex items-center gap-3 font-bold text-lg sm:text-xl hover:text-[color:var(--brand-primary)] transition-all group"
+                >
                   <div className="bg-white/5 border border-white/10 p-3 rounded-full group-hover:bg-[color-mix(in_srgb,var(--brand-primary)_18%,transparent)] group-hover:border-[color-mix(in_srgb,var(--brand-primary)_35%,transparent)] transition-all">
-                    <svg fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="var(--brand-primary)" className="w-6 h-6">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+                    <svg
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={2}
+                      stroke="var(--brand-primary)"
+                      className="w-6 h-6"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"
+                      />
                     </svg>
                   </div>
                   Schedule a Call
@@ -729,38 +1060,132 @@ export default function ContentWritingServices() {
                   <div className="mb-8">
                     <div className="flex items-center gap-2 mb-3">
                       <div className="w-10 h-[2px] bg-[#39b54a]" />
-                      <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#39b54a]">Direct Inquiry</span>
+                      <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#39b54a]">
+                        Direct Inquiry
+                      </span>
                     </div>
-                    <h2 className="text-3xl font-black text-white">Book a Free <span className="text-[#39b54a]">Consultation</span></h2>
+                    <h2 className="text-3xl font-black text-white">
+                      Book a Free{" "}
+                      <span className="text-[#39b54a]">Consultation</span>
+                    </h2>
                   </div>
 
-                  <form onSubmit={handleSubmit} className="space-y-8 md:space-y-10">
+                  <form
+                    onSubmit={handleSubmit}
+                    className="space-y-8 md:space-y-10"
+                  >
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
                       <div className="relative group">
-                        <input type="text" id="name" name="name" value={form.name} onChange={handleChange} className="peer w-full border-b-2 border-gray-200 bg-transparent outline-none focus:border-[color:var(--brand-primary)] transition-all py-3 text-base sm:text-lg placeholder-transparent text-white" placeholder="Full Name" required />
-                        <label htmlFor="name" className="absolute left-0 -top-5 text-xs sm:text-sm font-bold text-gray-400 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:sm:text-lg peer-placeholder-shown:top-3 peer-focus:-top-5 peer-focus:text-xs peer-focus:sm:text-sm peer-focus:text-[color:var(--brand-primary)]">Full Name</label>
-                        {errors.name && <p className="text-red-400 text-xs mt-2">{errors.name}</p>}
+                        <input
+                          type="text"
+                          id="name"
+                          name="name"
+                          value={form.name}
+                          onChange={handleChange}
+                          className="peer w-full border-b-2 border-gray-200 bg-transparent outline-none focus:border-[color:var(--brand-primary)] transition-all py-3 text-base sm:text-lg placeholder-transparent text-white"
+                          placeholder="Full Name"
+                          required
+                        />
+                        <label
+                          htmlFor="name"
+                          className="absolute left-0 -top-5 text-xs sm:text-sm font-bold text-gray-400 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:sm:text-lg peer-placeholder-shown:top-3 peer-focus:-top-5 peer-focus:text-xs peer-focus:sm:text-sm peer-focus:text-[color:var(--brand-primary)]"
+                        >
+                          Full Name
+                        </label>
+                        {errors.name && (
+                          <p className="text-red-400 text-xs mt-2">
+                            {errors.name}
+                          </p>
+                        )}
                       </div>
                       <div className="relative group">
-                        <input type="email" id="email" name="email" value={form.email} onChange={handleChange} className="peer w-full border-b-2 border-gray-200 bg-transparent outline-none focus:border-[color:var(--brand-primary)] transition-all py-3 text-base sm:text-lg placeholder-transparent text-white" placeholder="Email" required />
-                        <label htmlFor="email" className="absolute left-0 -top-5 text-xs sm:text-sm font-bold text-gray-400 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:sm:text-lg peer-placeholder-shown:top-3 peer-focus:-top-5 peer-focus:text-xs peer-focus:sm:text-sm peer-focus:text-[color:var(--brand-primary)]">Email</label>
-                        {errors.email && <p className="text-red-400 text-xs mt-2">{errors.email}</p>}
+                        <input
+                          type="email"
+                          id="email"
+                          name="email"
+                          value={form.email}
+                          onChange={handleChange}
+                          className="peer w-full border-b-2 border-gray-200 bg-transparent outline-none focus:border-[color:var(--brand-primary)] transition-all py-3 text-base sm:text-lg placeholder-transparent text-white"
+                          placeholder="Email"
+                          required
+                        />
+                        <label
+                          htmlFor="email"
+                          className="absolute left-0 -top-5 text-xs sm:text-sm font-bold text-gray-400 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:sm:text-lg peer-placeholder-shown:top-3 peer-focus:-top-5 peer-focus:text-xs peer-focus:sm:text-sm peer-focus:text-[color:var(--brand-primary)]"
+                        >
+                          Email
+                        </label>
+                        {errors.email && (
+                          <p className="text-red-400 text-xs mt-2">
+                            {errors.email}
+                          </p>
+                        )}
                       </div>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
                       <div className="relative group">
-                        <input type="tel" id="number" name="phone" value={form.phone} onChange={handleChange} className="peer w-full border-b-2 border-gray-200 bg-transparent outline-none focus:border-[color:var(--brand-primary)] transition-all py-3 text-base sm:text-lg placeholder-transparent text-white" placeholder="Number" required />
-                        <label htmlFor="number" className="absolute left-0 -top-5 text-xs sm:text-sm font-bold text-gray-400 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:sm:text-lg peer-placeholder-shown:top-3 peer-focus:-top-5 peer-focus:text-xs peer-focus:sm:text-sm peer-focus:text-[color:var(--brand-primary)]">Number</label>
-                        {errors.phone && <p className="text-red-400 text-xs mt-2">{errors.phone}</p>}
+                        <input
+                          type="tel"
+                          id="number"
+                          name="phone"
+                          value={form.phone}
+                          onChange={handleChange}
+                          className="peer w-full border-b-2 border-gray-200 bg-transparent outline-none focus:border-[color:var(--brand-primary)] transition-all py-3 text-base sm:text-lg placeholder-transparent text-white"
+                          placeholder="Number"
+                          required
+                        />
+                        <label
+                          htmlFor="number"
+                          className="absolute left-0 -top-5 text-xs sm:text-sm font-bold text-gray-400 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:sm:text-lg peer-placeholder-shown:top-3 peer-focus:-top-5 peer-focus:text-xs peer-focus:sm:text-sm peer-focus:text-[color:var(--brand-primary)]"
+                        >
+                          Number
+                        </label>
+                        {errors.phone && (
+                          <p className="text-red-400 text-xs mt-2">
+                            {errors.phone}
+                          </p>
+                        )}
                       </div>
                       <div className="relative group min-w-0">
-                        <input type="text" id="project" name="message" value={form.message} onChange={handleChange} className="peer w-full min-w-0 border-b-2 border-gray-200 bg-transparent outline-none focus:border-[color:var(--brand-primary)] transition-all py-3 text-base sm:text-lg placeholder-transparent text-white" placeholder="Project Need" required />
-                        <label htmlFor="project" className="absolute left-0 right-0 max-w-full -top-5 text-xs sm:text-sm font-bold text-gray-400 transition-all leading-snug peer-placeholder-shown:text-sm peer-placeholder-shown:sm:text-base peer-placeholder-shown:top-3 peer-focus:-top-5 peer-focus:text-xs peer-focus:sm:text-sm peer-focus:text-[color:var(--brand-primary)]">Describe your project</label>
-                        {errors.message && <p className="text-red-400 text-xs mt-2">{errors.message}</p>}
+                        <input
+                          type="text"
+                          id="project"
+                          name="message"
+                          value={form.message}
+                          onChange={handleChange}
+                          className="peer w-full min-w-0 border-b-2 border-gray-200 bg-transparent outline-none focus:border-[color:var(--brand-primary)] transition-all py-3 text-base sm:text-lg placeholder-transparent text-white"
+                          placeholder="Project Need"
+                          required
+                        />
+                        <label
+                          htmlFor="project"
+                          className="absolute left-0 right-0 max-w-full -top-5 text-xs sm:text-sm font-bold text-gray-400 transition-all leading-snug peer-placeholder-shown:text-sm peer-placeholder-shown:sm:text-base peer-placeholder-shown:top-3 peer-focus:-top-5 peer-focus:text-xs peer-focus:sm:text-sm peer-focus:text-[color:var(--brand-primary)]"
+                        >
+                          Describe your project
+                        </label>
+                        {errors.message && (
+                          <p className="text-red-400 text-xs mt-2">
+                            {errors.message}
+                          </p>
+                        )}
                       </div>
                     </div>
-                    <button type="submit" disabled={loading} className="w-full inline-flex items-center justify-center bg-gradient-to-r from-[#39b54a] via-[#2f9234] to-[#1f7f2b] text-white font-bold py-4 sm:py-6 rounded-lg text-lg sm:text-xl shadow-[0_20px_40px_rgba(57,181,74,0.25)] hover:shadow-[0_24px_50px_rgba(57,181,74,0.35)] transition-all mt-6 active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed">{loading ? "Sending..." : "Schedule A Call"}</button>
-                    <p className="text-center text-xs text-gray-400 mt-8 font-medium">By submitting this form, you agree to our <Link href="/privacypolicy" className="text-[color:var(--brand-primary)] hover:underline">Privacy Policy</Link></p>
+                    <button
+                      type="submit"
+                      disabled={loading}
+                      className="w-full inline-flex items-center justify-center bg-gradient-to-r from-[#39b54a] via-[#2f9234] to-[#1f7f2b] text-white font-bold py-4 sm:py-6 rounded-lg text-lg sm:text-xl shadow-[0_20px_40px_rgba(57,181,74,0.25)] hover:shadow-[0_24px_50px_rgba(57,181,74,0.35)] transition-all mt-6 active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed"
+                    >
+                      {loading ? "Sending..." : "Schedule A Call"}
+                    </button>
+                    <p className="text-center text-xs text-gray-400 mt-8 font-medium">
+                      By submitting this form, you agree to our{" "}
+                      <Link
+                        href="/privacypolicy"
+                        className="text-[color:var(--brand-primary)] hover:underline"
+                      >
+                        Privacy Policy
+                      </Link>
+                    </p>
                   </form>
 
                   {successMsg && (
@@ -798,36 +1223,64 @@ export default function ContentWritingServices() {
         <div className="relative z-10 max-w-4xl">
           <div className="flex items-center gap-2 sm:gap-3 mb-4 md:mb-6">
             <span className="w-8 sm:w-12 h-[2px] bg-[color:var(--brand-primary)]" />
-            <h3 className="text-[color:var(--brand-primary)] font-bold uppercase tracking-[0.15em] sm:tracking-[0.25em] text-xs sm:text-sm">Professional Content Writing</h3>
+            <h3 className="text-[color:var(--brand-primary)] font-bold uppercase tracking-[0.15em] sm:tracking-[0.25em] text-xs sm:text-sm">
+              Professional Content Writing
+            </h3>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-6xl font-black text-white mb-6 md:mb-8 leading-[1.2] md:leading-[1.1] uppercase relative z-20">
             Why Choose Our
-            <span className="text-[color:var(--brand-primary)] block mt-1 md:mt-2">Content Writing Services?</span>
+            <span className="text-[color:var(--brand-primary)] block mt-1 md:mt-2">
+              Content Writing Services?
+            </span>
           </h2>
           <div className="space-y-6 md:space-y-8 leading-relaxed text-base sm:text-lg md:text-xl relative z-20 text-neutral-300">
             <p>
-              In the digital age, quality content is the backbone of a successful online presence. Our content writing services are tailored to meet the unique needs of your business, helping you connect with your audience and rank higher on search engine results pages (SERPs).
+              In the digital age, quality content is the backbone of a
+              successful online presence. Our content writing services are
+              tailored to meet the unique needs of your business, helping you
+              connect with your audience and rank higher on search engine
+              results pages (SERPs).
             </p>
             <p>
-              We understand that the right content can make a huge difference in how your brand is perceived. Here&apos;s why we stand out:
+              We understand that the right content can make a huge difference in
+              how your brand is perceived. Here&apos;s why we stand out:
             </p>
             <ul className="list-disc pl-5 sm:pl-6 space-y-3 marker:text-[color:var(--brand-primary)]">
               <li>
-                <strong className="text-white">Expertise:</strong> Our team of skilled writers has years of experience creating high-quality content across various industries. We know what works in both storytelling and SEO.
+                <strong className="text-white">Expertise:</strong> Our team of
+                skilled writers has years of experience creating high-quality
+                content across various industries. We know what works in both
+                storytelling and{" "}
+                <a className="text-[#2C9F00]" href="/services/seo-services">
+                  SEO
+                </a>
+                .
               </li>
               <li>
-                <strong className="text-white">Experience:</strong> Our approach is built on proven success. We create engaging content that is also optimized to help you rank higher on Google and perform better.
+                <strong className="text-white">Experience:</strong> Our approach
+                is built on proven success. We create engaging content that is
+                also optimized to help you rank higher on Google and perform
+                better.
               </li>
               <li>
-                <strong className="text-white">Authoritativeness:</strong> As a trusted SEO content writing service, we follow Google guidelines to ensure your content is informative, credible, and industry-relevant.
+                <strong className="text-white">Authoritativeness:</strong> As a
+                trusted SEO content writing service, we follow Google guidelines
+                to ensure your content is informative, credible, and
+                industry-relevant.
               </li>
               <li>
-                <strong className="text-white">Trustworthiness:</strong> We prioritize accuracy, originality, and reliability, ensuring your content is error-free, plagiarism-free, and always represents your brand professionally.
+                <strong className="text-white">Trustworthiness:</strong> We
+                prioritize accuracy, originality, and reliability, ensuring your
+                content is error-free, plagiarism-free, and always represents
+                your brand professionally.
               </li>
             </ul>
           </div>
           <div className="mt-12">
-            <Link href="/get-quote" className="relative z-30 inline-block bg-[color:var(--brand-primary)] text-black px-10 py-4 rounded-xl font-bold hover:bg-white transition-all duration-300 shadow-xl">
+            <Link
+              href="/get-quote"
+              className="relative z-30 inline-block bg-[color:var(--brand-primary)] text-black px-10 py-4 rounded-xl font-bold hover:bg-white transition-all duration-300 shadow-xl"
+            >
               Get a Free Consultation
             </Link>
           </div>
@@ -841,14 +1294,28 @@ export default function ContentWritingServices() {
         <div className="max-w-[1400px] mx-auto grid lg:grid-cols-2 gap-10 md:gap-16 items-center">
           <div className="reveal-left">
             <h2 className="title2 !text-white text-3xl md:text-5xl font-black mb-4 md:mb-6 leading-tight">
-              Our SEO Content Writing Services for <span className="text-[color:var(--brand-primary)]">Businesses in the USA</span>
+              Our SEO Content Writing Services for{" "}
+              <span className="text-[color:var(--brand-primary)]">
+                Businesses in the USA
+              </span>
             </h2>
             <p className="text text-neutral-400 mb-4 md:mb-6 text-base sm:text-lg">
-              Great content goes beyond just words on a page—it&apos;s about creating content that helps you rank higher on Google, engages your target audience, and establishes trust. Our SEO content writing services are focused on ensuring that every piece of content we produce is strategically optimized for search engines while still offering value to the reader.
+              Great content goes beyond just words on a page—it&apos;s about
+              creating content that helps you rank higher on Google, engages
+              your target audience, and establishes trust. Our SEO content
+              writing services are focused on ensuring that every piece of
+              content we produce is strategically optimized for search engines
+              while still offering value to the reader.
             </p>
           </div>
           <div className="reveal-right rounded-3xl md:rounded-[40px] overflow-hidden relative h-[250px] sm:h-[350px] md:h-[450px] shadow-[0_20px_50px_-10px_rgba(44,159,0,0.18)] ring-1 ring-white/10">
-            <Image src={WEB_WHY_IMG} alt="Content Writing Services" fill className="object-cover transition-transform duration-700 hover:scale-105" sizes="(max-width: 768px) 100vw, 50vw" />
+            <Image
+              src={WEB_WHY_IMG}
+              alt="Content Writing Services"
+              fill
+              className="object-cover transition-transform duration-700 hover:scale-105"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
           </div>
         </div>
       </section>
@@ -859,16 +1326,31 @@ export default function ContentWritingServices() {
       <section className="py-16 md:py-20 px-4 sm:px-8 md:px-12 lg:px-20 overflow-hidden bg-white">
         <div className="max-w-[1400px] mx-auto text-center mb-10 md:mb-16 reveal-up">
           <h2 className="title2 text-3xl md:text-5xl font-black mb-3 md:mb-4 uppercase text-[#272D4E]">
-            Our Content Writing <span className="text-[color:var(--brand-primary)] block sm:inline">Services Include</span>
+            Our Content Writing{" "}
+            <span className="text-[color:var(--brand-primary)] block sm:inline">
+              Services Include
+            </span>
           </h2>
-          <p className="text max-w-2xl mx-auto text-gray-500 text-base sm:text-lg">We offer content writing solutions aligned with your business goals rather than one-size-fits-all templates.</p>
+          <p className="text max-w-2xl mx-auto text-gray-500 text-base sm:text-lg">
+            We offer content writing solutions aligned with your business goals
+            rather than one-size-fits-all templates.
+          </p>
         </div>
         <div className="max-w-[1400px] mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 stagger-child">
           {webServices.map((s, i) => (
-            <div key={i} className="reveal-up bg-white p-6 sm:p-8 rounded-2xl shadow-sm hover:shadow-xl hover:shadow-[color-mix(in_srgb,var(--brand-primary)_8%,transparent)] transition-all duration-500 border border-gray-100 group hover:-translate-y-1 hover:border-[color-mix(in_srgb,var(--brand-primary)_22%,transparent)]">
-              <div className="svc-icon-box"><s.Icon /></div>
-              <h3 className="font-bold text-lg sm:text-xl mb-2 sm:mb-3 text-[#272D4E] group-hover:text-[color:var(--brand-primary)] transition-colors duration-300">{s.title}</h3>
-              <p className="text-xs sm:text-sm text-gray-500 leading-relaxed">{s.desc}</p>
+            <div
+              key={i}
+              className="reveal-up bg-white p-6 sm:p-8 rounded-2xl shadow-sm hover:shadow-xl hover:shadow-[color-mix(in_srgb,var(--brand-primary)_8%,transparent)] transition-all duration-500 border border-gray-100 group hover:-translate-y-1 hover:border-[color-mix(in_srgb,var(--brand-primary)_22%,transparent)]"
+            >
+              <div className="svc-icon-box">
+                <s.Icon />
+              </div>
+              <h3 className="font-bold text-lg sm:text-xl mb-2 sm:mb-3 text-[#272D4E] group-hover:text-[color:var(--brand-primary)] transition-colors duration-300">
+                {s.title}
+              </h3>
+              <p className="text-xs sm:text-sm text-gray-500 leading-relaxed">
+                {s.desc}
+              </p>
             </div>
           ))}
         </div>
@@ -880,9 +1362,14 @@ export default function ContentWritingServices() {
       <section className="py-16 md:py-20 bg-[#0a0a0a] text-white px-4 sm:px-8 md:px-12 lg:px-20 overflow-hidden">
         <div className="max-w-[1400px] mx-auto text-center">
           <h2 className="reveal-up text-2xl sm:text-3xl md:text-5xl font-bold mb-4 md:mb-6">
-            Over <span className="text-[color:var(--brand-primary)]">8 Billion</span> Search Queries Happen Every Day!
+            Over{" "}
+            <span className="text-[color:var(--brand-primary)]">8 Billion</span>{" "}
+            Search Queries Happen Every Day!
           </h2>
-          <p className="reveal-up text-neutral-400 mb-10 md:mb-12 text-sm sm:text-base md:text-lg">Is your content optimized to rank higher, attract the right audience, and convert traffic into customers?</p>
+          <p className="reveal-up text-neutral-400 mb-10 md:mb-12 text-sm sm:text-base md:text-lg">
+            Is your content optimized to rank higher, attract the right
+            audience, and convert traffic into customers?
+          </p>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 stagger-child">
             {[
               { val: 98, suffix: "%", label: "Client Satisfaction" },
@@ -891,8 +1378,12 @@ export default function ContentWritingServices() {
               { val: 100, suffix: "%", label: "SEO Optimized Content" },
             ].map((stat, i) => (
               <div key={i} className="reveal-up">
-                <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-[color:var(--brand-primary)] mb-1 sm:mb-2"><AnimatedCounter target={stat.val} suffix={stat.suffix} /></div>
-                <div className="text-gray-400 font-semibold uppercase text-[10px] sm:text-xs tracking-widest">{stat.label}</div>
+                <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-[color:var(--brand-primary)] mb-1 sm:mb-2">
+                  <AnimatedCounter target={stat.val} suffix={stat.suffix} />
+                </div>
+                <div className="text-gray-400 font-semibold uppercase text-[10px] sm:text-xs tracking-widest">
+                  {stat.label}
+                </div>
               </div>
             ))}
           </div>
@@ -904,18 +1395,39 @@ export default function ContentWritingServices() {
       ══════════════════════════════════ */}
       <section className="py-16 md:py-20 bg-white px-4 sm:px-8 md:px-12 lg:px-20 overflow-hidden">
         <div className="max-w-[1400px] mx-auto">
-          <h2 className="reveal-up title2 text-3xl md:text-5xl font-black text-center mb-3 md:mb-4 uppercase">The Benefits of <span className="text-[color:var(--brand-primary)] block sm:inline">SEO Content Writing</span></h2>
-          <p className="reveal-up text max-w-6xl mx-auto text-gray-500 text-center mb-10 text-base sm:text-lg">When you invest in professional content, you need a partner who understands your audience, industry, and growth goals. Our SEO content writing services are built around strategy, readability, and performance.</p>
+          <h2 className="reveal-up title2 text-3xl md:text-5xl font-black text-center mb-3 md:mb-4 uppercase">
+            The Benefits of{" "}
+            <span className="text-[color:var(--brand-primary)] block sm:inline">
+              SEO Content Writing
+            </span>
+          </h2>
+          <p className="reveal-up text max-w-6xl mx-auto text-gray-500 text-center mb-10 text-base sm:text-lg">
+            When you invest in professional content, you need a partner who
+            understands your audience, industry, and growth goals. Our SEO
+            content writing services are built around strategy, readability, and
+            performance.
+          </p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 stagger-child">
             {whyChooseUs.map((item, i) => (
-              <div key={i} className="reveal-up p-6 sm:p-8 bg-[#f9f9f9] rounded-3xl border border-transparent hover:border-[color-mix(in_srgb,var(--brand-primary)_28%,transparent)] hover:bg-white hover:-translate-y-1 hover:shadow-xl hover:shadow-[color-mix(in_srgb,var(--brand-primary)_10%,transparent)] transition-all duration-500 group">
-                <div className="why-icon-box"><item.Icon /></div>
-                <h4 className="font-bold text-lg sm:text-xl text-[#272D4E] mb-2 sm:mb-3 group-hover:text-[color:var(--brand-primary)] transition-colors duration-300">{item.title}</h4>
+              <div
+                key={i}
+                className="reveal-up p-6 sm:p-8 bg-[#f9f9f9] rounded-3xl border border-transparent hover:border-[color-mix(in_srgb,var(--brand-primary)_28%,transparent)] hover:bg-white hover:-translate-y-1 hover:shadow-xl hover:shadow-[color-mix(in_srgb,var(--brand-primary)_10%,transparent)] transition-all duration-500 group"
+              >
+                <div className="why-icon-box">
+                  <item.Icon />
+                </div>
+                <h4 className="font-bold text-lg sm:text-xl text-[#272D4E] mb-2 sm:mb-3 group-hover:text-[color:var(--brand-primary)] transition-colors duration-300">
+                  {item.title}
+                </h4>
                 <p className="text-xs sm:text-sm text-gray-500">{item.text}</p>
               </div>
             ))}
           </div>
-          <p className="text-center mt-10 md:mt-12 text-gray-600 max-w-3xl mx-auto reveal-up text-sm sm:text-base">We combine research, writing, and optimization into one clear process so your content supports trust, authority, and stronger visibility on search.</p>
+          <p className="text-center mt-10 md:mt-12 text-gray-600 max-w-3xl mx-auto reveal-up text-sm sm:text-base">
+            We combine research, writing, and optimization into one clear
+            process so your content supports trust, authority, and stronger
+            visibility on search.
+          </p>
         </div>
       </section>
 
@@ -925,21 +1437,56 @@ export default function ContentWritingServices() {
           PROCESS
       ══════════════════════════════════ */}
       <section className="relative py-16 md:py-20 bg-[#0a0a0a] px-4 sm:px-8 md:px-12 lg:px-20 overflow-hidden text-neutral-200">
-        <Image src={Circle} alt="circle" width={0} height={0} sizes="100vw" loading="lazy" className="float-anim xl:w-66 xl:h-66 w-24 h-24 object-cover absolute top-0 xl:-left-33 -left-4 -z-1 circle_img pointer-events-none opacity-30" />
-        <Image src={Circle} alt="circle" width={0} height={0} sizes="100vw" loading="lazy" className="float-anim-slow xl:w-66 xl:h-66 w-24 h-24 object-cover absolute bottom-0 xl:-right-10 -right-6 -z-1 circle_img pointer-events-none opacity-30" />
+        <Image
+          src={Circle}
+          alt="circle"
+          width={0}
+          height={0}
+          sizes="100vw"
+          loading="lazy"
+          className="float-anim xl:w-66 xl:h-66 w-24 h-24 object-cover absolute top-0 xl:-left-33 -left-4 -z-1 circle_img pointer-events-none opacity-30"
+        />
+        <Image
+          src={Circle}
+          alt="circle"
+          width={0}
+          height={0}
+          sizes="100vw"
+          loading="lazy"
+          className="float-anim-slow xl:w-66 xl:h-66 w-24 h-24 object-cover absolute bottom-0 xl:-right-10 -right-6 -z-1 circle_img pointer-events-none opacity-30"
+        />
 
         <div className="max-w-[1400px] mx-auto relative z-10">
           <h2 className="reveal-up title2 !text-white text-3xl md:text-5xl font-black text-center mb-3 md:mb-6">
-            Content Writing{" "}<span className="relative inline-block mt-2 sm:mt-0">Process<SvgUnderline /></span>
+            Content Writing{" "}
+            <span className="relative inline-block mt-2 sm:mt-0">
+              Process
+              <SvgUnderline />
+            </span>
           </h2>
-          <p className="reveal-up text text-neutral-400 text-center mb-10 md:mb-16 max-w-2xl mx-auto text-base sm:text-lg">We follow a structured, transparent process that ensures every piece of content is high-quality, SEO-aligned, and valuable to your readers.</p>
+          <p className="reveal-up text text-neutral-400 text-center mb-10 md:mb-16 max-w-2xl mx-auto text-base sm:text-lg">
+            We follow a structured, transparent process that ensures every piece
+            of content is high-quality, SEO-aligned, and valuable to your
+            readers.
+          </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 stagger-child">
             {processSteps.map((s, i) => (
-              <div key={i} className="reveal-up relative rounded-2xl p-5 sm:p-6 border transition-all duration-500 group hover:-translate-y-1 border-white/10 bg-white/[0.04] shadow-sm hover:border-[color-mix(in_srgb,var(--brand-primary)_40%,transparent)] hover:bg-[color-mix(in_srgb,var(--brand-primary)_8%,transparent)] hover:shadow-lg">
-                <div className="text-5xl md:text-6xl font-black text-[color-mix(in_srgb,var(--brand-primary)_14%,transparent)] absolute top-3 right-4 leading-none select-none transition-all duration-500 group-hover:text-[color-mix(in_srgb,var(--brand-primary)_22%,transparent)] group-hover:scale-105">{s.number}</div>
-                <div className="text-[color:var(--brand-primary)] font-bold text-[10px] sm:text-xs mb-1 sm:mb-2 tracking-widest uppercase">Step {s.number}</div>
-                <h3 className="font-bold text-lg sm:text-xl text-white mb-2 group-hover:text-[color:var(--brand-primary)] transition-colors duration-300">{s.title}</h3>
-                <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed">{s.desc}</p>
+              <div
+                key={i}
+                className="reveal-up relative rounded-2xl p-5 sm:p-6 border transition-all duration-500 group hover:-translate-y-1 border-white/10 bg-white/[0.04] shadow-sm hover:border-[color-mix(in_srgb,var(--brand-primary)_40%,transparent)] hover:bg-[color-mix(in_srgb,var(--brand-primary)_8%,transparent)] hover:shadow-lg"
+              >
+                <div className="text-5xl md:text-6xl font-black text-[color-mix(in_srgb,var(--brand-primary)_14%,transparent)] absolute top-3 right-4 leading-none select-none transition-all duration-500 group-hover:text-[color-mix(in_srgb,var(--brand-primary)_22%,transparent)] group-hover:scale-105">
+                  {s.number}
+                </div>
+                <div className="text-[color:var(--brand-primary)] font-bold text-[10px] sm:text-xs mb-1 sm:mb-2 tracking-widest uppercase">
+                  Step {s.number}
+                </div>
+                <h3 className="font-bold text-lg sm:text-xl text-white mb-2 group-hover:text-[color:var(--brand-primary)] transition-colors duration-300">
+                  {s.title}
+                </h3>
+                <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed">
+                  {s.desc}
+                </p>
               </div>
             ))}
           </div>
@@ -991,17 +1538,33 @@ export default function ContentWritingServices() {
       <section className="py-16 md:py-20 bg-white text-[#1a1a1a] px-4 sm:px-8 md:px-12 lg:px-20 overflow-hidden relative">
         <div className="max-w-[1200px] mx-auto text-center relative z-10">
           <h2 className="reveal-up text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 leading-tight text-[#1a1a1a]">
-            Ready to Elevate Your Brand with <span className="text-[color:var(--brand-primary)] block sm:inline mt-2 sm:mt-0">SEO Content Writing</span>?
+            Ready to Elevate Your Brand with{" "}
+            <span className="text-[color:var(--brand-primary)] block sm:inline mt-2 sm:mt-0">
+              SEO Content Writing
+            </span>
+            ?
           </h2>
           <p className="reveal-up text-gray-600 max-w-4xl mx-auto mb-10 md:mb-12 text-base sm:text-lg leading-relaxed">
-            We design content strategies that deliver measurable business outcomes, not just word counts.
+            We design content strategies that deliver measurable business
+            outcomes, not just word counts.
             <br className="hidden sm:block" />
-            When your content is built correctly, it becomes a powerful digital asset that strengthens your brand and drives results.
+            When your content is built correctly, it becomes a powerful digital
+            asset that strengthens your brand and drives results.
           </p>
           <div className="reveal-scale bg-[#f8fafc] p-6 sm:p-10 md:p-12 rounded-3xl md:rounded-[50px] border border-gray-200 max-w-4xl mx-auto">
-            <h4 className="text-xl sm:text-2xl md:text-3xl font-bold mb-3 md:mb-4 text-[#1a1a1a] uppercase tracking-wider">Get Started with PureDesignHub SEO Content Writing</h4>
-            <p className="text-gray-700 mb-6 md:mb-8 text-sm sm:text-base md:text-lg">Contact us today to learn how our content writing services can drive results for your business!</p>
-            <Link href="/get-quote" className="pulse-btn bg-[color:var(--brand-primary)] text-white px-8 sm:px-10 py-4 sm:py-5 rounded-full font-bold text-lg sm:text-xl hover:bg-white hover:text-[color:var(--brand-primary)] transition-all inline-block shadow-2xl will-change-transform">Contact Us Today</Link>
+            <h4 className="text-xl sm:text-2xl md:text-3xl font-bold mb-3 md:mb-4 text-[#1a1a1a] uppercase tracking-wider">
+              Get Started with PureDesignHub SEO Content Writing
+            </h4>
+            <p className="text-gray-700 mb-6 md:mb-8 text-sm sm:text-base md:text-lg">
+              Contact us today to learn how our content writing services can
+              drive results for your business!
+            </p>
+            <Link
+              href="/get-quote"
+              className="pulse-btn bg-[color:var(--brand-primary)] text-white px-8 sm:px-10 py-4 sm:py-5 rounded-full font-bold text-lg sm:text-xl hover:bg-white hover:text-[color:var(--brand-primary)] transition-all inline-block shadow-2xl will-change-transform"
+            >
+              Contact Us Today
+            </Link>
           </div>
         </div>
         <div className="absolute top-0 left-0 w-full h-full opacity-[0.07] pointer-events-none">
@@ -1013,9 +1576,15 @@ export default function ContentWritingServices() {
       <section className="bg-[#0a0a0a] px-4 sm:px-8 md:px-12 lg:px-20 py-16 md:py-24 mb-0 overflow-hidden">
         <div className="max-w-[1400px] mx-auto">
           <h2 className="reveal-up title2 !text-white text-3xl md:text-5xl font-black text-center mb-3 md:mb-6">
-            Content Writing Services{" "}<span className="relative inline-block mt-2 sm:mt-0">FAQs<SvgUnderline /></span>
+            Content Writing Services{" "}
+            <span className="relative inline-block mt-2 sm:mt-0">
+              FAQs
+              <SvgUnderline />
+            </span>
           </h2>
-          <p className="reveal-up text text-neutral-400 text-center mb-8 md:mb-16 text-base sm:text-lg">Everything you need to know about our content writing services.</p>
+          <p className="reveal-up text text-neutral-400 text-center mb-8 md:mb-16 text-base sm:text-lg">
+            Everything you need to know about our content writing services.
+          </p>
           <div className="w-full space-y-3 md:space-y-4 max-w-4xl mx-auto">
             {faqs.map((faq, i) => (
               <FaqItem key={i} faq={faq} index={i} dark />
@@ -1026,7 +1595,6 @@ export default function ContentWritingServices() {
 
       <ContactUs />
       <Footer />
-
     </main>
   );
 }

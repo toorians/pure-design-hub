@@ -71,18 +71,10 @@ const AboutUs = () => {
           {/* Text Content */}
           <div>
             <p className="text mb-4">
-              We believe that a website should do more than just exist online—it
-              should tell your story, capture attention, and inspire action. At
-              Pure Design Hub, our mission is to design digital experiences that
-              are clean, modern, and impactful, helping businesses stand out in
-              today’s fast-moving digital world.
+              We believe a website should do more than simply exist online. It should tell your story, engage your audience, and drive meaningful results. At Pure Design Hub, our mission is to create modern, impactful digital experiences that help businesses stand out in a competitive online landscape.
             </p>
             <p className="text lg:mb-10 mb-5">
-              Our team is passionate about blending innovative design with smart
-              strategy. Every project we take on is built around your brand
-              identity, your audience, and your goals. From elegant portfolios
-              to high-performing e-commerce stores, we ensure every website we
-              create is responsive, user-friendly, and optimized for success.
+             As a trusted <a className="text-[#2C9F00]" href="/">digital marketing agency in USA</a>, we combine creative design with strategic thinking to build solutions that support long-term growth. Every project is tailored to your brand identity, target audience, and business objectives. From professional portfolio websites to high-performing eCommerce platforms, we deliver responsive, user-friendly, and results-driven digital experiences designed for success.
             </p>
             <Link
               href="/get-quote"

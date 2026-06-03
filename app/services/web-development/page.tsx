@@ -406,7 +406,7 @@ export default function WebDevelopmentServices() {
             <span className="text-[color:var(--brand-primary)] block mt-1 md:mt-2">Professional Web Development Services</span>
           </h2>
           <div className="space-y-6 md:space-y-8 leading-relaxed text-base sm:text-lg md:text-xl relative z-20">
-            <p className="max-w-3xl text-neutral-300">Pure Design Hub provides professional <strong className="text-white">web development services in USA</strong> for businesses that want a strong online presence, better user experience, and websites that turn visitors into real leads.</p>
+            <p className="max-w-3xl text-neutral-300">As a leading <a className="text-[#2C9F00]" href="/">digital marketing agency in USA</a>, Pure Design Hub helps businesses build high-performing websites while creating strategies that drive long-term growth.</p>
             <div className="grid md:grid-cols-2 gap-6 md:gap-8 py-4 md:py-6">
               <div className="border-l-4 border-[color:var(--brand-primary)] pl-5 sm:pl-6 bg-white/[0.04] backdrop-blur-sm p-4 rounded-r-2xl shadow-sm border-white/10">
                 <h4 className="font-bold text-white mb-2 uppercase tracking-tight text-sm sm:text-base">Custom Solutions</h4>

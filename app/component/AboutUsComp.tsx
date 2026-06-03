@@ -194,7 +194,7 @@ export default function AboutUsComp({ isWhite = false }: { isWhite?: boolean }) 
             <p className={`reveal-text text-xl leading-relaxed font-medium ${isWhite ? 'text-gray-600' : 'text-gray-400'}`}>
               At Pure Design Hub, we don't just build websites; we engineer digital ecosystems. Every line of code and every pixel is placed with strategic intent to ensure your brand doesn't just exist online—it dominates.
             </p>
-            <Link href="/about-us" className={`philosophy-btn inline-flex items-center gap-6 font-black group ${isWhite ? 'text-[#1a1a1a]' : 'text-white'}`}>
+            <Link href="/portfolio" className={`philosophy-btn inline-flex items-center gap-6 font-black group ${isWhite ? 'text-[#1a1a1a]' : 'text-white'}`}>
               <span className={`w-16 h-16 rounded-full border-2 flex items-center justify-center group-hover:bg-[#39b54a] group-hover:border-[#39b54a] group-hover:text-white group-hover:scale-110 transition-all duration-500 ${isWhite ? 'border-gray-200 shadow-lg' : 'border-white/20'}`}>
                 <svg className="w-6 h-6 -rotate-45 group-hover:rotate-0 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
               </span>

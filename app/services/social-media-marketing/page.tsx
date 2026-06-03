@@ -431,7 +431,7 @@ export default function SocialMediaMarketingServices() {
             <span className="text-[color:var(--brand-primary)] block mt-1 md:mt-2">Professional Social Media Marketing Services</span>
           </h2>
           <div className="space-y-6 md:space-y-8 leading-relaxed text-base sm:text-lg md:text-xl relative z-20">
-            <p className="max-w-3xl text-neutral-300">At Pure Design Hub, we provide professional <strong className="text-white">social media marketing services in the USA</strong> for brands that want stronger reach, consistent engagement, and campaigns built around clear business outcomes.</p>
+            <p className="max-w-3xl text-neutral-300">Our social media marketing services help businesses build strong online visibility, increase engagement, and drive real conversions. As a trusted <a className="text-[#2C9F00]" href="/">digital marketing agency in USA</a>, we connect social platforms with broader business growth strategies.</p>
             <div className="grid md:grid-cols-2 gap-6 md:gap-8 py-4 md:py-6">
               <div className="border-l-4 border-[color:var(--brand-primary)] pl-5 sm:pl-6 bg-white/[0.04] backdrop-blur-sm p-4 rounded-r-2xl shadow-sm border-white/10">
                 <h4 className="font-bold text-white mb-2 uppercase tracking-tight text-sm sm:text-base">Strategy & Content</h4>

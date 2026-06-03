@@ -837,25 +837,53 @@ const Home = () => {
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 stagger-child reveal-up">
-            {services.map((svc, i) => (
-              <div key={i} className="svc-card group relative bg-[#111111] rounded-[24px] border border-white/5 overflow-hidden transition-all duration-500 hover:border-[#39b54a]/30">
-                <div className="relative h-52 md:h-60 w-full overflow-hidden bg-white/5">
-                  <Image src={svc.imagePath} alt={svc.title} fill className="object-cover group-hover:scale-110 transition-transform duration-1000 ease-out grayscale group-hover:grayscale-0 opacity-60 group-hover:opacity-100" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent" />
-                </div>
-                <div className="p-8 md:p-10">
-                  <div className="w-12 h-12 rounded-xl bg-[#39b54a]/10 flex items-center justify-center mb-6 text-[#39b54a] group-hover:bg-[#39b54a] group-hover:text-white transition-all duration-500">
-                    <svc.Icon />
-                  </div>
-                  <h3 className="font-black text-2xl text-white mb-4 group-hover:text-[#39b54a] transition-colors">{svc.title}</h3>
-                  <p className="text-gray-400 leading-relaxed mb-6 line-clamp-3 text-base">{svc.text}</p>
-                  <Link href={svc.slug} className="inline-flex items-center gap-2 font-bold text-[#39b54a] hover:gap-4 transition-all">
-                    Learn More <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}><path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" /></svg>
-                  </Link>
-                </div>
-              </div>
-            ))}
+  {services.map((svc, i) => (
+    <Link key={i} href={svc.slug}>
+      <div className="svc-card group relative bg-[#111111] rounded-[24px] border border-white/5 overflow-hidden transition-all duration-500 hover:border-[#39b54a]/30 cursor-pointer h-full">
+        <div className="relative h-52 md:h-60 w-full overflow-hidden bg-white/5">
+          <Image
+            src={svc.imagePath}
+            alt={svc.title}
+            fill
+            className="object-cover group-hover:scale-110 transition-transform duration-1000 ease-out grayscale group-hover:grayscale-0 opacity-60 group-hover:opacity-100"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent" />
+        </div>
+
+        <div className="p-8 md:p-10">
+          <div className="w-12 h-12 rounded-xl bg-[#39b54a]/10 flex items-center justify-center mb-6 text-[#39b54a] group-hover:bg-[#39b54a] group-hover:text-white transition-all duration-500">
+            <svc.Icon />
           </div>
+
+          <h3 className="font-black text-2xl text-white mb-4 group-hover:text-[#39b54a] transition-colors">
+            {svc.title}
+          </h3>
+
+          <p className="text-gray-400 leading-relaxed mb-6 line-clamp-3 text-base">
+            {svc.text}
+          </p>
+
+          <span className="inline-flex items-center gap-2 font-bold text-[#39b54a] group-hover:gap-4 transition-all">
+            Learn More
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={3}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
+              />
+            </svg>
+          </span>
+        </div>
+      </div>
+    </Link>
+  ))}
+</div>
         </div>
       </section>
 
